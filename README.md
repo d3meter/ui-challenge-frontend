@@ -1,27 +1,24 @@
-# UiChallengeFrontend
+## Front-end coding challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5.
+***Task description***
 
-## Development server
+Create a Single Page Application (SPA), using TypeScript as the main language. Every applied stylesheet has to be made with any chosen CSS preprocessor (Sass, Less ...). Using a css framework is not required, but it's a plus. We also require you to write unit tests for your application, but full coverage is not necessary. One of the most cruicial part of this challange is that you have to be able to authenticate and authorize users through this application. Any displayed form must be validated on the front-end side and returned back-end errors have to be displayed.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+*Backend*
 
-## Code scaffolding
+The challenge includes a Node.js back-end, exposing a REST API, and documentation for it. Documentation can be reached through the [http://localhost:3000/docs](http://localhost:3000/docs "http://localhost:3000/docs") URL, after the backend is started.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+***Requirements***
 
-## Build
+Features:
+ - [ ] User Login
+ - [ ] User Registration
+ - [ ] Show your user profile
+ - [ ] Edit your user profile
+ - [ ] List/Delete User (not yourself)
+ - [ ] List/Create/Update/Delete Articles
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Technology:
+ - [ ] Using SCSS/SASS (opt. framework)
+ - [ ] Some tests
+ - [ ] Form validations with backend feedbacks
