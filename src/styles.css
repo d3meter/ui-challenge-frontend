@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files *//*# sourceMappingURL=styles.css.map */
+body {
+  background-color: #d6caaf;
+  font-family: "Josefin Sans", sans-serif;
+}
+body h1,
+body h2,
+body h3,
+body h4 {
+  font-family: "Yeseva One", cursive;
+}
+body .page-title {
+  text-align: center;
+  padding-top: 60px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}/*# sourceMappingURL=styles.css.map */
