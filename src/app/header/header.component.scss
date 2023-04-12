@@ -45,9 +45,14 @@
           border-left: none;
           max-width: 200px;
           height: 100%;
-          width: 100%;
+          width: 40%;
           border-radius: 0 5px 5px 0;
           background-color: transparent;
+          transition: 0.3s ease-in-out;
+        }
+        input:focus {
+          width: 100%;
+          transition: 0.3s ease-in-out;
         }
         textarea:focus,
         input:focus {
@@ -72,6 +77,24 @@
           width: auto;
           height: 40px;
           padding-inline: 10px;
+          display: inline-block;
+          position: relative;
+        }
+        .noframe-button::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 3px;
+          bottom: 0;
+          left: 0;
+          background-color: black;
+          transform-origin: bottom left;
+          transition: transform 0.25s ease-out;
+        }
+        .noframe-button:hover::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
         }
         .framed-button {
           border-radius: 5px;
