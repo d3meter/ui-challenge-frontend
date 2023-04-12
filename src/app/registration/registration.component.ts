@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from './user.model';
-import { UsersService } from './users.service';
+import { User } from '../auth/user.model';
+import { UsersService } from '../auth/users.service';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -10,11 +11,20 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-  isFetching = false;
-  error = null;
+  isLoading = false;
+  isLoginMode = false;
+  error: string = null;
   private errorSub: Subscription;
-
+  
   constructor(private http: HttpClient, private usersService: UsersService) {}
+  
+  ngOnInit(): void {
+    this.errorSub = this.usersService.error.subscribe(errorMessage => {
+      this.error = errorMessage;
+    })
+  }
+
+  ngOnDestroy(): void {}
 
   onCreateUser(userData: User) {
     this.usersService.createUser(
@@ -24,7 +34,4 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit(): void {}
-
-  ngOnDestroy(): void {}
 }

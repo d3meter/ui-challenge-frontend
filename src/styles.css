@@ -41,4 +41,11 @@ body button {
 body button:hover {
   background-color: #aca38e;
   transition: 0.3s ease-in-out;
+}
+body button:disabled,
+body button[disabled] {
+  filter: opacity(0.5);
+  border-color: #666666;
+  background-color: #cccccc;
+  color: #666666;
 }/*# sourceMappingURL=styles.css.map */

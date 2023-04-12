@@ -26,4 +26,11 @@ export class UsersService {
         }
       );
   }
+
+  logInUser(email: string, password: string) {
+    return this.http.post('http://localhost:3000/api/login', {
+      email: email,
+      password: password,
+    });
+  }
 }
