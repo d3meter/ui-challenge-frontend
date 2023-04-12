@@ -20,11 +20,11 @@
         width: auto;
         border-radius: 50%;
         padding: 10px;
-        transition: 0.3s ease-in-out;
+        transition: transform 0.3s ease-out;
       }
       .home-button:hover {
-        scale: 1.2;
-        transition: 0.3s ease-in-out;
+          transform: scale(1.2);
+          transition: transform 0.3s ease-out;
       }
       .search-field {
         height: 40px;
@@ -99,6 +99,11 @@
         .framed-button {
           border-radius: 5px;
           border: 3px black solid;
+          transition: transform 0.5s ease-out;
+        }
+        .framed-button:hover {
+          transform: scale(1.2);
+          transition: transform 0.5s ease-out;
         }
       }
     }
