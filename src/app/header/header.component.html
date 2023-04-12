@@ -36,16 +36,25 @@
         <button>
           <i class="fa fa-search"></i>
         </button>
-        <input placeholder="search..." type="text" />
+        <input
+          placeholder="search..."
+          type="text"
+          class="form-control"
+          #searchInput
+        />
       </div>
     </div>
     <div class="header-right">
       <div class="button-field">
         <button (click)="onSelect('login')" class="bf-button noframe-button">
-         <h4>Log in</h4>
+          <h4>Log in</h4>
         </button>
-        <button (click)="onSelect('registration')" class="bf-button framed-button">
-         <h4>Create account</h4></button>
+        <button
+          (click)="onSelect('registration')"
+          class="bf-button framed-button"
+        >
+          <h4>Create account</h4>
+        </button>
       </div>
     </div>
   </div>

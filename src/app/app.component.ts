@@ -11,5 +11,5 @@ export class AppComponent {
 
   onNavigate(page: string) {
     this.loadedPage = page
-  } 
+  }
 }

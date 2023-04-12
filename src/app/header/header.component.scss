@@ -54,6 +54,10 @@
           width: 100%;
           transition: 0.3s ease-in-out;
         }
+        .form-control:focus {
+          border-color: black;
+          box-shadow: unset;
+        }
         textarea:focus,
         input:focus {
           outline: none;

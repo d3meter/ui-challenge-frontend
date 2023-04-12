@@ -58,6 +58,10 @@
   width: 100%;
   transition: 0.3s ease-in-out;
 }
+.navbar .header .header-left .search-field .form-control:focus {
+  border-color: black;
+  box-shadow: unset;
+}
 .navbar .header .header-left .search-field textarea:focus,
 .navbar .header .header-left .search-field input:focus {
   outline: none;
