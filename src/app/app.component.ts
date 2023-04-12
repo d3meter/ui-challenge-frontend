@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ui-challenge-frontend';
+  loadedPage = 'articles';
+
+  onNavigate(page: string) {
+    this.loadedPage = page
+  } 
 }
