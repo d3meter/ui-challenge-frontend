@@ -12,39 +12,51 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
-  isLoginMode = false;
+  isLoggedIn = false;
+  private isLoggedInSub: Subscription;
   error: string = null;
   private errorSub: Subscription;
 
   constructor(private http: HttpClient, private usersService: UsersService) {}
 
-  ngOnInit(): void {
-    this.errorSub = this.usersService.error.subscribe(errorMessage => {
+  ngOnInit() {
+    this.errorSub = this.usersService.errorMessage.subscribe((errorMessage) => {
       this.error = errorMessage;
-    })
-  }
-
-  ngOnDestroy(): void {}
-
-  onLogIn(form: NgForm) {
-    if (!form.valid) {
-      return;
-    }
-    const email = form.value.email;
-    const password = form.value.password;
-
-    this.isLoading = true;
-    this.usersService.logInUser(email, password).subscribe(
-      (resData) => {
-        this.isLoading = false;
-        console.log(resData);
-      },
-      (error) => {
-        this.isLoading = false;
-        console.log(error);
+    });
+    this.isLoggedIn = this.usersService.getLoggedIn();
+    this.isLoggedInSub = this.usersService.isLoggedIn$.subscribe(
+      (isLoggedIn: boolean) => {
+        this.isLoggedIn = isLoggedIn;
       }
     );
-    this.isLoginMode = !this.isLoginMode;
-    form.reset();
+  }
+
+  ngOnDestroy() {}
+
+  onLogIn(userData: User) {
+    this.isLoading = true;
+    this.usersService.logInUser(userData.email, userData.password).subscribe(
+      (resData) => {
+        console.log(resData);
+        this.isLoading = false;
+        this.usersService.setLoggedIn(true);
+        this.isLoggedIn = true;
+      },
+      (error) => {
+        if (error.error && error.error.errors && error.error.errors.User) {
+          this.error = error.error.errors.User;
+        } else {
+          this.error = 'An unknown error occurred.';
+        }
+        console.log(this.error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  onLogout() {
+    this.usersService.logOutUser();
+    this.usersService.setLoggedIn(false);
+    this.isLoggedIn = false;
   }
 }

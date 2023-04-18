@@ -12,14 +12,13 @@ import { NgForm } from '@angular/forms';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   isLoading = false;
-  isLoginMode = false;
   error: string = null;
   private errorSub: Subscription;
   
   constructor(private http: HttpClient, private usersService: UsersService) {}
   
   ngOnInit(): void {
-    this.errorSub = this.usersService.error.subscribe(errorMessage => {
+    this.errorSub = this.usersService.errorMessage.subscribe(errorMessage => {
       this.error = errorMessage;
     })
   }

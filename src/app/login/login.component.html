@@ -1,6 +1,6 @@
 <div class="registration container">
   <div class="row justify-content-center">
-    <form class="col-md-4" #loginForm="ngForm" (ngSubmit)="onLogIn(loginForm)">
+    <form class="col-md-4" #loginForm="ngForm" (ngSubmit)="onLogIn(loginForm.value)">
       <div class="form-group py-sm-1 mb-0">
         <label for="email" class="col-sm-4col-form-label">Email:</label>
         <input id="email" name="email" type="text" class="form-control" ngModel required email/>
@@ -11,10 +11,14 @@
       </div>
       <hr />
       <div class="col-xs-4 text-center">
-        <button style="height: 50px" class="col-sm-12" type="submit" [disabled]="!loginForm.valid">
-          <h4>{{ isLoginMode ? 'Logged in' : 'Login' }}</h4>
+        <button *ngIf="!isLoggedIn" style="height: 50px" class="col-sm-12" type="submit" [disabled]="!loginForm.valid">
+          <h4>Log in</h4>
+        </button>
+        <button *ngIf="isLoggedIn" style="height: 50px" class="col-sm-12" (click)="onLogout()">
+          <h4>Log out</h4>
         </button>
       </div>
     </form>
   </div>
+  <p *ngIf="error" class="text-danger">{{ error }}</p>
 </div>

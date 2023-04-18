@@ -3,7 +3,7 @@
     <form #postForm="ngForm" (ngSubmit)="onCreateUser(postForm.value)" class="col-md-4">
       <div class="form-group py-sm-1 mb-0">
         <label for="username" class="col-sm-4col-form-label">Name:</label>
-        <input id="username" name="username" type="text" class="form-control" required ngModel />
+        <input id="username" name="username" type="text" class="form-control" minlength="4" required ngModel />
       </div>
       <div class="form-group py-sm-1 mb-0">
         <label for="email" class="col-sm-4col-form-label">Email:</label>
@@ -28,6 +28,7 @@
         <button style="height: 50px" class="col-sm-12" type="submit" [disabled]="!postForm.valid">
           <h4>Registration</h4>
         </button>
+        <p *ngIf="error">{{ errorMessage }}</p>
       </div>
     </form>
   </div>
