@@ -5,8 +5,26 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-block: 20px;
+    align-items: center;
     border-bottom: 3px black solid;
+    .nav-header-icon {
+      border: unset;
+      height: auto;
+      width: auto;
+      background-color: transparent;
+      border-radius: 50%;
+      transition: transform 0.3s ease-out;
+      img {
+        height: 35px;
+      }
+      .invert {
+        filter: invert(100%);
+      }
+    }
+    .nav-header-icon:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s ease-out;
+    }
     .header-left {
       width: auto;
       display: flex;
@@ -14,17 +32,11 @@
       align-items: center;
       gap: 20px;
       .home-button {
-        border: unset;
         background-color: #d66361;
-        height: auto;
-        width: auto;
-        border-radius: 50%;
         padding: 10px;
-        transition: transform 0.3s ease-out;
-      }
-      .home-button:hover {
-          transform: scale(1.2);
-          transition: transform 0.3s ease-out;
+        img {
+          height: 30px;;
+        }
       }
       .search-field {
         height: 40px;
@@ -70,6 +82,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      position: relative;
       .button-field {
         display: flex;
         align-items: center;
@@ -109,6 +122,14 @@
           transform: scale(1.2);
           transition: transform 0.5s ease-out;
         }
+      }
+      .nav-icons {
+        gap: 5px;
+      }
+      .user-info {
+        position: absolute;
+        right: 0;
+        bottom: -23px;
       }
     }
   }

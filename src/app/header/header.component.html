@@ -1,8 +1,11 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="header container">
     <div class="header-left">
-      <button (click)="onSelect('articles')" class="home-button">
-        <img src="/assets/imgs/home.webp" style="height: 30px" alt="home" />
+      <button
+        (click)="onSelect('articles')"
+        class="home-button nav-header-icon"
+      >
+        <img src="assets/imgs/home.webp" alt="home" />
       </button>
       <div class="search-field">
         <button>
@@ -17,12 +20,9 @@
       </div>
     </div>
     <div class="header-right">
-      <div class="button-field">
-        <button *ngIf="!isLoggedIn" (click)="onSelect('login')" class="bf-button noframe-button">
+      <div class="button-field" *ngIf="!isLoggedIn">
+        <button (click)="onSelect('login')" class="bf-button noframe-button">
           <h4>Log in</h4>
-        </button>
-        <button *ngIf="isLoggedIn" (click)="onLogout()" class="bf-button noframe-button">
-          <h4>Log out</h4>
         </button>
         <button
           (click)="onSelect('registration')"
@@ -30,6 +30,25 @@
         >
           <h4>Create account</h4>
         </button>
+      </div>
+      <div class="button-field nav-icons" *ngIf="isLoggedIn">
+        <button (click)="onSelect()" class="nav-header-icon">
+          <img src="assets/imgs/menu_items/myProfile.png" alt="my profile" />
+        </button>
+        <button (click)="onSelect()" class="nav-header-icon">
+          <img src="assets/imgs/menu_items/myFavIcon.png" alt="favorites" />
+        </button>
+        <button (click)="onSelect()" class="nav-header-icon">
+          <img
+            class="invert"
+            src="assets/imgs/menu_items/addArticel.png"
+            alt="add articel"
+          />
+        </button>
+        <button (click)="onLogout()" class="nav-header-icon">
+          <img src="assets/imgs/menu_items/logOut.png" alt="log out" />
+        </button>
+        <p class="user-info">email: {{ userEmail }}</p>
       </div>
     </div>
   </div>
