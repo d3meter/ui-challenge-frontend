@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { User } from './user.model';
 import { Subject, catchError, tap, throwError } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -58,8 +63,8 @@ export class UsersService {
   getUserInfo() {
     console.log('getUserInfo called');
     return this.http.get('http://localhost:3000/api/user').pipe(
-      tap(data => console.log('getUserInfo response', data)),
-      catchError(this.handleError),
+      tap((data) => console.log('getUserInfo response', data)),
+      catchError(this.handleError)
     );
   }
 
@@ -67,6 +72,22 @@ export class UsersService {
     this.setLoggedIn(false);
     localStorage.removeItem('token');
     localStorage.removeItem('loggedIn');
+  }
+
+  updateUser(username: string, email: string, bio: string, image: string) {
+    const userData = {
+      username: username,
+      email: email,
+      bio: bio,
+      image: image,
+    };
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    console.log(storedData.user.token);
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put('http://localhost:3000/api/user', userData, {
+      headers: headers,
+    });
   }
 
   private handleError(error: HttpErrorResponse) {

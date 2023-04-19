@@ -84,10 +84,12 @@ body .animated-button:hover {
 body .colored-button {
   background-color: #d66361;
   padding: 10px;
+  transition: transform 0.3s ease-out;
 }
 body .colored-button img {
   height: 30px;
 }
 body .colored-button:hover {
   background-color: #d66361;
+  transition: transform 0.3s ease-out;
 }/*# sourceMappingURL=styles.css.map */

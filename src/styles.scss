@@ -82,11 +82,13 @@ body {
   .colored-button {
     background-color: #d66361;
     padding: 10px;
+    transition: transform 0.3s ease-out;
     img {
       height: 30px;
     }
   }
   .colored-button:hover {
     background-color: #d66361;
+    transition: transform 0.3s ease-out;
   }
 }
