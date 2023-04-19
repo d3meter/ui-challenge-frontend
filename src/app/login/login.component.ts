@@ -37,10 +37,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.usersService.logInUser(userData.email, userData.password).subscribe(
       (resData) => {
-        console.log(resData);
         this.isLoading = false;
         this.usersService.setLoggedIn(true);
         this.isLoggedIn = true;
+        localStorage.setItem('userData', JSON.stringify(resData));
       },
       (error) => {
         if (error.error && error.error.errors && error.error.errors.User) {
@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
+    localStorage.removeItem('userData');
     this.usersService.logOutUser();
     this.usersService.setLoggedIn(false);
     this.isLoggedIn = false;

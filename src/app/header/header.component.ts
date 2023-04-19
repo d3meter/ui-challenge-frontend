@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent {
   isLoggedIn = false;
   private isLoggedInSub: Subscription;
+  userData: any;
   /*   @ViewChild('searchInput') searchInputRef: ElementRef; */
 
   constructor(private usersService: UsersService) {}
@@ -28,6 +29,8 @@ export class HeaderComponent {
         this.isLoggedIn = isLoggedIn;
       }
     );
+    const userDataString = localStorage.getItem('userData');
+    this.userData = JSON.parse(userDataString).user;
   }
 
   ngOnDestroy() {
@@ -41,6 +44,7 @@ export class HeaderComponent {
   }
 
   onLogout() {
+    localStorage.removeItem('userData');
     this.usersService.logOutUser();
   }
 }

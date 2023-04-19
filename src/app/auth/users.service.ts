@@ -55,6 +55,14 @@ export class UsersService {
     );
   }
 
+  getUserInfo() {
+    console.log('getUserInfo called');
+    return this.http.get('http://localhost:3000/api/user').pipe(
+      tap(data => console.log('getUserInfo response', data)),
+      catchError(this.handleError),
+    );
+  }
+
   logOutUser() {
     this.setLoggedIn(false);
     localStorage.removeItem('token');

@@ -32,7 +32,7 @@
         </button>
       </div>
       <div class="button-field nav-icons" *ngIf="isLoggedIn">
-        <button (click)="onSelect()" class="nav-header-icon">
+        <button (click)="onSelect('profile')" class="nav-header-icon">
           <img src="assets/imgs/menu_items/myProfile.png" alt="my profile" />
         </button>
         <button (click)="onSelect()" class="nav-header-icon">
@@ -48,7 +48,7 @@
         <button (click)="onLogout()" class="nav-header-icon">
           <img src="assets/imgs/menu_items/logOut.png" alt="log out" />
         </button>
-        <p class="user-info">email: {{ userEmail }}</p>
+        <p class="user-info">{{ userData.email }}</p>
       </div>
     </div>
   </div>
