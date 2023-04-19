@@ -1,12 +1,22 @@
-<div class="row">
+<h1 class="page-title">My profile</h1>
+<div class="row gx-md-5">
   <div class="col-md-4">
-    <p>Name: {{ userData.username }}</p>
-    <p>Email: {{ userData.email }}</p>
-    <hr>
-    <p><!-- {{ userData.bio }} -->ssdafs</p>
+    <div class="row">
+      <p>Name:</p>
+      <h4>{{ userData.username }}</h4>
+    </div>
+    <div class="row">
+      <p>Email:</p>
+      <h4>{{ userData.email }}</h4>
+    </div>
+    <hr />
+    <div class="row">
+      <p>Bio:</p>
+      <h4><!-- {{ userData.bio }} -->ssdafs</h4>
+    </div>
   </div>
-  <div class="col-md-6">
-   <!-- only own articles (filtered) --> 
-   <app-articles></app-articles>
+  <div class="col-md-8">
+    <!-- only own articles (filtered) -->
+    <app-articles></app-articles>
   </div>
 </div>

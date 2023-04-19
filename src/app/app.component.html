@@ -1,6 +1,6 @@
 <app-header (pageToDisplaySelected)="onNavigate($event)"></app-header>
+<h1 *ngIf="loadedPage === 'articles'" class="page-title">Welcome here!</h1>
 <div class="container">
-  <h1 class="page-title">Welcome here!</h1>
   <div class="row" *ngIf="loadedPage === 'articles'">
     <div class="col-md-12">
       <app-articles></app-articles>
