@@ -1,3 +1,11 @@
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+a:hover {
+  color: inherit;
+}
+
 body {
   background-color: #d6caaf;
   h1,
@@ -18,7 +26,7 @@ body {
     border-width: 0;
     height: 3px;
     background-color: black;
-    opacity: .3;
+    opacity: 0.3;
     margin-inline: 30%;
   }
   .form-control:focus {
@@ -43,10 +51,42 @@ body {
     transition: 0.3s ease-in-out;
   }
   button:disabled,
-  button[disabled]{
-  filter: opacity(0.5);
-  border-color: #666666;
-  background-color: #cccccc;
-  color: #666666;
-}
+  button[disabled] {
+    filter: opacity(0.5);
+    border-color: #666666;
+    background-color: #cccccc;
+    color: #666666;
+  }
+  .animated-button {
+    border: unset;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: transform 0.3s ease-out;
+    img {
+      height: 30px;
+    }
+    .invert {
+      filter: invert(100%);
+    }
+  }
+  .animated-button:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-out;
+    background-color: transparent;
+  }
+  .colored-button {
+    background-color: #d66361;
+    padding: 10px;
+    img {
+      height: 30px;
+    }
+  }
+  .colored-button:hover {
+    background-color: #d66361;
+  }
 }

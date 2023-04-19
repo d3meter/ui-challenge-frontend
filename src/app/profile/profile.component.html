@@ -1,4 +1,12 @@
-<p>profile works!</p>
-<p>Name: {{ userData.username }}</p>,
-<p>Email: {{ userData.email }}</p>
-<p>Bio: {{ userData.bio }}</p>
+<div class="row">
+  <div class="col-md-4">
+    <p>Name: {{ userData.username }}</p>
+    <p>Email: {{ userData.email }}</p>
+    <hr>
+    <p><!-- {{ userData.bio }} -->ssdafs</p>
+  </div>
+  <div class="col-md-6">
+   <!-- only own articles (filtered) --> 
+   <app-articles></app-articles>
+  </div>
+</div>

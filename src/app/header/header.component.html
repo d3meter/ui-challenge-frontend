@@ -3,7 +3,7 @@
     <div class="header-left">
       <button
         (click)="onSelect('articles')"
-        class="home-button nav-header-icon"
+        class="colored-button animated-button"
       >
         <img src="assets/imgs/home.webp" alt="home" />
       </button>
@@ -32,20 +32,20 @@
         </button>
       </div>
       <div class="button-field nav-icons" *ngIf="isLoggedIn">
-        <button (click)="onSelect('profile')" class="nav-header-icon">
+        <button (click)="onSelect('profile')" class="animated-button">
           <img src="assets/imgs/menu_items/myProfile.png" alt="my profile" />
         </button>
-        <button (click)="onSelect()" class="nav-header-icon">
+        <button (click)="onSelect()" class="animated-button">
           <img src="assets/imgs/menu_items/myFavIcon.png" alt="favorites" />
         </button>
-        <button (click)="onSelect()" class="nav-header-icon">
+        <button (click)="onSelect()" class="animated-button">
           <img
             class="invert"
             src="assets/imgs/menu_items/addArticel.png"
             alt="add articel"
           />
         </button>
-        <button (click)="onLogout()" class="nav-header-icon">
+        <button (click)="onLogout()" class="animated-button">
           <img src="assets/imgs/menu_items/logOut.png" alt="log out" />
         </button>
         <p class="user-info">{{ userData.email }}</p>

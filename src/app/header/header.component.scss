@@ -7,37 +7,12 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px black solid;
-    .nav-header-icon {
-      border: unset;
-      height: auto;
-      width: auto;
-      background-color: transparent;
-      border-radius: 50%;
-      transition: transform 0.3s ease-out;
-      img {
-        height: 35px;
-      }
-      .invert {
-        filter: invert(100%);
-      }
-    }
-    .nav-header-icon:hover {
-      transform: scale(1.2);
-      transition: transform 0.3s ease-out;
-    }
     .header-left {
       width: auto;
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 20px;
-      .home-button {
-        background-color: #d66361;
-        padding: 10px;
-        img {
-          height: 30px;;
-        }
-      }
       .search-field {
         height: 40px;
         display: flex;
@@ -129,8 +104,9 @@
       .user-info {
         position: absolute;
         right: 0;
-        bottom: -23px;
+        bottom: -15px;
         filter: opacity(0.6);
+        cursor: default;
       }
     }
   }

@@ -1,7 +1,91 @@
-<div class="row">
-  <div class="col-md-4" [style.display]="displayValue">
+<div class="row articles">
+  <div class="col-md-4 search-container" [style.display]="displayValue">
     <app-search-menu></app-search-menu>
   </div>
-  <div class="col-md-8">articles
+  <div class="col-md-8 article-container">
+    <div class="article-card">
+      <div class="article-author">
+        <a href="">
+          <h3>John Doe</h3>
+        </a>
+        <button class="animated-button colored-button">
+          <img src="assets/imgs/follow.png" alt="follow" />
+        </button>
+      </div>
+      <p class="article-date">Apr 04, 2023</p>
+      <hr />
+      <a href="">
+        <h2>It is an article</h2>
+      </a>
+      <a href="">
+        
+      </a>
+      <div class="article-tag-field">
+        <button class="tag-button">#tag1</button>
+        <button class="tag-button">#tag2</button>
+        <button class="tag-button">#longertag</button>
+        <button class="tag-button">#tagfornothing</button>
+      </div>
+      <a href="">
+        <p>3 comments</p>
+      </a>
+      <button class="fav-button not-marked">
+        <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
+      </button>
+    </div>
+    <div class="article-card">
+      <div class="article-author">
+        <a href="">
+          <h3>Muriel Smidth</h3>
+        </a>
+        <button class="animated-button colored-button">
+          <img src="assets/imgs/follow.png" alt="follow" />
+        </button>
+      </div>
+      <p class="article-date">Dec 22, 2022</p>
+      <hr />
+      <a href="">
+        <h2>It is an article with a longer title, but not too long</h2>
+      </a>
+      <div class="article-tag-field">
+        <button class="tag-button">#tag1</button>
+        <button class="tag-button">#tag2</button>
+        <button class="tag-button">#longertag</button>
+        <button class="tag-button">#tagfornothing</button>
+      </div>
+      <a href="">
+        <p>Add comment</p>
+      </a>
+      <button class="fav-button">
+        <img src="assets/imgs/bookmark_filled.png" alt="remove from favorites" />
+      </button>
+    </div>
+    <div class="article-card">
+      <div class="article-author">
+        <a href="">
+          <h3>Max Mustermann</h3>
+        </a>
+        <button class="animated-button colored-button">
+          <img src="assets/imgs/follow.png" alt="follow" />
+        </button>
+      </div>
+      <p class="article-date">Sept 1, 2022</p>
+      <hr />
+      <a href="">
+        <h2>This title is too long, but it’s not a problem because it’s a free country. You’re free to do what you want.</h2>
+      </a>
+      <div class="article-tag-field">
+        <button class="tag-button">#tag1</button>
+        <button class="tag-button">#tag2</button>
+        <button class="tag-button">#longertag</button>
+        <button class="tag-button">#tagfornothing</button>
+      </div>
+      <a href="">
+        <p>1 comment</p>
+      </a>
+      <button class="fav-button not-marked">
+        <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
+      </button>
+    </div>
   </div>
 </div>

@@ -1,3 +1,12 @@
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: inherit;
+}
+
 body {
   background-color: #d6caaf;
 }
@@ -49,4 +58,36 @@ body button[disabled] {
   border-color: #666666;
   background-color: #cccccc;
   color: #666666;
+}
+body .animated-button {
+  border: unset;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: transform 0.3s ease-out;
+}
+body .animated-button img {
+  height: 30px;
+}
+body .animated-button .invert {
+  filter: invert(100%);
+}
+body .animated-button:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease-out;
+  background-color: transparent;
+}
+body .colored-button {
+  background-color: #d66361;
+  padding: 10px;
+}
+body .colored-button img {
+  height: 30px;
+}
+body .colored-button:hover {
+  background-color: #d66361;
 }/*# sourceMappingURL=styles.css.map */

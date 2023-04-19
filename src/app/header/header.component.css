@@ -9,37 +9,12 @@
   align-items: center;
   border-bottom: 3px black solid;
 }
-.navbar .header .nav-header-icon {
-  border: unset;
-  height: auto;
-  width: auto;
-  background-color: transparent;
-  border-radius: 50%;
-  transition: transform 0.3s ease-out;
-}
-.navbar .header .nav-header-icon img {
-  height: 35px;
-}
-.navbar .header .nav-header-icon .invert {
-  filter: invert(100%);
-}
-.navbar .header .nav-header-icon:hover {
-  transform: scale(1.2);
-  transition: transform 0.3s ease-out;
-}
 .navbar .header .header-left {
   width: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
-}
-.navbar .header .header-left .home-button {
-  background-color: #d66361;
-  padding: 10px;
-}
-.navbar .header .header-left .home-button img {
-  height: 30px;
 }
 .navbar .header .header-left .search-field {
   height: 40px;
@@ -132,6 +107,7 @@
 .navbar .header .header-right .user-info {
   position: absolute;
   right: 0;
-  bottom: -23px;
+  bottom: -15px;
   filter: opacity(0.6);
+  cursor: default;
 }/*# sourceMappingURL=header.component.css.map */
