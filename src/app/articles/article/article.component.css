@@ -1,0 +1,83 @@
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-inline: 60px;
+  padding-block: 30px;
+  border: 3px black solid;
+  position: relative;
+}
+.article .article-author {
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.article .article-author .animated-button {
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+}
+.article .article-author .animated-button img {
+  height: 20px;
+}
+.article .article-author .animated-button:hover {
+  background-color: #d66361;
+}
+.article .article-date {
+  line-height: 1;
+  font-weight: 400;
+}
+.article hr {
+  width: 50%;
+  max-width: 400px;
+  margin-inline: 0;
+  margin-top: 0;
+}
+.article .article-tag-field {
+  display: flex;
+  flex-wrap: wrap;
+}
+.article .article-tag-field button {
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  padding-inline: 6px;
+  filter: opacity(0.7);
+}
+.article .article-tag-field button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.article .fav-button {
+  width: 55px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 50px;
+  top: -3px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+.article .fav-button img {
+  width: 80px;
+  height: 80px;
+}
+.article .fav-button:hover {
+  filter: opacity(0.7);
+}
+.article .not-marked {
+  height: 40px;
+}
+.article .not-marked img {
+  height: 40px;
+}
+.article .not-marked:hover {
+  height: 80px;
+  filter: opacity(1);
+}
+.article .not-marked:hover img {
+  height: 80px;
+}/*# sourceMappingURL=article.component.css.map */

@@ -1,17 +1,32 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
 import { Article } from './article.model';
-import { Subject, catchError, throwError } from 'rxjs';
+import { Subject, catchError, throwError, tap, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {
+  articles: Article[];
   errorMessage = new Subject<string>();
 
   constructor(private http: HttpClient) {}
+
+  getArticles() {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http
+      .get<Article[]>('http://localhost:3000/api/articles', {
+        headers,
+      })
+      .pipe(
+        catchError(this.handleError),
+        tap((articles) => (this.articles = articles))
+      );
+  }
 
   createArticle(title: string, body: string, description: string) {
     const articleData: Article = {

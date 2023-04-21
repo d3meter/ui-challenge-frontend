@@ -3,7 +3,15 @@
     <app-search-menu></app-search-menu>
   </div>
   <div class="col-md-8 article-container">
-    <div class="article-card">
+<!--     <app-article
+      *ngFor="let article of articles"
+      [article]="article"
+    ></app-article> -->
+    <app-article [article]="articles"></app-article>
+  </div>
+</div>
+
+<!--     <div class="article-card">
       <div class="article-author">
         <a href="">
           <h3>John Doe</h3>
@@ -95,6 +103,4 @@
       <button class="fav-button not-marked">
         <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
       </button>
-    </div>
-  </div>
-</div>
+    </div> -->
