@@ -60,6 +60,13 @@
   justify-content: flex-end;
   align-items: center;
   position: relative;
+  /*       .user-info {
+          position: absolute;
+          right: 0;
+          bottom: -15px;
+          filter: opacity(0.6);
+          cursor: default;
+        } */
 }
 .navbar .header .header-right .button-field {
   display: flex;
@@ -103,11 +110,4 @@
 }
 .navbar .header .header-right .nav-icons {
   gap: 5px;
-}
-.navbar .header .header-right .user-info {
-  position: absolute;
-  right: 0;
-  bottom: -15px;
-  filter: opacity(0.6);
-  cursor: default;
 }/*# sourceMappingURL=header.component.css.map */

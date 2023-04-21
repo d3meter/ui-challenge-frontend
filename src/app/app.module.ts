@@ -10,6 +10,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CreateArticleComponent } from './articles/create-article/create-article.component';
 
 @NgModule({
   declarations: [
@@ -19,15 +20,11 @@ import { ProfileComponent } from './profile/profile.component';
     ArticlesComponent,
     RegistrationComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreateArticleComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

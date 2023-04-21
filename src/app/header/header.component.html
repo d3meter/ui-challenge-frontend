@@ -4,11 +4,12 @@
       <button
         (click)="onSelect('articles')"
         class="colored-button animated-button"
+        data-toggle="tooltip" data-placement="bottom" title="Home"
       >
         <img src="assets/imgs/home.webp" alt="home" />
       </button>
       <div class="search-field">
-        <button>
+        <button data-toggle="tooltip" data-placement="bottom" title="Search">
           <i class="fa fa-search"></i>
         </button>
         <input
@@ -32,23 +33,23 @@
         </button>
       </div>
       <div class="button-field nav-icons" *ngIf="isLoggedIn">
-        <button (click)="onSelect('profile')" class="animated-button">
+        <button (click)="onSelect('profile')" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="My profile">
           <img src="assets/imgs/menu_items/myProfile.png" alt="my profile" />
         </button>
-        <button (click)="onSelect()" class="animated-button">
+        <button (click)="onSelect()" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="Favorites">
           <img src="assets/imgs/menu_items/myFavIcon.png" alt="favorites" />
         </button>
-        <button (click)="onSelect()" class="animated-button">
+        <button (click)="onSelect('create-article')" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="Create article">
           <img
             class="invert"
-            src="assets/imgs/menu_items/addArticel.png"
-            alt="add articel"
+            src="assets/imgs/menu_items/addArticle.png"
+            alt="add article"
           />
         </button>
-        <button (click)="onLogout()" class="animated-button">
+        <button (click)="onLogout()" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="Log out">
           <img src="assets/imgs/menu_items/logOut.png" alt="log out" />
         </button>
-        <p class="user-info">{{ userData.email }}</p>
+        <!-- <p class="user-info">{{ userData.email }}</p> -->
       </div>
     </div>
   </div>
