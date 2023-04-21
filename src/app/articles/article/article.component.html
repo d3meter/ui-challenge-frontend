@@ -1,8 +1,8 @@
 <div class="article">
  <div class="article-author">
-<!--    <a href="">
+   <a href="">
      <h3>{{ article.author.username }}</h3>
-   </a> -->
+   </a>
    <button
      class="animated-button colored-button"
      data-toggle="tooltip"
@@ -12,7 +12,7 @@
      <img src="assets/imgs/follow.png" alt="follow" />
    </button>
  </div>
- <p class="article-date">Apr 04, 2023</p>
+ <p class="article-date">{{ article.created | dateFormat }}</p>
  <hr />
  <a href="">
    <h2>{{ article.title }}</h2>

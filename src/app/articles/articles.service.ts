@@ -9,7 +9,6 @@ import { Subject, catchError, throwError, tap, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {
-  articles: Article[];
   errorMessage = new Subject<string>();
 
   constructor(private http: HttpClient) {}
@@ -19,12 +18,13 @@ export class ArticlesService {
     const token = storedData.user.token;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http
-      .get<Article[]>('http://localhost:3000/api/articles', {
+      .get<any>('http://localhost:3000/api/articles', {
         headers,
       })
       .pipe(
         catchError(this.handleError),
-        tap((articles) => (this.articles = articles))
+        map(response => response.articles)
+        /* tap((articles) => (this.articles = articles)) */
       );
   }
 

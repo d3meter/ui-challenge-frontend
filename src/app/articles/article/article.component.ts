@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
 
@@ -7,8 +7,12 @@ import { ArticlesService } from '../articles.service';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent {
+export class ArticleComponent implements OnInit {
   @Input() article: Article;
 
   constructor(private articlesService: ArticlesService) {}
+
+  ngOnInit(): void {
+    console.log(this.article)
+  }
 }

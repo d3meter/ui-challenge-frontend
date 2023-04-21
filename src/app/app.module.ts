@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateArticleComponent } from './articles/create-article/create-article.component';
 import { ArticleComponent } from './articles/article/article.component';
+import { DateFormatPipe } from './articles/pipes/date-format.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ArticleComponent } from './articles/article/article.component';
     ProfileComponent,
     CreateArticleComponent,
     ArticleComponent,
+    DateFormatPipe,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [],
