@@ -1,4 +1,4 @@
-<h1 class="page-title">My profile</h1>
+<h1 class="page-title">My profile and articles</h1>
 <div class="row gx-md-5">
   <form #updateForm="ngForm" (ngSubmit)="onUpdateUser(updateForm.value)" class="col-md-4">
     <button type="submit" class="btn btn-light">
@@ -22,6 +22,6 @@
   </form>
   <div class="col-md-8">
     <!-- only own articles (filtered) -->
-    <app-articles></app-articles>
+    <app-articles [username]="userData.username"></app-articles>
   </div>
 </div>
