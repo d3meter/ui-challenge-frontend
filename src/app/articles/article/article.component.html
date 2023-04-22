@@ -1,33 +1,39 @@
-<div class="article">
- <div class="article-author">
-   <a href="">
-     <h3>{{ article.author.username }}</h3>
-   </a>
-   <button
-     class="animated-button colored-button"
-     data-toggle="tooltip"
-     data-placement="right"
-     title="Follow user"
-   >
-     <img src="assets/imgs/follow.png" alt="follow" />
-   </button>
- </div>
- <p class="article-date">{{ article.created | dateFormat }}</p>
- <hr />
- <a href="">
-   <h2>{{ article.title }}</h2>
- </a>
- <a href=""> </a>
- <div class="article-tag-field">
-   <button class="tag-button">#tag1</button>
-   <button class="tag-button">#tag2</button>
-   <button class="tag-button">#longertag</button>
-   <button class="tag-button">#tagfornothing</button>
- </div>
- <a href="">
-   <p>3 comments</p>
- </a>
- <button class="fav-button not-marked" data-toggle="tooltip" data-placement="right" title="Article mark as favorite">
-   <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
- </button>
+<div class="article" id="content">
+  <div class="article-author">
+    <a href="">
+      <h3>{{ article.author.username }}</h3>
+    </a>
+    <button
+      class="animated-button colored-button"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Follow user"
+    >
+      <img src="assets/imgs/follow.png" alt="follow" />
+    </button>
+  </div>
+  <p class="article-date">{{ article.created | dateFormat }}</p>
+  <hr />
+  <div class="article-content-header" (click)="toggleContent(); scrollToContent()" data-toggle="tooltip" data-placement="bottom" title="Click here to see more">
+    <h2>{{ article.title }}</h2>
+    <h6>{{ article.description }}</h6>
+  </div>
+  <p *ngIf="isSelected">{{ article.body }}</p>
+  <div class="article-tag-field">
+    <button class="tag-button">#tag1</button>
+    <button class="tag-button">#tag2</button>
+    <button class="tag-button">#longertag</button>
+    <button class="tag-button">#tagfornothing</button>
+  </div>
+  <a href="">
+    <p>3 comments</p>
+  </a>
+  <button
+    class="fav-button not-marked"
+    data-toggle="tooltip"
+    data-placement="right"
+    title="Article mark as favorite"
+  >
+    <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
+  </button>
 </div>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Article } from './article.model';
 import { ArticlesService } from './articles.service';
 
@@ -10,6 +9,7 @@ import { ArticlesService } from './articles.service';
 })
 export class ArticlesComponent implements OnInit {
   articles: Article[];
+  selectedArticle: Article = null;
   displayValue = 'none';
 
   constructor(private articlesService: ArticlesService) {}
@@ -24,5 +24,13 @@ export class ArticlesComponent implements OnInit {
         this.articlesService.errorMessage.next(error);
       }
     );
+  }
+
+  onArticleSelected(article: Article): void {
+    if (this.selectedArticle === article) {
+      this.selectedArticle = null;
+    } else {
+      this.selectedArticle = article;
+    }
   }
 }

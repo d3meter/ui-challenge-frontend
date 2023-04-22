@@ -15,6 +15,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  @Output() pageToDisplaySelected = new EventEmitter<string>();
+
   isLoggedIn = false;
   private isLoggedInSub: Subscription;
   userData: any;
@@ -36,8 +38,6 @@ export class HeaderComponent {
   ngOnDestroy() {
     this.isLoggedInSub.unsubscribe();
   }
-
-  @Output() pageToDisplaySelected = new EventEmitter<string>();
 
   onSelect(pageToDisplay: string) {
     this.pageToDisplaySelected.emit(pageToDisplay);

@@ -3,7 +3,12 @@
     <app-search-menu></app-search-menu>
   </div>
   <div class="col-md-8 article-container">
-    <app-article *ngFor="let article of articles" [article]="article"></app-article>
+    <app-article
+      *ngFor="let article of articles"
+      [article]="article"
+      [isSelected]="selectedArticle === article"
+      (onSelected)="onArticleSelected(article)"
+    ></app-article>
   </div>
 </div>
 
