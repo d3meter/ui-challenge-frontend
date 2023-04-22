@@ -60,9 +60,9 @@ export class UsersService {
     );
   }
 
-  getUserInfo() {
+  getUserInfo(username: string) {
     console.log('getUserInfo called');
-    return this.http.get('http://localhost:3000/api/user').pipe(
+    return this.http.get(`http://localhost:3000/api/profiles/${username}`).pipe(
       tap((data) => console.log('getUserInfo response', data)),
       catchError(this.handleError)
     );

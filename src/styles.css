@@ -92,4 +92,7 @@ body .colored-button img {
 body .colored-button:hover {
   background-color: #d66361;
   transition: transform 0.3s ease-out;
+}
+body .clickable-content {
+  cursor: pointer;
 }/*# sourceMappingURL=styles.css.map */

@@ -1,8 +1,8 @@
 <div class="article" id="content">
   <div class="article-author">
-    <a href="">
-      <h3>{{ article.author.username }}</h3>
-    </a>
+    <h3 class="clickable-content" (click)="onGetUserInfo(article.author.username)">
+      {{ article.author.username }}
+    </h3>
     <button
       class="animated-button colored-button"
       data-toggle="tooltip"
@@ -14,7 +14,13 @@
   </div>
   <p class="article-date">{{ article.created | dateFormat }}</p>
   <hr />
-  <div class="article-content-header" (click)="toggleContent(); scrollToContent()" data-toggle="tooltip" data-placement="bottom" title="Click here to see more">
+  <div
+    class="article-content-header clickable-content"
+    (click)="toggleContent(); scrollToContent()"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    title="Click here to see more"
+  >
     <h2>{{ article.title }}</h2>
     <h6>{{ article.description }}</h6>
   </div>

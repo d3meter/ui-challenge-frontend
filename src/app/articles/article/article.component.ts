@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
+import { UsersService } from 'src/app/auth/users.service';
 
 @Component({
   selector: 'app-article',
@@ -23,6 +24,7 @@ export class ArticleComponent implements OnInit {
 
   constructor(
     private articlesService: ArticlesService,
+    private usersService: UsersService,
     private el: ElementRef
   ) {}
 
@@ -44,5 +46,11 @@ export class ArticleComponent implements OnInit {
     this.el.nativeElement
       .querySelector('#content')
       .scrollIntoView({ behavior: 'smooth' });
+  }
+
+  onGetUserInfo(username: string) {
+    this.usersService.getUserInfo(username).subscribe((data) => {
+      console.log(data);
+    });
   }
 }
