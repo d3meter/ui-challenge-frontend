@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  onLogIn(userData: User) {
+  onLogIn(userData: User, loginForm: NgForm) {
     this.isLoading = true;
     this.usersService.logInUser(userData.email, userData.password).subscribe(
       (resData) => {
@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     );
+    loginForm.reset();
   }
 
   onLogout() {

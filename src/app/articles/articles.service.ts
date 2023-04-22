@@ -24,7 +24,6 @@ export class ArticlesService {
       .pipe(
         catchError(this.handleError),
         map(response => response.articles)
-        /* tap((articles) => (this.articles = articles)) */
       );
   }
 

@@ -15,7 +15,7 @@ export class CreateArticleComponent implements OnInit {
 
   constructor(private http: HttpClient, private articlesService: ArticlesService) {}
 
-  onCreateArticle(articleData: Article) {
+  onCreateArticle(articleData: Article, createArticleForm: NgForm) {
     this.articlesService.createArticle(
       articleData.title,
       articleData.body,
@@ -31,6 +31,7 @@ export class CreateArticleComponent implements OnInit {
         // Handle the error here
       }
     );
+    createArticleForm.reset();
   }
 
   ngOnInit(): void {

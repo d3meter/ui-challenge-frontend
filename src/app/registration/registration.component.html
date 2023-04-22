@@ -1,32 +1,70 @@
 <h1 class="page-title">Registration</h1>
 <div class="registration container pb-5">
   <div class="row justify-content-center">
-    <form #postForm="ngForm" (ngSubmit)="onCreateUser(postForm.value)" class="col-md-4">
+    <form
+      #postForm="ngForm"
+      (ngSubmit)="onCreateUser(postForm.value ,postForm)"
+      class="col-md-4"
+    >
       <div class="form-group py-sm-1 mb-0">
         <label for="username" class="col-sm-4col-form-label">Name:</label>
-        <input id="username" name="username" type="text" class="form-control" minlength="4" required ngModel />
+        <input
+          id="username"
+          name="username"
+          type="text"
+          class="form-control"
+          minLength="4"
+          required
+          ngModel
+        />
       </div>
       <div class="form-group py-sm-1 mb-0">
         <label for="email" class="col-sm-4col-form-label">Email:</label>
-        <input id="email" name="email" type="text" class="form-control" required email ngModel/>
+        <input
+          id="email"
+          name="email"
+          type="text"
+          class="form-control"
+          email
+          required
+          ngModel
+        />
       </div>
       <div class="form-group py-sm-1 mb-0">
         <label for="password" class="col-sm-4col-form-label">Password:</label>
-        <input id="password" name="password" type="password" class="form-control" minlength="6" required ngModel/>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          class="form-control"
+          minLength="6"
+          required
+          ngModel
+          #pw="ngModel"
+        />
       </div>
-<!--       <div class="form-group py-sm-1 mb-0">
+      <div class="form-group py-sm-1 mb-0">
         <label for="password-confirm" class="col-sm-4col-form-label"
           >Confirm password:</label
         >
         <input
           id="password-confirm"
-          type="text"
+          name="password-confirm"
+          type="password"
           class="form-control"
+          required
+          ngModel
+          #cpw="ngModel"
         />
-      </div> -->
+      </div>
       <hr />
       <div class="col-xs-4 text-center">
-        <button style="height: 50px" class="col-sm-12" type="submit" [disabled]="!postForm.valid">
+        <button
+          style="height: 50px"
+          class="col-sm-12"
+          type="submit"
+          [disabled]="postForm.invalid"
+        >
           <h4>Registration</h4>
         </button>
         <p *ngIf="error">{{ errorMessage }}</p>

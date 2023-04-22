@@ -1,7 +1,7 @@
 <h1 class="page-title">Login</h1>
 <div class="registration container pb-5">
   <div class="row justify-content-center">
-    <form class="col-md-4" #loginForm="ngForm" (ngSubmit)="onLogIn(loginForm.value)">
+    <form class="col-md-4" #loginForm="ngForm" (ngSubmit)="onLogIn(loginForm.value, loginForm)">
       <div class="form-group py-sm-1 mb-0">
         <label for="email" class="col-sm-4 col-form-label">Email:</label>
         <input id="email" name="email" type="text" class="form-control" ngModel required email/>

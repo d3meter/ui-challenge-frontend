@@ -7,4 +7,5 @@ export interface Article {
     username: string;
   };
   created?: number;
+  slug?: string;
 }
