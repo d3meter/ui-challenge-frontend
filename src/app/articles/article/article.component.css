@@ -24,6 +24,12 @@
 .article .article-author .animated-button:hover {
   background-color: #d66361;
 }
+.article .article-author .marked {
+  background-color: #d66361;
+}
+.article .article-author .marked:hover {
+  background-color: rgba(214, 99, 97, 0.4196078431);
+}
 .article .article-date {
   line-height: 1;
   font-weight: 400;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from './article.model';
 import { ArticlesService } from './articles.service';
+import { UsersService } from '../auth/users.service';
 
 @Component({
   selector: 'app-articles',
@@ -8,14 +9,19 @@ import { ArticlesService } from './articles.service';
   styleUrls: ['./articles.component.scss'],
 })
 export class ArticlesComponent implements OnInit {
+  @Input() username: string;
+
   articles: Article[];
   selectedArticle: Article = null;
   displayValue = 'none';
-  @Input() username: string;
+  followedUsers: string[] = [];
 
-  constructor(private articlesService: ArticlesService) {}
+  constructor(
+    private articlesService: ArticlesService,
+    private usersService: UsersService
+  ) {}
 
-  ngOnInit() {
+/*   ngOnInit() {
     this.articlesService.getArticles().subscribe(
       (response) => {
         if (this.username === null) {
@@ -31,6 +37,33 @@ export class ArticlesComponent implements OnInit {
         this.articlesService.errorMessage.next(error);
       }
     );
+
+    this.followedUsers = this.usersService.getFollowedUsers();
+  } */
+
+  ngOnInit() {
+    this.articlesService.getArticles().subscribe(
+      (response) => {
+        if (this.username === null) {
+          this.articles = response;
+        } else {
+          this.articles = response.filter(
+            (article) => article.author.username === this.username
+          );
+        }
+        
+        for (let article of this.articles) {
+          article.userIsFollowed = this.followedUsers.includes(article.author.username);
+        }
+        
+        console.log(response);
+      },
+      (error: string) => {
+        this.articlesService.errorMessage.next(error);
+      }
+    );
+
+    this.followedUsers = this.usersService.getFollowedUsers();
   }
 
   onArticleSelected(article: Article): void {

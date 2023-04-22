@@ -12,6 +12,17 @@
       data-placement="right"
       title="Follow user"
       (click)="onFollowUser(article.author.username)"
+      *ngIf="!userIsFollowed"
+    >
+      <img src="assets/imgs/follow.png" alt="follow" />
+    </button>
+    <button
+      class="animated-button colored-button marked"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Unfollow user"
+      (click)="onUnFollowUser(article.author.username)"
+      *ngIf="userIsFollowed"
     >
       <img src="assets/imgs/follow.png" alt="follow" />
     </button>
@@ -43,7 +54,17 @@
     data-toggle="tooltip"
     data-placement="right"
     title="Article mark as favorite"
+    *ngIf="!article.isFavorite"
   >
     <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
+  </button>
+  <button
+    class="fav-button not-marked"
+    data-toggle="tooltip"
+    data-placement="right"
+    title="Article mark as favorite"
+    *ngIf="article.isFavorite"
+  >
+    <img src="assets/imgs/bookmark_filled.png" alt="remove from favorites" />
   </button>
 </div>

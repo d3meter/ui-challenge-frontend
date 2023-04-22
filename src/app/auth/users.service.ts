@@ -5,13 +5,19 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { User } from './user.model';
-import { Subject, catchError, tap, throwError, Observable } from 'rxjs';
-import jwt_decode from 'jwt-decode';
+import {
+  Subject,
+  catchError,
+  tap,
+  throwError,
+  Observable,
+} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
   errorMessage = new Subject<string>();
   isLoggedIn$ = new Subject<boolean>();
+  private followedUsers: string[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -80,10 +86,83 @@ export class UsersService {
       )
       .pipe(
         tap((response: any) => {
+          this.followedUsers.push(userToFollow);
           console.log(`User ${userToFollow} followed successfully`);
         }),
         catchError(this.handleError)
       );
+  }
+
+  unFollowUser(userToUnFollow: string): Observable<any> {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http
+      .delete(
+        `http://localhost:3000/api/profiles/${userToUnFollow}/follow`,
+        { headers }
+      )
+      .pipe(
+        tap((response: any) => {
+          const index = this.followedUsers.indexOf(userToUnFollow);
+          if (index !== -1) {
+            this.followedUsers.splice(index, 1);
+          }
+          console.log(`User ${userToUnFollow} unfollowed successfully`);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /*   followUser(userToFollow: string): Observable<any> {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    return this.http
+      .post(
+        `http://localhost:3000/api/profiles/${userToFollow}/follow`,
+        {},
+        { headers }
+      )
+      .pipe(
+        tap((response: any) => {
+          if (!storedData.followedUsers.includes(userToFollow)) {
+            storedData.followedUsers.push(userToFollow);
+            localStorage.setItem('userData', JSON.stringify(storedData));
+          }
+          console.log(`User ${userToFollow} followed successfully`);
+        }),
+        catchError(this.handleError)
+      );
+  }
+  
+  unFollowUser(userToUnFollow: string): Observable<any> {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    return this.http
+      .delete(
+        `http://localhost:3000/api/profiles/${userToUnFollow}/follow`,
+        { headers }
+      )
+      .pipe(
+        tap((response: any) => {
+          const index = storedData.followedUsers.indexOf(userToUnFollow);
+          if (index !== -1) {
+            storedData.followedUsers.splice(index, 1);
+            localStorage.setItem('userData', JSON.stringify(storedData));
+          }
+          console.log(`User ${userToUnFollow} unfollowed successfully`);
+        }),
+        catchError(this.handleError)
+      );
+  } */
+
+  getFollowedUsers(): string[] {
+    return this.followedUsers;
   }
 
   logOutUser() {

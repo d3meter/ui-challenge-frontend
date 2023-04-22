@@ -23,6 +23,9 @@ export class ArticleComponent implements OnInit {
   @ViewChild('content') body: ElementRef;
 
   userToFollow: string;
+  userToUnFollow: string;
+
+  @Input() userIsFollowed: boolean;
 
   constructor(
     private articlesService: ArticlesService,
@@ -65,5 +68,18 @@ export class ArticleComponent implements OnInit {
         console.error('Error following user: ', error);
       }
     );
+    this.userIsFollowed = true;
+  }
+
+  onUnFollowUser(userToUnFollow: string): void {
+    this.usersService.unFollowUser(userToUnFollow).subscribe(
+      (response) => {
+        console.log('User unfollowed successfully');
+      },
+      (error) => {
+        console.error('Error unfollowing user: ', error);
+      }
+    );
+    this.userIsFollowed = false;
   }
 }

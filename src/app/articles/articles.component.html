@@ -8,6 +8,7 @@
       [article]="article"
       [isSelected]="selectedArticle === article"
       (onSelected)="onArticleSelected(article)"
+      [userIsFollowed]="article.userIsFollowed"
     ></app-article>
   </div>
 </div>
