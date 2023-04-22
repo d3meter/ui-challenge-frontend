@@ -22,6 +22,8 @@ export class ArticleComponent implements OnInit {
   @Output() onSelected = new EventEmitter<Article>();
   @ViewChild('content') body: ElementRef;
 
+  userToFollow: string;
+
   constructor(
     private articlesService: ArticlesService,
     private usersService: UsersService,
@@ -52,5 +54,16 @@ export class ArticleComponent implements OnInit {
     this.usersService.getUserInfo(username).subscribe((data) => {
       console.log(data);
     });
+  }
+
+  onFollowUser(userToFollow: string) {
+    this.usersService.followUser(userToFollow).subscribe(
+      (response) => {
+        console.log('User followed successfully');
+      },
+      (error) => {
+        console.error('Error following user: ', error);
+      }
+    );
   }
 }

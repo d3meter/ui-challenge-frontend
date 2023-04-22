@@ -5,7 +5,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { User } from './user.model';
-import { Subject, catchError, tap, throwError } from 'rxjs';
+import { Subject, catchError, tap, throwError, Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
@@ -61,11 +61,29 @@ export class UsersService {
   }
 
   getUserInfo(username: string) {
-    console.log('getUserInfo called');
     return this.http.get(`http://localhost:3000/api/profiles/${username}`).pipe(
       tap((data) => console.log('getUserInfo response', data)),
       catchError(this.handleError)
     );
+  }
+
+  followUser(userToFollow: string): Observable<any> {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http
+      .post(
+        `http://localhost:3000/api/profiles/${userToFollow}/follow`,
+        {},
+        { headers }
+      )
+      .pipe(
+        tap((response: any) => {
+          console.log(`User ${userToFollow} followed successfully`);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   logOutUser() {

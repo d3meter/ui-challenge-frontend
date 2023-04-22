@@ -1,6 +1,9 @@
 <div class="article" id="content">
   <div class="article-author">
-    <h3 class="clickable-content" (click)="onGetUserInfo(article.author.username)">
+    <h3
+      class="clickable-content"
+      (click)="onGetUserInfo(article.author.username)"
+    >
       {{ article.author.username }}
     </h3>
     <button
@@ -8,6 +11,7 @@
       data-toggle="tooltip"
       data-placement="right"
       title="Follow user"
+      (click)="onFollowUser(article.author.username)"
     >
       <img src="assets/imgs/follow.png" alt="follow" />
     </button>
