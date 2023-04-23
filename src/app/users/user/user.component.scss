@@ -1,0 +1,40 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-inline: 60px;
+  padding-block: 10px;
+  border: 3px black solid;
+  position: relative;
+  .user-title {
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    .animated-button {
+      height: 30px;
+      width: 30px;
+      background-color: transparent;
+      img {
+        height: 20px;
+      }
+    }
+    .animated-button:hover {
+     background-color: #d66361;
+   }
+   .marked {
+     background-color: #d66361;
+     transform: scale(1.2) rotate(45deg);
+
+   }
+   .marked:hover {
+     background-color: #d663616b;
+     transform: scale(1.2) rotate(45deg);
+   }
+  }
+  hr {
+    width: 50%;
+    max-width: 400px;
+    margin: 0;
+  }
+}

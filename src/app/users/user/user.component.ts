@@ -7,19 +7,18 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Article } from '../article.model';
-import { ArticlesService } from '../articles.service';
 import { UsersService } from 'src/app/auth/users.service';
+import { User } from 'src/app/auth/user.model';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
 })
-export class ArticleComponent implements OnInit {
-  @Input() article: Article;
-  @Input() isSelected: boolean;
-  @Output() onSelected = new EventEmitter<Article>();
+export class UserComponent implements OnInit {
+  @Input() user: User;
+  @Input() isSelectedUser: boolean;
+  @Output() onSelectedUser = new EventEmitter<User>();
   @ViewChild('content') body: ElementRef;
 
   userToFollow: string;
@@ -30,33 +29,21 @@ export class ArticleComponent implements OnInit {
   isOwnArticle: boolean;
 
   constructor(
-    private articlesService: ArticlesService,
     private usersService: UsersService,
     private el: ElementRef
   ) {}
 
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {
-      this.isOwnArticle = this.article.author.username === userInfo.user.username;
+      this.isOwnArticle = this.user.username === userInfo.user.username;
       console.log(this.isOwnArticle);
       console.log(userInfo);
     });
   }
 
   toggleContent(): void {
-    this.onSelected.emit(this.article);
-    this.isSelected = !this.isSelected;
-    if (this.isSelected) {
-      setTimeout(() => {
-        this.scrollToContent();
-      }, 0);
-    }
-  }
-
-  scrollToContent() {
-    this.el.nativeElement
-      .querySelector('#content')
-      .scrollIntoView({ behavior: 'smooth' });
+    this.onSelectedUser.emit(this.user);
+    this.isSelectedUser = !this.isSelectedUser;
   }
 
   onGetUserInfo(username: string) {

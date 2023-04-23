@@ -5,13 +5,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { User } from './user.model';
-import {
-  Subject,
-  catchError,
-  tap,
-  throwError,
-  Observable,
-} from 'rxjs';
+import { Subject, catchError, tap, throwError, Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -73,6 +67,29 @@ export class UsersService {
     );
   }
 
+  getAllUsers() {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http
+      .get<any>(`http://localhost:3000/api/users`, { headers })
+      .pipe(
+        map((response) => {
+          const users = response.map((userData) => {
+            return {
+              id: userData.id,
+              username: userData.username,
+              email: userData.email,
+              bio: userData.bio || '',
+              image: userData.image || '',
+            };
+          });
+          return users;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   followUser(userToFollow: string): Observable<any> {
     const storedData = JSON.parse(localStorage.getItem('userData'));
     const token = storedData.user.token;
@@ -99,10 +116,9 @@ export class UsersService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .delete(
-        `http://localhost:3000/api/profiles/${userToUnFollow}/follow`,
-        { headers }
-      )
+      .delete(`http://localhost:3000/api/profiles/${userToUnFollow}/follow`, {
+        headers,
+      })
       .pipe(
         tap((response: any) => {
           const index = this.followedUsers.indexOf(userToUnFollow);
@@ -169,6 +185,15 @@ export class UsersService {
     this.setLoggedIn(false);
     localStorage.removeItem('token');
     localStorage.removeItem('loggedIn');
+  }
+
+  getMyUserInfo(): Observable<any> {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get('http://localhost:3000/api/user', {
+      headers: headers,
+    });
   }
 
   updateUser(username: string, email: string, bio: string, image: string) {

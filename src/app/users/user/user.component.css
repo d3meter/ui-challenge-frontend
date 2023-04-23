@@ -1,0 +1,39 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-inline: 60px;
+  padding-block: 10px;
+  border: 3px black solid;
+  position: relative;
+}
+.user .user-title {
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.user .user-title .animated-button {
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+}
+.user .user-title .animated-button img {
+  height: 20px;
+}
+.user .user-title .animated-button:hover {
+  background-color: #d66361;
+}
+.user .user-title .marked {
+  background-color: #d66361;
+  transform: scale(1.2) rotate(45deg);
+}
+.user .user-title .marked:hover {
+  background-color: rgba(214, 99, 97, 0.4196078431);
+  transform: scale(1.2) rotate(45deg);
+}
+.user hr {
+  width: 50%;
+  max-width: 400px;
+  margin: 0;
+}/*# sourceMappingURL=user.component.css.map */

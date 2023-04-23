@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Article } from './article.model';
 import { ArticlesService } from './articles.service';
 import { UsersService } from '../auth/users.service';
@@ -10,6 +10,7 @@ import { UsersService } from '../auth/users.service';
 })
 export class ArticlesComponent implements OnInit {
   @Input() username: string;
+  @ViewChild('articleList', { static: false }) articleList: ElementRef;
 
   articles: Article[];
   selectedArticle: Article = null;
@@ -51,6 +52,7 @@ export class ArticlesComponent implements OnInit {
             (article) => article.author.username === this.username
           );
         }
+        this.followedUsers = this.usersService.getFollowedUsers();
         
         for (let article of this.articles) {
           article.userIsFollowed = this.followedUsers.includes(article.author.username);
@@ -62,8 +64,6 @@ export class ArticlesComponent implements OnInit {
         this.articlesService.errorMessage.next(error);
       }
     );
-
-    this.followedUsers = this.usersService.getFollowedUsers();
   }
 
   onArticleSelected(article: Article): void {

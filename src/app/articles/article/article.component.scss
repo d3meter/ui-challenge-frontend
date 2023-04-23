@@ -24,9 +24,12 @@
     }
     .marked {
       background-color: #d66361;
+      transform: scale(1.2) rotate(45deg);
+
     }
     .marked:hover {
       background-color: #d663616b;
+      transform: scale(1.2) rotate(45deg);
     }
   }
   .article-date {

@@ -1,0 +1,46 @@
+<div class="user" id="content">
+ <div class="row" >
+  <div class="col-md-4">
+   <div
+     class="user-content-header clickable-content"
+     (click)="toggleContent()"
+     data-toggle="tooltip"
+     data-placement="bottom"
+     title="Click here to see more"
+   >
+     <div class="user-title">
+       <h3>
+         {{ user.username }}
+       </h3>
+       <button
+         class="animated-button colored-button"
+         data-toggle="tooltip"
+         data-placement="right"
+         title="Follow user"
+         (click)="onFollowUser(user.username)"
+         *ngIf="!userIsFollowed && !isOwnArticle"
+       >
+         <img src="assets/imgs/follow.png" alt="follow" />
+       </button>
+       <button
+         class="animated-button colored-button marked"
+         data-toggle="tooltip"
+         data-placement="right"
+         title="Unfollow user"
+         (click)="onUnFollowUser(user.username)"
+         *ngIf="userIsFollowed && !isOwnArticle"
+       >
+         <img src="assets/imgs/follow.png" alt="unfollow" />
+       </button>
+     </div>
+     <p class="user-email">{{ user.email }}</p>
+   </div>
+   <hr />
+   <div></div>
+   <p *ngIf="isSelectedUser">{{ user.bio }}</p>
+  </div>
+  <div class="col-md-8" *ngIf="isSelectedUser">
+   <app-articles [username]="user.username"></app-articles>
+  </div>
+ </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="row users">
+ <h1 class="page-title">List of Users</h1>
+ <div class="col-md-8 users-container">
+   <app-user
+     *ngFor="let user of users"
+     [user]="user"
+     [isSelectedUser]="selectedUser === user"
+     (onSelectedUser)="onUserSelected(user)"
+     [userIsFollowed]="user.userIsFollowed"
+   ></app-user>
+ </div>
+</div>

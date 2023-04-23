@@ -26,9 +26,11 @@
 }
 .article .article-author .marked {
   background-color: #d66361;
+  transform: scale(1.2) rotate(45deg);
 }
 .article .article-author .marked:hover {
   background-color: rgba(214, 99, 97, 0.4196078431);
+  transform: scale(1.2) rotate(45deg);
 }
 .article .article-date {
   line-height: 1;
