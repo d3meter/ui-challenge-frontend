@@ -88,7 +88,7 @@ export class ArticlesService {
       catchError(this.handleError));
   }
 
-  getFavroiteArticles(): string[] {
+  getFavoriteArticles(): string[] {
     return this.favoriteArticles;
   }
 

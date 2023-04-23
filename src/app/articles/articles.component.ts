@@ -10,6 +10,7 @@ import { UsersService } from '../auth/users.service';
 })
 export class ArticlesComponent implements OnInit {
   @Input() username: string;
+  @Input() onlyFavorites: boolean = false;
   @ViewChild('articleList', { static: false }) articleList: ElementRef;
 
   articles: Article[];
@@ -23,7 +24,7 @@ export class ArticlesComponent implements OnInit {
     private usersService: UsersService
   ) {}
 
-  /*   ngOnInit() {
+/*   ngOnInit() {
     this.articlesService.getArticles().subscribe(
       (response) => {
         if (this.username === null) {
@@ -33,14 +34,19 @@ export class ArticlesComponent implements OnInit {
             (article) => article.author.username === this.username
           );
         }
-        console.log(response);
+        this.followedUsers = this.usersService.getFollowedUsers();
+        this.favoriteArticles = this.articlesService.getFavoriteArticles();
+        for (let article of this.articles) {
+          article.userIsFollowed = this.followedUsers.includes(
+            article.author.username
+          );
+          article.articleIsFavorite = this.favoriteArticles.includes(article.slug)
+        }
       },
       (error: string) => {
         this.articlesService.errorMessage.next(error);
       }
     );
-
-    this.followedUsers = this.usersService.getFollowedUsers();
   } */
 
   ngOnInit() {
@@ -54,12 +60,17 @@ export class ArticlesComponent implements OnInit {
           );
         }
         this.followedUsers = this.usersService.getFollowedUsers();
-        this.favoriteArticles = this.articlesService.getFavroiteArticles();
+        this.favoriteArticles = this.articlesService.getFavoriteArticles();
+        if (this.onlyFavorites) {
+          this.articles = this.articles.filter((article) =>
+            this.favoriteArticles.includes(article.slug)
+          );
+        }
         for (let article of this.articles) {
           article.userIsFollowed = this.followedUsers.includes(
             article.author.username
           );
-          article.articleIsFavorite = this.favoriteArticles.includes(article.slug)
+          article.articleIsFavorite = this.favoriteArticles.includes(article.slug);
         }
       },
       (error: string) => {
@@ -67,6 +78,7 @@ export class ArticlesComponent implements OnInit {
       }
     );
   }
+  
 
   onArticleSelected(article: Article): void {
     if (this.selectedArticle === article) {
