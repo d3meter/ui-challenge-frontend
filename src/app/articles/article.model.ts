@@ -8,6 +8,6 @@ export interface Article {
   };
   created?: number;
   slug?: string;
-  isFavorite?: boolean;
+  articleIsFavorite?: boolean;
   userIsFollowed?: boolean;
 }

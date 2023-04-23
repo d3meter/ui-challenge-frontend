@@ -37,8 +37,6 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {
       this.isOwnArticle = this.user.username === userInfo.user.username;
-      console.log(this.isOwnArticle);
-      console.log(userInfo);
     });
 
     this.usersService.getMyUserInfo().subscribe((userInfo) => {

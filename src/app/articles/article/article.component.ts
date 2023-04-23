@@ -26,6 +26,7 @@ export class ArticleComponent implements OnInit {
   userToUnFollow: string;
 
   @Input() userIsFollowed: boolean;
+  @Input() articleIsFavorite: boolean;
 
   isOwnArticle: boolean;
 
@@ -38,8 +39,6 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {
       this.isOwnArticle = this.article.author.username === userInfo.user.username;
-      console.log(this.isOwnArticle);
-      console.log(userInfo);
     });
   }
 
@@ -87,5 +86,29 @@ export class ArticleComponent implements OnInit {
       }
     );
     this.userIsFollowed = false;
+  }
+
+  onAddArticleToFavorites(slug: string) {
+    this.articlesService.addArticleToFavorites(slug).subscribe(
+      (response) => {
+        console.log(`Article ${slug} add to favorites successfully`);
+      },
+      (error) => {
+        console.error('Error adding to favorites: ', error);
+      }
+    );
+    this.articleIsFavorite = true;
+  }
+
+  onRemoveArticleFromFavorites(slug: string) {
+    this.articlesService.removeArticleFromFavorites(slug).subscribe(
+      (response) => {
+        console.log(`Article ${slug} removed from favorites successfully`);
+      },
+      (error) => {
+        console.error('Error removing from favorites: ', error);
+      }
+    );
+    this.articleIsFavorite = false;
   }
 }

@@ -15,8 +15,9 @@ Features:
  - [x] User Registration
  - [x] Show your user profile
  - [x] Edit your user profile
- - [x] List/Delete User (not yourself)
+ - [x] List/Delete User* (not yourself)
  - [ ] List/Create/Update/Delete Articles
+ *Delete user function works only with "Superuser"!
 
 Technology:
  - [x] Using SCSS/SASS (opt. framework)

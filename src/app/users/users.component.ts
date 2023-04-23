@@ -20,19 +20,16 @@ export class UsersComponent implements OnInit {
     this.usersService.getAllUsers().subscribe(
       (response) => {
         this.users = response;
-        
         for (let user of this.users) {
           user.userIsFollowed = this.followedUsers.includes(user.username);
         }
-        console.log(response);
-        
       },
       (error: string) => {
         this.usersService.errorMessage.next(error);
       }
     );
 
-    this.followedUsers = this.usersService.getFollowedUsers()
+    this.followedUsers = this.usersService.getFollowedUsers();
   }
 
   onUserSelected(user: User): void {

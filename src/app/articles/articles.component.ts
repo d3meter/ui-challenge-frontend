@@ -16,13 +16,14 @@ export class ArticlesComponent implements OnInit {
   selectedArticle: Article = null;
   displayValue = 'none';
   followedUsers: string[] = [];
+  favoriteArticles: string[] = [];
 
   constructor(
     private articlesService: ArticlesService,
     private usersService: UsersService
   ) {}
 
-/*   ngOnInit() {
+  /*   ngOnInit() {
     this.articlesService.getArticles().subscribe(
       (response) => {
         if (this.username === null) {
@@ -53,12 +54,13 @@ export class ArticlesComponent implements OnInit {
           );
         }
         this.followedUsers = this.usersService.getFollowedUsers();
-        
+        this.favoriteArticles = this.articlesService.getFavroiteArticles();
         for (let article of this.articles) {
-          article.userIsFollowed = this.followedUsers.includes(article.author.username);
+          article.userIsFollowed = this.followedUsers.includes(
+            article.author.username
+          );
+          article.articleIsFavorite = this.favoriteArticles.includes(article.slug)
         }
-        
-        console.log(response);
       },
       (error: string) => {
         this.articlesService.errorMessage.next(error);

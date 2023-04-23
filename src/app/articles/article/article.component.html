@@ -53,17 +53,19 @@
     class="fav-button not-marked"
     data-toggle="tooltip"
     data-placement="right"
-    title="Article mark as favorite"
-    *ngIf="!article.isFavorite && !isOwnArticle"
+    title="Article add to favorites"
+    (click)="onAddArticleToFavorites(article.slug)"
+    *ngIf="!articleIsFavorite && !isOwnArticle"
   >
     <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
   </button>
   <button
-    class="fav-button not-marked"
+    class="fav-button"
     data-toggle="tooltip"
     data-placement="right"
-    title="Article mark as favorite"
-    *ngIf="article.isFavorite && !isOwnArticle"
+    title="Article delete from favorites"
+    (click)="onRemoveArticleFromFavorites(article.slug)"
+    *ngIf="articleIsFavorite && !isOwnArticle"
   >
     <img src="assets/imgs/bookmark_filled.png" alt="remove from favorites" />
   </button>
