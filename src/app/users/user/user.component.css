@@ -36,4 +36,9 @@
   width: 50%;
   max-width: 400px;
   margin: 0;
+}
+.user .btn {
+  position: absolute;
+  top: -12px;
+  right: -11px;
 }/*# sourceMappingURL=user.component.css.map */

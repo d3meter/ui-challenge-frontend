@@ -11,14 +11,14 @@ The challenge includes a Node.js back-end, exposing a REST API, and documentatio
 ***Requirements***
 
 Features:
- - [ ] User Login
- - [ ] User Registration
- - [ ] Show your user profile
- - [ ] Edit your user profile
- - [ ] List/Delete User (not yourself)
+ - [x] User Login
+ - [x] User Registration
+ - [x] Show your user profile
+ - [x] Edit your user profile
+ - [x] List/Delete User (not yourself)
  - [ ] List/Create/Update/Delete Articles
 
 Technology:
- - [ ] Using SCSS/SASS (opt. framework)
+ - [x] Using SCSS/SASS (opt. framework)
  - [ ] Some tests
  - [ ] Form validations with backend feedbacks

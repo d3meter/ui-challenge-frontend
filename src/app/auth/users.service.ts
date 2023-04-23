@@ -212,6 +212,16 @@ export class UsersService {
     });
   }
 
+  deleteUser(email: string) {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.delete(`http://localhost:3000/api/users/${email}`, {
+      headers,
+    });
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);

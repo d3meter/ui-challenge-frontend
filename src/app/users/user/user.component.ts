@@ -27,6 +27,7 @@ export class UserComponent implements OnInit {
   @Input() userIsFollowed: boolean;
 
   isOwnArticle: boolean;
+  isSuperUser: boolean;
 
   constructor(
     private usersService: UsersService,
@@ -39,6 +40,10 @@ export class UserComponent implements OnInit {
       console.log(this.isOwnArticle);
       console.log(userInfo);
     });
+
+    this.usersService.getMyUserInfo().subscribe((userInfo) => {
+      this.isSuperUser = 'Superuser' === userInfo.user.username;
+    });
   }
 
   toggleContent(): void {
@@ -46,6 +51,7 @@ export class UserComponent implements OnInit {
     this.isSelectedUser = !this.isSelectedUser;
   }
 
+  //not in use
   onGetUserInfo(username: string) {
     this.usersService.getUserInfo(username).subscribe((data) => {
       console.log(data);
@@ -74,5 +80,16 @@ export class UserComponent implements OnInit {
       }
     );
     this.userIsFollowed = false;
+  }
+
+  onDeleteUser(email: string) {
+    this.usersService.deleteUser(email).subscribe(
+      (response) => {
+        console.log('User: ${email} deleted successfully');
+      },
+      (error) => {
+        console.error('Error delete user: ', error);
+      }
+    );
   }
 }

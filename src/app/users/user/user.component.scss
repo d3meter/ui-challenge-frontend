@@ -20,21 +20,25 @@
       }
     }
     .animated-button:hover {
-     background-color: #d66361;
-   }
-   .marked {
-     background-color: #d66361;
-     transform: scale(1.2) rotate(45deg);
-
-   }
-   .marked:hover {
-     background-color: #d663616b;
-     transform: scale(1.2) rotate(45deg);
-   }
+      background-color: #d66361;
+    }
+    .marked {
+      background-color: #d66361;
+      transform: scale(1.2) rotate(45deg);
+    }
+    .marked:hover {
+      background-color: #d663616b;
+      transform: scale(1.2) rotate(45deg);
+    }
   }
   hr {
     width: 50%;
     max-width: 400px;
     margin: 0;
+  }
+  .btn {
+    position: absolute;
+    top: -12px;
+    right: -11px;
   }
 }
