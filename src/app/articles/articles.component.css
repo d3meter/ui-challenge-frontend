@@ -7,4 +7,5 @@
   flex-direction: column;
   justify-content: center;
   gap: 15px;
+  max-height: inherit;
 }/*# sourceMappingURL=articles.component.css.map */

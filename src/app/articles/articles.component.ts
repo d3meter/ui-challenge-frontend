@@ -18,6 +18,7 @@ export class ArticlesComponent implements OnInit {
   displayValue = 'none';
   followedUsers: string[] = [];
   favoriteArticles: string[] = [];
+  articlesLength: number = 0;
 
   constructor(
     private articlesService: ArticlesService,
@@ -72,6 +73,7 @@ export class ArticlesComponent implements OnInit {
           );
           article.articleIsFavorite = this.favoriteArticles.includes(article.slug);
         }
+        this.articlesLength = this.articles.length;
       },
       (error: string) => {
         this.articlesService.errorMessage.next(error);

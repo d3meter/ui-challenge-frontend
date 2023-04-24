@@ -6,6 +6,9 @@
   padding-block: 10px;
   border: 3px black solid;
   position: relative;
+  max-height: 680px;
+  box-sizing: border-box;
+  height: 100%;
   .user-title {
     width: auto;
     display: flex;
@@ -41,4 +44,15 @@
     top: -12px;
     right: -11px;
   }
-}
+  .row {
+    max-height: inherit;
+    height: 100%;
+    box-sizing: border-box;
+    .articles-to-shown {
+      max-height: inherit;
+      overflow-y: scroll;
+      height: 100%;
+      box-sizing: border-box;
+    }
+  }
+  }

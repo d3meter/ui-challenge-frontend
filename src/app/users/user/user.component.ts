@@ -4,8 +4,6 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  ViewChild,
-  ElementRef,
 } from '@angular/core';
 import { UsersService } from 'src/app/auth/users.service';
 import { User } from 'src/app/auth/user.model';
@@ -18,21 +16,16 @@ import { User } from 'src/app/auth/user.model';
 export class UserComponent implements OnInit {
   @Input() user: User;
   @Input() isSelectedUser: boolean;
+  @Input() userIsFollowed: boolean;
   @Output() onSelectedUser = new EventEmitter<User>();
-  @ViewChild('content') body: ElementRef;
 
   userToFollow: string;
   userToUnFollow: string;
 
-  @Input() userIsFollowed: boolean;
-
   isOwnArticle: boolean;
   isSuperUser: boolean;
 
-  constructor(
-    private usersService: UsersService,
-    private el: ElementRef
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {

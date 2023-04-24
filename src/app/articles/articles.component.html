@@ -2,15 +2,22 @@
   <div class="col-md-4 search-container" [style.display]="displayValue">
     <app-search-menu></app-search-menu>
   </div>
-  <div class="col-md-8 articles-container">
-    <app-article
-      *ngFor="let article of articles"
-      [article]="article"
-      [isSelected]="selectedArticle === article"
-      (onSelected)="onArticleSelected(article)"
-      [userIsFollowed]="article.userIsFollowed"
-      [articleIsFavorite]="article.articleIsFavorite"
-    ></app-article>
+  <div *ngIf="articlesLength">
+    <div class="col-md-8 articles-container">
+      <app-article
+        *ngFor="let article of articles"
+        [article]="article"
+        [isSelected]="selectedArticle === article"
+        (onSelected)="onArticleSelected(article)"
+        [userIsFollowed]="article.userIsFollowed"
+        [articleIsFavorite]="article.articleIsFavorite"
+      ></app-article>
+    </div>
+  </div>
+  <div *ngIf="!articlesLength">
+    <div class="col-md-8 articles-container">
+      <h5>There is no article yet...</h5>
+    </div>
   </div>
 </div>
 

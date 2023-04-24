@@ -1,15 +1,15 @@
-<div class="user" id="content">
+<div class="user">
   <div class="row">
     <div class="col-md-4">
-      <div
-        class="user-content-header clickable-content"
-        (click)="toggleContent()"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title="Click here to see more"
-      >
+      <div class="user-content-header">
         <div class="user-title">
-          <h3>
+          <h3
+            class="clickable-content"
+            (click)="toggleContent()"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Click here to see more"
+          >
             {{ user.username }}
           </h3>
           <button
@@ -33,13 +33,21 @@
             <img src="assets/imgs/follow.png" alt="unfollow" />
           </button>
         </div>
-        <p class="user-email">{{ user.email }}</p>
+        <p
+          class="user-email"
+          class="clickable-content"
+          (click)="toggleContent()"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Click here to see more"
+        >
+          {{ user.email }}
+        </p>
       </div>
       <hr />
-      <div></div>
       <p *ngIf="isSelectedUser">{{ user.bio }}</p>
     </div>
-    <div class="col-md-8" *ngIf="isSelectedUser">
+    <div class="col-md-8 articles-to-shown" *ngIf="isSelectedUser">
       <app-articles [username]="user.username"></app-articles>
     </div>
   </div>
