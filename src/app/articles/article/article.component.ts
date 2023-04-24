@@ -10,6 +10,7 @@ import {
 import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
 import { UsersService } from 'src/app/auth/users.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article',
@@ -31,7 +32,7 @@ export class ArticleComponent implements OnInit {
   isOwnArticle: boolean;
 
   editModeOn: boolean = false;
-/*   @Output() editModeChanged = new EventEmitter<boolean>(); */
+  /*   @Output() editModeChanged = new EventEmitter<boolean>(); */
   deleteConfirmOn: boolean = false;
 
   constructor(
@@ -42,8 +43,11 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {
-      this.isOwnArticle = this.article.author.username === userInfo.user.username;
+      this.isOwnArticle =
+        this.article.author.username === userInfo.user.username;
     });
+    console.log(this.article);
+        
   }
 
   toggleContent(): void {
@@ -75,7 +79,26 @@ export class ArticleComponent implements OnInit {
 
   toggleDeleteConfirm(deleteConfirm: boolean) {
     this.deleteConfirmOn = deleteConfirm;
-/*     this.editModeChanged.emit(this.editModeOn); */
+    /*     this.editModeChanged.emit(this.editModeOn); */
+  }
+
+  onUpdateArticle(articleData: Article) {
+    console.log(articleData);
+    this.articlesService
+      .updateArticle(
+        articleData.slug,
+        articleData.title,
+        articleData.description,
+        articleData.body,
+      )
+      .subscribe(
+        (response) => {
+          console.log(`Article ${articleData.slug} updated successfully`);
+        },
+        (error) => {
+          console.error('Error update article: ', error);
+        }
+      );
   }
 
   onGetUserInfo(username: string) {
@@ -134,6 +157,6 @@ export class ArticleComponent implements OnInit {
 
   onEditModeSwitch(editMode: boolean) {
     this.editModeOn = editMode;
-/*     this.editModeChanged.emit(this.editModeOn); */
+    /*     this.editModeChanged.emit(this.editModeOn); */
   }
 }

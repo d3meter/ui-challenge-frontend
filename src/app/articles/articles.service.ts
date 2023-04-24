@@ -56,11 +56,29 @@ export class ArticlesService {
       .pipe(catchError(this.handleError));
   }
 
+  updateArticle(slug: string, title: string, description: string, body: string) {
+    const articleData = {
+      slug: slug,
+      title: title,
+      description: description,
+      body: body,
+    };
+    console.log(articleData)
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    console.log(storedData.user.token);
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);    
+
+    return this.http.put(`http://localhost:3000/api/articles/${slug}`, articleData, {
+      headers: headers, 
+    });
+  }
+
   addArticleToFavorites(slug: string) {
     const storedData = JSON.parse(localStorage.getItem('userData'));
     const token = storedData.user.token;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
+    
     return this.http
       .post(
         `http://localhost:3000/api/articles/${slug}/favorite`,
@@ -72,7 +90,7 @@ export class ArticlesService {
       .pipe(
         tap((response: any) => {
           this.favoriteArticles.push(slug);
-          console.log(`Article ${slug} add to favorites successfully`);
+          console.log(`Article ${slug} add to favorites successfully`);       
         }),
         catchError(this.handleError)
       );

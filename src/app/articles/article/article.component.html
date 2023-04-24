@@ -1,130 +1,174 @@
 <div class="article" id="content">
-  <div class="confirm" *ngIf="deleteConfirmOn">
-    <h2>Are you sure you want to delete this article?</h2>
-    <hr />
-    <div class="confirm-buttons">
-      <button class="btn btn-danger"
-        (click)="onDeleteArticle(article.slug); toggleDeleteConfirm(false)"
-      >
-        Yes
-      </button>
-      <button class="btn btn-light" (click)="toggleDeleteConfirm(false)">No</button>
+  <form
+    #updateArticleForm="ngForm"
+    (ngSubmit)="onUpdateArticle(updateArticleForm.value)"
+  >
+    <div class="confirm" *ngIf="deleteConfirmOn">
+      <h2>Are you sure you want to delete this article?</h2>
+      <hr />
+      <div class="confirm-buttons">
+        <button
+          class="btn btn-danger"
+          (click)="onDeleteArticle(article.slug); toggleDeleteConfirm(false)"
+        >
+          Yes
+        </button>
+        <button class="btn btn-light" (click)="toggleDeleteConfirm(false)">
+          No
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="article-author">
-    <h3
-      class="clickable-content"
-      (click)="onGetUserInfo(article.author.username)"
-    >
-      {{ article.author.username }}
-    </h3>
-    <button
-      class="animated-button colored-button"
-      data-toggle="tooltip"
-      data-placement="right"
-      title="Follow user"
-      (click)="onFollowUser(article.author.username)"
-      *ngIf="!userIsFollowed && !isOwnArticle"
-    >
-      <img src="assets/imgs/follow.png" alt="follow" />
-    </button>
-    <button
-      class="animated-button colored-button marked"
-      data-toggle="tooltip"
-      data-placement="right"
-      title="Unfollow user"
-      (click)="onUnFollowUser(article.author.username)"
-      *ngIf="userIsFollowed && !isOwnArticle"
-    >
-      <img src="assets/imgs/follow.png" alt="follow" />
-    </button>
-  </div>
-  <p class="article-date">{{ article.created | dateFormat }}</p>
-  <hr />
-  <div
-    class="article-content-header clickable-content"
-    (click)="toggleContent(); scrollToContent()"
-    data-toggle="tooltip"
-    data-placement="bottom"
-    title="Click here to see more"
-  >
-    <h2>{{ article.title }}</h2>
-    <h6>{{ article.description }}</h6>
-  </div>
-  <p *ngIf="isSelected">{{ article.body }}</p>
-  <div class="article-tag-field">
-    <button class="tag-button">#tag1</button>
-    <button class="tag-button">#tag2</button>
-    <button class="tag-button">#longertag</button>
-    <button class="tag-button">#tagfornothing</button>
-  </div>
-  <a href="">
-    <p>3 comments</p>
-  </a>
-  <button
-    class="fav-button not-marked"
-    data-toggle="tooltip"
-    data-placement="right"
-    title="Article add to favorites"
-    (click)="onAddArticleToFavorites(article.slug)"
-    *ngIf="!articleIsFavorite && !isOwnArticle"
-  >
-    <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
-  </button>
-  <button
-    class="fav-button"
-    data-toggle="tooltip"
-    data-placement="right"
-    title="Article delete from favorites"
-    (click)="onRemoveArticleFromFavorites(article.slug)"
-    *ngIf="articleIsFavorite && !isOwnArticle"
-  >
-    <img src="assets/imgs/bookmark_filled.png" alt="remove from favorites" />
-  </button>
 
-  <div class="article-service-menu">
+    <div class="article-author">
+      <h3
+        class="clickable-content"
+        (click)="onGetUserInfo(article.author.username)"
+      >
+        {{ article.author.username }}
+      </h3>
+      <button
+        class="animated-button colored-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Follow user"
+        (click)="onFollowUser(article.author.username)"
+        *ngIf="!userIsFollowed && !isOwnArticle"
+      >
+        <img src="assets/imgs/follow.png" alt="follow" />
+      </button>
+      <button
+        class="animated-button colored-button marked"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Unfollow user"
+        (click)="onUnFollowUser(article.author.username)"
+        *ngIf="userIsFollowed && !isOwnArticle"
+      >
+        <img src="assets/imgs/follow.png" alt="follow" />
+      </button>
+    </div>
+    <p class="article-date">{{ article.created | dateFormat }}</p>
+    <hr />
+    <div
+      class="article-content-header clickable-content"
+      (click)="toggleContent(); scrollToContent()"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Click here to see more"
+    >
+      <h2 *ngIf="isOwnArticle && !editModeOn">
+        {{ article.title }}
+      </h2>
+      <h2 *ngIf="isOwnArticle && editModeOn">
+        <textarea
+          type="text"
+          name="title"
+          id="title"
+          rows="1"
+          [(ngModel)]="article.title"
+          ngModel
+        ></textarea>
+      </h2>
+      <input type="hidden" id="slug" name="slug" [ngModel]="article.slug" ngModel>
+      <h6 *ngIf="isOwnArticle && !editModeOn">
+        {{ article.description }}
+      </h6>
+      <h6 *ngIf="isOwnArticle && editModeOn">
+        <textarea
+          type="text"
+          name="description"
+          id="description"
+          rows="1"
+          [(ngModel)]="article.description"
+          ngModel
+        ></textarea>
+      </h6>
+    </div>
+    <p *ngIf="isSelected && isOwnArticle && !editModeOn">{{ article.body }}</p>
+    <p *ngIf="isOwnArticle && editModeOn">
+      <textarea
+        type="text"
+        name="body"
+        id="body"
+        rows="4"
+        [(ngModel)]="article.body"
+        ngModel
+      ></textarea>
+    </p>
+    <div class="article-tag-field">
+      <button class="tag-button">#tag1</button>
+      <button class="tag-button">#tag2</button>
+      <button class="tag-button">#longertag</button>
+      <button class="tag-button">#tagfornothing</button>
+    </div>
+    <a href="">
+      <p>3 comments</p>
+    </a>
     <button
-      class="animated-button"
+      class="fav-button not-marked"
       data-toggle="tooltip"
       data-placement="right"
-      title="Edit this article"
-      (click)="onEditModeSwitch(true); toggleContent()"
-      *ngIf="isOwnArticle && !editModeOn && !deleteConfirmOn"
+      title="Article add to favorites"
+      (click)="onAddArticleToFavorites(article.slug)"
+      *ngIf="!articleIsFavorite && !isOwnArticle"
     >
-      <img src="assets/imgs/edit-icon.png" alt="edit" />
+      <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
+    </button>
+    <button
+      class="fav-button"
+      data-toggle="tooltip"
+      data-placement="right"
+      title="Article delete from favorites"
+      (click)="onRemoveArticleFromFavorites(article.slug)"
+      *ngIf="articleIsFavorite && !isOwnArticle"
+    >
+      <img src="assets/imgs/bookmark_filled.png" alt="remove from favorites" />
     </button>
 
-    <button
-      class="animated-button"
-      data-toggle="tooltip"
-      data-placement="right"
-      title="Save changes"
-      (click)="onEditModeSwitch(false); toggleContent()"
-      *ngIf="isOwnArticle && editModeOn && !deleteConfirmOn"
-    >
-      <img src="assets/imgs/save.png" alt="save" />
-    </button>
+    <div class="article-service-menu">
+      <button
+        class="animated-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Edit this article"
+        (click)="onEditModeSwitch(true); toggleContent()"
+        *ngIf="isOwnArticle && !editModeOn && !deleteConfirmOn"
+      >
+        <img src="assets/imgs/edit-icon.png" alt="edit" />
+      </button>
 
-    <button
-      class="animated-button"
-      data-toggle="tooltip"
-      data-placement="right"
-      title="Discard changes"
-      (click)="onEditModeSwitch(false); toggleContent()"
-      *ngIf="isOwnArticle && editModeOn && !deleteConfirmOn"
-    >
-      <img src="assets/imgs/discard.png" alt="discard" />
-    </button>
+      <button
+        class="animated-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Save changes"
+        type="submit"
+        *ngIf="isOwnArticle && editModeOn && !deleteConfirmOn"
+      >
+        <img src="assets/imgs/save.png" alt="save" />
+      </button>
 
-    <button
-      class="animated-button"
-      data-toggle="tooltip"
-      data-placement="right"
-      title="Delete this article"
-      *ngIf="isOwnArticle && !deleteConfirmOn"
-      (click)="toggleDeleteConfirm(true)"
-    >
-      <img src="assets/imgs/delete.png" alt="delete" />
-    </button>
-  </div>
+      <button
+        class="animated-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Discard changes"
+        (click)="onEditModeSwitch(false); toggleContent()"
+        *ngIf="isOwnArticle && editModeOn && !deleteConfirmOn"
+      >
+        <img src="assets/imgs/discard.png" alt="discard" />
+      </button>
+
+      <button
+        class="animated-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Delete this article"
+        *ngIf="isOwnArticle && !deleteConfirmOn"
+        (click)="toggleDeleteConfirm(true)"
+      >
+        <img src="assets/imgs/delete.png" alt="delete" />
+      </button>
+    </div>
+  </form>
 </div>
