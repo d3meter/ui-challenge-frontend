@@ -56,7 +56,7 @@
       data-placement="bottom"
       title="Click here to see more"
     >
-      <h2 *ngIf="isOwnArticle && !editModeOn">
+      <h2 *ngIf="!editModeOn">
         {{ article.title }}
       </h2>
       <h2 *ngIf="isOwnArticle && editModeOn">
@@ -70,7 +70,7 @@
         ></textarea>
       </h2>
       <input type="hidden" id="slug" name="slug" [ngModel]="article.slug" ngModel>
-      <h6 *ngIf="isOwnArticle && !editModeOn">
+      <h6 *ngIf="!editModeOn">
         {{ article.description }}
       </h6>
       <h6 *ngIf="isOwnArticle && editModeOn">
@@ -84,7 +84,7 @@
         ></textarea>
       </h6>
     </div>
-    <p *ngIf="isSelected && isOwnArticle && !editModeOn">{{ article.body }}</p>
+    <p *ngIf="isSelected && !editModeOn">{{ article.body }}</p>
     <p *ngIf="isOwnArticle && editModeOn">
       <textarea
         type="text"
