@@ -30,6 +30,10 @@ export class ArticleComponent implements OnInit {
 
   isOwnArticle: boolean;
 
+  editModeOn: boolean = false;
+/*   @Output() editModeChanged = new EventEmitter<boolean>(); */
+  deleteConfirmOn: boolean = false;
+
   constructor(
     private articlesService: ArticlesService,
     private usersService: UsersService,
@@ -56,6 +60,22 @@ export class ArticleComponent implements OnInit {
     this.el.nativeElement
       .querySelector('#content')
       .scrollIntoView({ behavior: 'smooth' });
+  }
+
+  onDeleteArticle(slug: string) {
+    this.articlesService.deleteArticle(slug).subscribe(
+      (response) => {
+        console.log(`Article ${slug} deleted successfully`);
+      },
+      (error) => {
+        console.error('Error delete article: ', error);
+      }
+    );
+  }
+
+  toggleDeleteConfirm(deleteConfirm: boolean) {
+    this.deleteConfirmOn = deleteConfirm;
+/*     this.editModeChanged.emit(this.editModeOn); */
   }
 
   onGetUserInfo(username: string) {
@@ -110,5 +130,10 @@ export class ArticleComponent implements OnInit {
       }
     );
     this.articleIsFavorite = false;
+  }
+
+  onEditModeSwitch(editMode: boolean) {
+    this.editModeOn = editMode;
+/*     this.editModeChanged.emit(this.editModeOn); */
   }
 }

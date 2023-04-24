@@ -10,7 +10,7 @@ import { Subject, catchError, throwError, tap, map } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {
   errorMessage = new Subject<string>();
-  private favoriteArticles: string [] = [];
+  private favoriteArticles: string[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -44,6 +44,18 @@ export class ArticlesService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteArticle(slug: string) {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData.user.token;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http
+      .delete(`http://localhost:3000/api/articles/${slug}`, {
+        headers: headers,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
   addArticleToFavorites(slug: string) {
     const storedData = JSON.parse(localStorage.getItem('userData'));
     const token = storedData.user.token;
@@ -62,7 +74,8 @@ export class ArticlesService {
           this.favoriteArticles.push(slug);
           console.log(`Article ${slug} add to favorites successfully`);
         }),
-        catchError(this.handleError));
+        catchError(this.handleError)
+      );
   }
 
   removeArticleFromFavorites(slug: string) {
@@ -71,21 +84,19 @@ export class ArticlesService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http
-    .delete(
-      `http://localhost:3000/api/articles/${slug}/favorite`,
-      {
+      .delete(`http://localhost:3000/api/articles/${slug}/favorite`, {
         headers: headers,
-      }
-    )
-    .pipe(
-      tap((response: any) => {
-        const index = this.favoriteArticles.indexOf(slug);
-        if (index !== -1) {
-          this.favoriteArticles.splice(index, 1);
-        }
-        console.log(`Article ${slug} removed from favorites successfully`);
-      }),
-      catchError(this.handleError));
+      })
+      .pipe(
+        tap((response: any) => {
+          const index = this.favoriteArticles.indexOf(slug);
+          if (index !== -1) {
+            this.favoriteArticles.splice(index, 1);
+          }
+          console.log(`Article ${slug} removed from favorites successfully`);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   getFavoriteArticles(): string[] {
