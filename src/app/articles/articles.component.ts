@@ -46,7 +46,9 @@ export class ArticlesComponent implements OnInit {
           article.userIsFollowed = this.followedUsers.includes(
             article.author.username
           );
-          article.articleIsFavorite = this.favoriteArticles.includes(article.slug);
+          article.articleIsFavorite = this.favoriteArticles.includes(
+            article.slug
+          );
         }
         this.articlesLength = this.articles.length;
       },
@@ -55,7 +57,6 @@ export class ArticlesComponent implements OnInit {
       }
     );
   }
-  
 
   onArticleSelected(article: Article): void {
     if (this.selectedArticle === article) {

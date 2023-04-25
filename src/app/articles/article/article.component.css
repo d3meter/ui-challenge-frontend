@@ -120,19 +120,31 @@
   margin-left: -14px;
   padding-bottom: 6px;
 }
-.article .comment-field .comment-element-title {
+.article .comment-field .comment-element-header {
   display: flex;
   align-items: flex-end;
   padding-top: 8px;
   padding-bottom: 4px;
 }
-.article .comment-field .comment-element-title h6, .article .comment-field .comment-element-title p {
+.article .comment-field .comment-element-header h6,
+.article .comment-field .comment-element-header p {
   margin: 0;
   padding: 0;
   line-height: 1;
 }
-.article .comment-field .comment-element-title p {
+.article .comment-field .comment-element-header p {
   font-size: 14px;
+}
+.article .comment-field .comment-element-header .animated-button {
+  height: 16px;
+  width: auto;
+  display: none;
+}
+.article .comment-field .comment-element-header .animated-button img {
+  height: 100%;
+}
+.article .comment-field .comment-element-header:hover .animated-button {
+  display: flex;
 }
 .article .comment-field p {
   padding-left: 24px;

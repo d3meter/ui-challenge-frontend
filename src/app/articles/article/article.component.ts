@@ -36,6 +36,7 @@ export class ArticleComponent implements OnInit {
 
   comments: Comment[];
   newComment: string;
+  userData: any;
 
   constructor(
     private articlesService: ArticlesService,
@@ -46,7 +47,7 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {
       this.isOwnArticle =
-        this.article.author.username === userInfo.user.username;
+        this.article.author.username === userInfo.user.username;      
     });
 
     this.articlesService.getComments(this.article.slug).subscribe(
@@ -57,7 +58,9 @@ export class ArticleComponent implements OnInit {
         console.error('Error getting comments: ', error);
       }
     );
-    
+
+    const userDataString = localStorage.getItem('userData');
+    this.userData = JSON.parse(userDataString).user;
   }
 
   toggleContent(): void {
@@ -174,11 +177,21 @@ export class ArticleComponent implements OnInit {
     this.articlesService.createComment(slug, body).subscribe(
       (response) => {
         console.log(`Comment submitted to article: ${slug}`);
-        console.log(response);
         this.newComment = '';
       },
       (error) => {
         console.error('Error submit comment: ', error);
+      }
+    );
+  }
+
+  onDeleteComment(slug: string, id: number) {
+    this.articlesService.deleteComment(slug, id).subscribe(
+      (response) => {
+        console.log(`Comment deleted successfully at ${slug}`);
+      },
+      (error) => {
+        console.error('Error delete comment:', error);
       }
     );
   }

@@ -18,7 +18,7 @@
         </button>
       </div>
     </div>
-
+    <p>{{userData.username}}</p>
     <div class="article-author">
       <h3>
         {{ article.author.username }}
@@ -156,9 +156,16 @@
   <div class="comment-field" *ngIf="isSelected">
     <h5>Comments:</h5>
     <div class="comment-element" *ngFor="let comment of comments">
-      <div class="comment-element-title">
+      <div class="comment-element-header">
         <h6>• {{ comment.author.username }}</h6>
         <p class="comment-date">, {{ comment.created | dateFormat }}</p>
+        <button
+          class="animated-button"
+          (click)="onDeleteComment(article.slug, comment.id)"
+          *ngIf="isOwnArticle || comment.author.username === userData.username"
+        >
+          <img src="assets/imgs/delete2.png" alt="delete comment" />
+        </button>
       </div>
       <p>{{ comment.body }}</p>
     </div>

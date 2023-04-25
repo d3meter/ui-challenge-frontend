@@ -118,18 +118,32 @@
       margin-left: -14px;
       padding-bottom: 6px;
     }
-    .comment-element-title {
+    .comment-element-header {
       display: flex;
       align-items: flex-end;
       padding-top: 8px;
       padding-bottom: 4px;
-      h6, p {
+      h6,
+      p {
         margin: 0;
         padding: 0;
         line-height: 1;
       }
       p {
         font-size: 14px;
+      }
+      .animated-button {
+        height: 16px;
+        width: auto;
+        display: none;
+        img {
+          height: 100%;
+        }
+      }
+    }
+    .comment-element-header:hover {
+      .animated-button {
+        display: flex;
       }
     }
     p {
