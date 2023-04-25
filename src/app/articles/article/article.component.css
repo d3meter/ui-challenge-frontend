@@ -59,18 +59,14 @@
   display: none;
 }
 .article .article-tag-field {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
-.article .article-tag-field button {
-  background-color: transparent;
-  border: 0;
-  margin: 0;
+.article .article-tag-field span {
+  width: 100%;
   padding-inline: 6px;
   filter: opacity(0.7);
-}
-.article .article-tag-field button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
 }
 .article .fav-button {
   width: 55px;

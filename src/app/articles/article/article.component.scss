@@ -58,17 +58,13 @@
     display: none;
   }
   .article-tag-field {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    button {
-      background-color: transparent;
-      border: 0;
-      margin: 0;
+    span {
+      width: 100%;
       padding-inline: 6px;
       filter: opacity(0.7);
-    }
-    button:hover {
-      background-color: rgba(0, 0, 0, 0.1);
     }
   }
   .fav-button {

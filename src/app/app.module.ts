@@ -16,6 +16,7 @@ import { DateFormatPipe } from './articles/pipes/date-format.pipe';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
 import { FavoritesComponent } from './articles/favorites/favorites.component';
+import { TaglistFormatPipe } from './articles/pipes/taglist-format.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FavoritesComponent } from './articles/favorites/favorites.component';
     UsersComponent,
     UserComponent,
     FavoritesComponent,
+    TaglistFormatPipe,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [],

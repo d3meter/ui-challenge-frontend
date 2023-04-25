@@ -4,7 +4,7 @@
     <form
       class="col-sm-9"
       #createArticleForm="ngForm"
-      (ngSubmit)="onCreateArticle(createArticleForm.value, createArticleForm)"
+      (ngSubmit)="onSubmit(createArticleForm, tagListInput)"
     >
       <div class="row pb-4 justify-content-center">
         <div class="form-group py-sm-1 mb-0">
@@ -57,7 +57,8 @@
             name="tagList"
             type="text"
             class="form-control"
-            ngModel
+            #tagListInput="ngModel"
+            [(ngModel)]="tagList"
           ></textarea>
         </div>
       </div>

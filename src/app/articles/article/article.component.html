@@ -100,10 +100,17 @@
       ></textarea>
     </p>
     <div class="article-tag-field">
-      <button class="tag-button">#tag1</button>
-      <button class="tag-button">#tag2</button>
-      <button class="tag-button">#longertag</button>
-      <button class="tag-button">#tagfornothing</button>
+      <span *ngIf="isSelected && !editModeOn">{{ article.tagList | taglistFormat }}</span>
+      <span *ngIf="isOwnArticle && editModeOn">
+        <textarea
+        type="text"
+        name="tagList"
+        id="tagList"
+        rows="1"
+        [(ngModel)]="article.tagList"
+        ngModel
+      ></textarea>
+      </span>
     </div>
     <div class="article-service-menu">
       <button

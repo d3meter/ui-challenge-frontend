@@ -3,7 +3,7 @@ export interface Article {
   description: string;
   body: string;
   slug?: string;
-  tagList?: [string];
+  tagList?: string[];
   author?: {
     username: string;
   };

@@ -41,11 +41,12 @@ export class ArticlesService {
       );
   }
 
-  createArticle(title: string, body: string, description: string) {
+  createArticle(title: string, body: string, description: string, tagList: string[]) {
     const articleData: Article = {
       title: title,
       description: description,
       body: body,
+      tagList: tagList
     };
     return this.http
       .post('http://localhost:3000/api/articles', articleData, {
