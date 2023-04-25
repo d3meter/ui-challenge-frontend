@@ -15,12 +15,11 @@ export class CreateArticleComponent implements OnInit {
   tagList: string[];
 
   constructor(
-    private http: HttpClient,
     private articlesService: ArticlesService
   ) {}
 
   onSubmit(createArticleForm: NgForm, tagListInput: HTMLTextAreaElement) {
-    const formattedTagList = this.taglistFormat(tagListInput.value);
+    const formattedTagList = this.tagListFormat(tagListInput.value);
     this.onCreateArticle(
       createArticleForm.value,
       formattedTagList,
@@ -28,14 +27,14 @@ export class CreateArticleComponent implements OnInit {
     );
   }
 
-  taglistFormat(value: string): string[] {
-    const filterValue = value
+  tagListFormat(value: string): string[] {
+    const formatValue = value
       .replace(/[,.*+?^${}()|[\]\\]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
-    const arrayFrom = filterValue.split(' ');
+    const arrayFormated = formatValue.split(' ');
 
-    return arrayFrom;
+    return arrayFormated;
   }
 
   onCreateArticle(

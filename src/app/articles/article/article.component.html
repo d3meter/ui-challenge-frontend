@@ -1,7 +1,7 @@
 <div class="article" id="content">
   <form
     #updateArticleForm="ngForm"
-    (ngSubmit)="onUpdateArticle(updateArticleForm.value)"
+    (ngSubmit)="onSubmit(updateArticleForm, tagListOutput)"
   >
     <div class="confirm" *ngIf="deleteConfirmOn">
       <h2>Are you sure you want to delete this article?</h2>
@@ -99,19 +99,20 @@
         ngModel
       ></textarea>
     </p>
-    <div class="article-tag-field">
-      <span *ngIf="isSelected && !editModeOn">{{ article.tagList | taglistFormat }}</span>
-      <span *ngIf="isOwnArticle && editModeOn">
-        <textarea
+    <div class="article-tag-field" *ngIf="isSelected && !editModeOn">
+      <span>{{ article.tagList | taglistFormat }}</span>
+    </div>
+<!--     <div class="article-tag-field" *ngIf="isOwnArticle && editModeOn"> -->
+      <textarea
         type="text"
         name="tagList"
         id="tagList"
         rows="1"
+        class="form-control"
+        #tagListOutput="ngModel"
         [(ngModel)]="article.tagList"
-        ngModel
       ></textarea>
-      </span>
-    </div>
+<!--     </div> -->
     <div class="article-service-menu">
       <button
         class="animated-button"
@@ -169,6 +170,9 @@
           class="animated-button"
           (click)="onDeleteComment(article.slug, comment.id)"
           *ngIf="isOwnArticle || comment.author.username === userData.username"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Delete comment"
         >
           <img src="assets/imgs/delete2.png" alt="delete comment" />
         </button>
@@ -181,11 +185,22 @@
       rows="2"
       [(ngModel)]="newComment"
     ></textarea>
-    <button type="button" (click)="onCreateComment(article.slug, newComment)">
+    <button
+      type="button"
+      (click)="onCreateComment(article.slug, newComment)"
+      [disabled]="!newComment"
+    >
       Add comment
     </button>
   </div>
-  <div *ngIf="comments.length === 0 && !isSelected">
+  <div
+    *ngIf="comments.length === 0 && !isSelected"
+    class="article-content-header clickable-content"
+    (click)="toggleContent(); scrollToContent()"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    title="Click here to see more"
+  >
     <p>no comment yet</p>
   </div>
   <div

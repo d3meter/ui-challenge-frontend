@@ -10,6 +10,7 @@ import {
 import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
 import { UsersService } from 'src/app/auth/users.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-article',
@@ -37,6 +38,8 @@ export class ArticleComponent implements OnInit {
   comments: Comment[];
   newComment: string;
   userData: any;
+  tagList: string[];
+  tagListOutput: string;
 
   constructor(
     private articlesService: ArticlesService,
@@ -95,13 +98,30 @@ export class ArticleComponent implements OnInit {
     /*     this.editModeChanged.emit(this.editModeOn); */
   }
 
-  onUpdateArticle(articleData: Article) {
+  onSubmit(updateArticleForm: NgForm, tagListOutput: HTMLTextAreaElement) {
+    const formattedTagList = this.tagListFormat(tagListOutput.value);
+    this.onUpdateArticle(
+      updateArticleForm.value,
+      formattedTagList,
+      updateArticleForm
+    );
+  }
+
+  tagListFormat(value: string): string[] {
+    const formatValue = value.replace(/[,.*+?^${}();:_|/[\]\\]/g, ' ').replace(/\s+/g, ' ').trim();
+    const arrayFormated = formatValue.split(' ');
+
+    return arrayFormated;
+  }
+
+  onUpdateArticle(articleData: Article, tagList: string[], updateArticleForm: NgForm) {
     this.articlesService
       .updateArticle(
         articleData.slug,
         articleData.title,
         articleData.description,
-        articleData.body
+        articleData.body,
+        tagList
       )
       .subscribe(
         (response) => {

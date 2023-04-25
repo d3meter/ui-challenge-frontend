@@ -67,13 +67,15 @@ export class ArticlesService {
     slug: string,
     title: string,
     description: string,
-    body: string
+    body: string,
+    tagList: string[]
   ) {
     const articleData = {
       slug: slug,
       title: title,
       description: description,
       body: body,
+      tagList: tagList,
     };
     return this.http.put(
       `http://localhost:3000/api/articles/${slug}`,
