@@ -5,6 +5,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Article } from './article.model';
+import { UsersService } from '../auth/users.service';
 import { Subject, catchError, throwError, tap, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -12,15 +13,27 @@ export class ArticlesService {
   errorMessage = new Subject<string>();
   private favoriteArticles: string[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UsersService) {}
+
+  headers = this.userService.getAuthHeaders();
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
 
   getArticles() {
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    const token = storedData.user.token;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http
       .get<any>('http://localhost:3000/api/articles', {
-        headers,
+        headers: this.headers,
       })
       .pipe(
         catchError(this.handleError),
@@ -34,76 +47,64 @@ export class ArticlesService {
       description: description,
       body: body,
     };
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    const token = storedData.user.token;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http
       .post('http://localhost:3000/api/articles', articleData, {
-        headers: headers,
+        headers: this.headers,
       })
       .pipe(catchError(this.handleError));
   }
 
   deleteArticle(slug: string) {
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    const token = storedData.user.token;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     return this.http
       .delete(`http://localhost:3000/api/articles/${slug}`, {
-        headers: headers,
+        headers: this.headers,
       })
       .pipe(catchError(this.handleError));
   }
 
-  updateArticle(slug: string, title: string, description: string, body: string) {
+  updateArticle(
+    slug: string,
+    title: string,
+    description: string,
+    body: string
+  ) {
     const articleData = {
       slug: slug,
       title: title,
       description: description,
       body: body,
     };
-    console.log(articleData)
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    console.log(storedData.user.token);
-    const token = storedData.user.token;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);    
-
-    return this.http.put(`http://localhost:3000/api/articles/${slug}`, articleData, {
-      headers: headers, 
-    });
+    return this.http.put(
+      `http://localhost:3000/api/articles/${slug}`,
+      articleData,
+      {
+        headers: this.headers,
+      }
+    );
   }
 
   addArticleToFavorites(slug: string) {
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    const token = storedData.user.token;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
     return this.http
       .post(
         `http://localhost:3000/api/articles/${slug}/favorite`,
         {},
         {
-          headers: headers,
+          headers: this.headers,
         }
       )
       .pipe(
         tap((response: any) => {
           this.favoriteArticles.push(slug);
-          console.log(`Article ${slug} add to favorites successfully`);       
+          console.log(`Article ${slug} add to favorites successfully`);
         }),
         catchError(this.handleError)
       );
   }
 
   removeArticleFromFavorites(slug: string) {
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    const token = storedData.user.token;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     return this.http
       .delete(`http://localhost:3000/api/articles/${slug}/favorite`, {
-        headers: headers,
+        headers: this.headers,
       })
       .pipe(
         tap((response: any) => {
@@ -119,18 +120,5 @@ export class ArticlesService {
 
   getFavoriteArticles(): string[] {
     return this.favoriteArticles;
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.error(errorMessage);
-    return throwError(errorMessage);
   }
 }
