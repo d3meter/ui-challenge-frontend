@@ -50,7 +50,7 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {
       this.isOwnArticle =
-        this.article.author.username === userInfo.user.username;      
+        this.article.author.username === userInfo.user.username;
     });
 
     this.articlesService.getComments(this.article.slug).subscribe(
@@ -108,13 +108,24 @@ export class ArticleComponent implements OnInit {
   }
 
   tagListFormat(value: string): string[] {
-    const formatValue = value.replace(/[,.*+?^${}();:_|/[\]\\]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (typeof value !== 'string') {
+      return [];
+    }
+    const formatValue = value
+      .toLowerCase()
+      .replace(/[,.*+?^${}();:_|/[\]\\]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
     const arrayFormated = formatValue.split(' ');
 
     return arrayFormated;
   }
 
-  onUpdateArticle(articleData: Article, tagList: string[], updateArticleForm: NgForm) {
+  onUpdateArticle(
+    articleData: Article,
+    tagList: string[],
+    updateArticleForm: NgForm
+  ) {
     this.articlesService
       .updateArticle(
         articleData.slug,

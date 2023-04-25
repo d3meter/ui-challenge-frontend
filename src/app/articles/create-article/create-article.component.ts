@@ -14,9 +14,7 @@ export class CreateArticleComponent implements OnInit {
   errorMessage: string;
   tagList: string[];
 
-  constructor(
-    private articlesService: ArticlesService
-  ) {}
+  constructor(private articlesService: ArticlesService) {}
 
   onSubmit(createArticleForm: NgForm, tagListInput: HTMLTextAreaElement) {
     const formattedTagList = this.tagListFormat(tagListInput.value);
@@ -29,6 +27,7 @@ export class CreateArticleComponent implements OnInit {
 
   tagListFormat(value: string): string[] {
     const formatValue = value
+      .toLowerCase()
       .replace(/[,.*+?^${}()|[\]\\]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();

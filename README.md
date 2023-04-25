@@ -16,7 +16,7 @@ Features:
  - [x] Show your user profile
  - [x] Edit your user profile
  - [x] List/Delete User* (not yourself)
- - [ ] List/Create/Update/Delete Articles
+ - [x] List/Create/Update/Delete Articles
  *Delete user function works only with "Superuser"!
 
 Technology:
