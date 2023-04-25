@@ -2,13 +2,16 @@
   <div class="header container">
     <div class="header-left">
       <button
+        *ngIf="isLoggedIn"
         (click)="onSelect('articles')"
         class="colored-button animated-button"
-        data-toggle="tooltip" data-placement="bottom" title="Home"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Home"
       >
         <img src="assets/imgs/home.webp" alt="home" />
       </button>
-      <div class="search-field">
+      <div *ngIf="isLoggedIn" class="search-field">
         <button data-toggle="tooltip" data-placement="bottom" title="Search">
           <i class="fa fa-search"></i>
         </button>
@@ -33,23 +36,53 @@
         </button>
       </div>
       <div class="button-field nav-icons" *ngIf="isLoggedIn">
-        <button (click)="onSelect('profile')" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="My profile">
+        <button
+          (click)="onSelect('profile')"
+          class="animated-button"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="My profile"
+        >
           <img src="assets/imgs/menu_items/myProfile.png" alt="my profile" />
         </button>
-        <button (click)="onSelect('users')" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="List of Users">
+        <button
+          (click)="onSelect('users')"
+          class="animated-button"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="List of Users"
+        >
           <img src="assets/imgs/menu_items/users.png" alt="users" />
         </button>
-        <button (click)="onSelect('favorites')" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="Favorites">
+        <button
+          (click)="onSelect('favorites')"
+          class="animated-button"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Favorites"
+        >
           <img src="assets/imgs/menu_items/myFavIcon.png" alt="favorites" />
         </button>
-        <button (click)="onSelect('create-article')" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="Create article">
+        <button
+          (click)="onSelect('create-article')"
+          class="animated-button"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Create article"
+        >
           <img
             class="invert"
             src="assets/imgs/menu_items/addArticle.png"
             alt="add article"
           />
         </button>
-        <button (click)="onLogout()" class="animated-button" data-toggle="tooltip" data-placement="bottom" title="Log out">
+        <button
+          (click)="onLogout()"
+          class="animated-button"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Log out"
+        >
           <img src="assets/imgs/menu_items/logOut.png" alt="log out" />
         </button>
         <!-- <p class="user-info">{{ userData.email }}</p> -->

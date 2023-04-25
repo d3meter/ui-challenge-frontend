@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../auth/user.model';
 import { UsersService } from '../auth/users.service';
@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   private isLoggedInSub: Subscription;
   error: string = null;
   private errorSub: Subscription;
+  @Output() pageLoaded = new EventEmitter<string>();
+  loadedPage: string;
 
   constructor(private http: HttpClient, private usersService: UsersService) {}
 
@@ -41,6 +43,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.usersService.setLoggedIn(true);
         this.isLoggedIn = true;
         localStorage.setItem('userData', JSON.stringify(resData));
+        this.loadedPage = 'articles'
+        setTimeout(() => {
+          this.pageLoaded.emit(this.loadedPage);
+        }, 2000);
       },
       (error) => {
         if (error.error && error.error.errors && error.error.errors.User) {

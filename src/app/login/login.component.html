@@ -1,23 +1,69 @@
-<h1 class="page-title">Login</h1>
-<div class="registration container pb-5">
-  <div class="row justify-content-center">
-    <form class="col-md-4" #loginForm="ngForm" (ngSubmit)="onLogIn(loginForm.value, loginForm)">
+<div class="container d-flex justify-content-center align-items-center vh-100" *ngIf="isLoggedIn">
+  <div class="row">
+    <h1 class="text-center mb-5">
+      Great! You are logged in.
+    </h1>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      *ngIf="isLoggedIn"
+    >
+      <img
+        class="row img-fluid"
+        src="assets/imgs/loadingClock.gif"
+        alt="loading..."
+      />
+    </div>
+  </div>
+</div>
+
+<h1 class="page-title" *ngIf="!isLoggedIn">Login</h1>
+<div class="row justify-content-center">
+  <div
+    class="d-flex justify-content-center align-items-center h-100 container pb-5"
+  >
+    <form
+      class="col-md-4"
+      #loginForm="ngForm"
+      (ngSubmit)="onLogIn(loginForm.value, loginForm)"
+      *ngIf="!isLoggedIn"
+    >
       <div class="form-group py-sm-1 mb-0">
         <label for="email" class="col-sm-4 col-form-label">Email:</label>
-        <input id="email" name="email" type="text" class="form-control" ngModel required email/>
+        <input
+          id="email"
+          name="email"
+          type="text"
+          class="form-control"
+          ngModel
+          required
+          email
+        />
       </div>
       <div class="form-group py-sm-1 mb-0">
         <label for="password" class="col-sm-4 col-form-label">Password:</label>
-        <input id="password" name="password" type="password" class="form-control" ngModel required/>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          class="form-control"
+          ngModel
+          required
+        />
       </div>
       <hr />
       <div class="col-xs-4 text-center">
-        <button *ngIf="!isLoggedIn" style="height: 50px" class="col-sm-12" type="submit" [disabled]="!loginForm.valid">
+        <button
+          *ngIf="!isLoggedIn"
+          style="height: 50px"
+          class="col-sm-12"
+          type="submit"
+          [disabled]="!loginForm.valid"
+        >
           <h4>Log in</h4>
         </button>
-        <button *ngIf="isLoggedIn" style="height: 50px" class="col-sm-12" (click)="onLogout()">
-          <h4>Log out</h4>
-        </button>
+        <!--           <button *ngIf="isLoggedIn" style="height: 50px" class="col-sm-12" disabled>
+            <h4>DONE!</h4>
+          </button> -->
       </div>
     </form>
   </div>

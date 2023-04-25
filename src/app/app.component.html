@@ -1,7 +1,15 @@
 <app-header (pageToDisplaySelected)="onNavigate($event)"></app-header>
-<h1 *ngIf="loadedPage === 'articles'" class="page-title">Welcome here!</h1>
+<div class="container" *ngIf="!loadedPage">
+  <h1 class="page-title">Welcome here!</h1>
+  <hr>
+  <br>
+  <h4 class="text-center">You need to login first to be able to see, post, comment articles and follow users.</h4>
+  <br>
+  <p class="text-center">If you have not registered yet, you can find a link to the registration form in the header on the top.</p>
+</div>
 <div class="container">
   <div class="row" *ngIf="loadedPage === 'articles'">
+    <h1 class="page-title">Articles</h1>
     <div class="col-md-12">
       <app-articles [username]="null"></app-articles>
     </div>
@@ -10,13 +18,13 @@
     <app-registration></app-registration>
   </div>
   <div class="row" *ngIf="loadedPage === 'login'">
-    <app-login></app-login>
+    <app-login (pageLoaded)="onNavigate($event)"></app-login>
   </div>
   <div class="row" *ngIf="loadedPage === 'profile'">
     <app-profile></app-profile>
   </div>
   <div class="row" *ngIf="loadedPage === 'users'">
-   <app-users></app-users>
+    <app-users></app-users>
   </div>
   <div class="row" *ngIf="loadedPage === 'favorites'">
     <app-favorites></app-favorites>
