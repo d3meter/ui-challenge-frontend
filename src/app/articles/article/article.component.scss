@@ -1,5 +1,6 @@
 .article {
-  textarea, input {
+  textarea,
+  input {
     width: 100%;
     height: auto;
     background-color: rgba(255, 255, 255, 0.3);
@@ -34,7 +35,6 @@
     .marked {
       background-color: #d66361;
       transform: scale(1.2);
-
     }
     .marked:hover {
       background-color: #d663616b;
@@ -50,6 +50,9 @@
     max-width: 400px;
     margin-inline: 0;
     margin-top: 0;
+  }
+  .article-text {
+    padding: 20px;
   }
   .hidden {
     display: none;
@@ -107,5 +110,34 @@
     top: 0;
     right: 0;
     gap: 5px;
+  }
+  .comment-field {
+    padding-top: 14px;
+    padding-inline: 40px;
+    h5 {
+      margin-left: -14px;
+      padding-bottom: 6px;
+    }
+    .comment-element-title {
+      display: flex;
+      align-items: flex-end;
+      padding-top: 8px;
+      padding-bottom: 4px;
+      h6, p {
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+    p {
+      padding-left: 24px;
+    }
+    textarea {
+      margin-top: 14px;
+      margin-bottom: 4px;
+    }
   }
 }

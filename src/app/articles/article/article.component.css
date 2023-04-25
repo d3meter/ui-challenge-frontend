@@ -9,7 +9,8 @@
   border: 3px black solid;
   position: relative;
 }
-.article textarea, .article input {
+.article textarea,
+.article input {
   width: 100%;
   height: auto;
   background-color: rgba(255, 255, 255, 0.3);
@@ -50,6 +51,9 @@
   max-width: 400px;
   margin-inline: 0;
   margin-top: 0;
+}
+.article .article-text {
+  padding: 20px;
 }
 .article .hidden {
   display: none;
@@ -107,4 +111,33 @@
   top: 0;
   right: 0;
   gap: 5px;
+}
+.article .comment-field {
+  padding-top: 14px;
+  padding-inline: 40px;
+}
+.article .comment-field h5 {
+  margin-left: -14px;
+  padding-bottom: 6px;
+}
+.article .comment-field .comment-element-title {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 8px;
+  padding-bottom: 4px;
+}
+.article .comment-field .comment-element-title h6, .article .comment-field .comment-element-title p {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+.article .comment-field .comment-element-title p {
+  font-size: 14px;
+}
+.article .comment-field p {
+  padding-left: 24px;
+}
+.article .comment-field textarea {
+  margin-top: 14px;
+  margin-bottom: 4px;
 }/*# sourceMappingURL=article.component.css.map */

@@ -10,7 +10,6 @@ import {
 import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
 import { UsersService } from 'src/app/auth/users.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article',
@@ -35,6 +34,9 @@ export class ArticleComponent implements OnInit {
   /*   @Output() editModeChanged = new EventEmitter<boolean>(); */
   deleteConfirmOn: boolean = false;
 
+  comments: Comment[];
+  newComment: string;
+
   constructor(
     private articlesService: ArticlesService,
     private usersService: UsersService,
@@ -46,8 +48,16 @@ export class ArticleComponent implements OnInit {
       this.isOwnArticle =
         this.article.author.username === userInfo.user.username;
     });
-    console.log(this.article);
-        
+
+    this.articlesService.getComments(this.article.slug).subscribe(
+      (response) => {
+        this.comments = response;
+      },
+      (error) => {
+        console.error('Error getting comments: ', error);
+      }
+    );
+    
   }
 
   toggleContent(): void {
@@ -83,13 +93,12 @@ export class ArticleComponent implements OnInit {
   }
 
   onUpdateArticle(articleData: Article) {
-    console.log(articleData);
     this.articlesService
       .updateArticle(
         articleData.slug,
         articleData.title,
         articleData.description,
-        articleData.body,
+        articleData.body
       )
       .subscribe(
         (response) => {
@@ -158,5 +167,19 @@ export class ArticleComponent implements OnInit {
   onEditModeSwitch(editMode: boolean) {
     this.editModeOn = editMode;
     /*     this.editModeChanged.emit(this.editModeOn); */
+  }
+
+  onCreateComment(slug: string, body: string) {
+    body = this.newComment;
+    this.articlesService.createComment(slug, body).subscribe(
+      (response) => {
+        console.log(`Comment submitted to article: ${slug}`);
+        console.log(response);
+        this.newComment = '';
+      },
+      (error) => {
+        console.error('Error submit comment: ', error);
+      }
+    );
   }
 }

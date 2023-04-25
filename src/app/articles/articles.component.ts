@@ -13,7 +13,7 @@ export class ArticlesComponent implements OnInit {
   @Input() onlyFavorites: boolean = false;
   @ViewChild('articleList', { static: false }) articleList: ElementRef;
 
-  articles: Article[];
+  articles: Article[] = [];
   selectedArticle: Article = null;
   displayValue = 'none';
   followedUsers: string[] = [];
@@ -24,31 +24,6 @@ export class ArticlesComponent implements OnInit {
     private articlesService: ArticlesService,
     private usersService: UsersService
   ) {}
-
-/*   ngOnInit() {
-    this.articlesService.getArticles().subscribe(
-      (response) => {
-        if (this.username === null) {
-          this.articles = response;
-        } else {
-          this.articles = response.filter(
-            (article) => article.author.username === this.username
-          );
-        }
-        this.followedUsers = this.usersService.getFollowedUsers();
-        this.favoriteArticles = this.articlesService.getFavoriteArticles();
-        for (let article of this.articles) {
-          article.userIsFollowed = this.followedUsers.includes(
-            article.author.username
-          );
-          article.articleIsFavorite = this.favoriteArticles.includes(article.slug)
-        }
-      },
-      (error: string) => {
-        this.articlesService.errorMessage.next(error);
-      }
-    );
-  } */
 
   ngOnInit() {
     this.articlesService.getArticles().subscribe(

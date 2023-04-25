@@ -121,4 +121,35 @@ export class ArticlesService {
   getFavoriteArticles(): string[] {
     return this.favoriteArticles;
   }
+
+  getComments(slug: string) {
+    return this.http
+      .get<any>(`http://localhost:3000/api/articles/${slug}/comments`, {
+        headers: this.headers,
+      })
+      .pipe(
+        catchError(this.handleError),
+        map((response) => response.comments)
+      );
+  }
+
+  createComment(slug: string, body: string) {
+    return this.http
+      .post<any>(
+        `http://localhost:3000/api/articles/${slug}/comments`,
+        { body },
+        {
+          headers: this.headers,
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteComment(slug: string, id: number) {
+    return this.http
+      .delete(`http://localhost:3000/api/articles/${slug}/comments/${id}`, {
+        headers: this.headers,
+      })
+      .pipe(catchError(this.handleError));
+  }
 }
