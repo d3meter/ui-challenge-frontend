@@ -41,9 +41,23 @@
   background-color: transparent;
   transition: 0.3s ease-in-out;
 }
+.navbar .header .header-left .search-field input:focus,
+.navbar .header .header-left .search-field input:valid {
+  width: 100%;
+  transition: 0.3s ease-in-out;
+}
 .navbar .header .header-left .search-field input:focus {
   width: 100%;
   transition: 0.3s ease-in-out;
+}
+.navbar .header .header-left .search-field input:not(:focus) {
+  width: 40%;
+}
+.navbar .header .header-left .search-field input:not(:focus):not(:-moz-placeholder-shown) {
+  width: 100%;
+}
+.navbar .header .header-left .search-field input:not(:focus):not(:placeholder-shown) {
+  width: 100%;
 }
 .navbar .header .header-left .search-field .form-control:focus {
   border-color: black;
@@ -61,12 +75,12 @@
   align-items: center;
   position: relative;
   /*       .user-info {
-          position: absolute;
-          right: 0;
-          bottom: -15px;
-          filter: opacity(0.6);
-          cursor: default;
-        } */
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+    filter: opacity(0.6);
+    cursor: default;
+  } */
 }
 .navbar .header .header-right .button-field {
   display: flex;

@@ -1,25 +1,113 @@
 <h1 class="page-title">My profile and articles</h1>
-<div class="row gx-md-5">
-  <form #updateForm="ngForm" (ngSubmit)="onUpdateUser(updateForm.value)" class="col-md-4">
-    <button type="submit" class="btn btn-light">
-      Save</button>
-    <div class="row">
+<div class="row gx-md-5 position-relative">
+  <div class="col-md-4" *ngIf="!editModeOn">
+    <div class="row pb-3 article-service-menu" *ngIf="!editModeOn">
+      <button
+        class="animated-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Edit my profile"
+        (click)="onEditModeSwitch(true)"
+      >
+        <img src="assets/imgs/edit-icon.png" alt="edit" />
+      </button>
+    </div>
+
+    <div class="row pb-3">
       <p>Name:</p>
       <h4>{{ userData.username }}</h4>
-      <input type="text" name="username" id="username" [(ngModel)]="userData.username" class="form-control" minlength="4" ngModel>
     </div>
     <div class="row">
       <p>Email:</p>
-      <h4>{{ userData.email }}</h4>
-      <input type="email" name="email" id="email" [(ngModel)]="userData.email" class="form-control" minlength="6" ngModel email>
+      <h5>{{ userData.email }}</h5>
     </div>
-    <hr />
+    <hr class="m-3" />
     <div class="row">
       <p>Bio:</p>
-      <h4>{{ userData.bio }}</h4>
-      <input type="text" name="bio" id="bio" class="form-control" [(ngModel)]="userData.bio" ngModel>
+      <h6>{{ userData.bio }}</h6>
+    </div>
+  </div>
+
+  <form
+    #updateForm="ngForm"
+    (ngSubmit)="onUpdateUser(updateForm.value)"
+    class="col-md-4"
+    *ngIf="editModeOn"
+  >
+    <!--   service menu start -->
+    <div class="row pb-3 article-service-menu">
+      <button
+        class="animated-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Save changes"
+        type="submit"
+      >
+        <img src="assets/imgs/save.png" alt="save" />
+      </button>
+
+      <button
+        class="animated-button"
+        data-toggle="tooltip"
+        data-placement="right"
+        title="Discard changes"
+        (click)="onEditModeSwitch(false)"
+      >
+        <img src="assets/imgs/discard.png" alt="discard" />
+      </button>
+    </div>
+
+    <div class="row pb-3">
+      <p>Name:</p>
+      <h4>
+        <textarea
+          type="text"
+          name="username"
+          rows="1"
+          id="username"
+          [(ngModel)]="userData.username"
+          class="form-control"
+          minlength="4"
+          ngModel
+        ></textarea>
+      </h4>
+    </div>
+
+    <div class="row">
+      <p>Email:</p>
+      <h5>
+        <textarea
+          type="email"
+          name="email"
+          id="email"
+          rows="1"
+          [(ngModel)]="userData.email"
+          class="form-control"
+          minlength="6"
+          ngModel
+          email
+        ></textarea>
+      </h5>
+    </div>
+
+    <hr class="m-3" />
+
+    <div class="row">
+      <p>Bio:</p>
+      <h6>
+        <textarea
+          type="text"
+          name="bio"
+          id="bio"
+          rows="4"
+          class="form-control"
+          [(ngModel)]="userData.bio"
+          ngModel
+        ></textarea>
+      </h6>
     </div>
   </form>
+
   <div class="col-md-8">
     <app-articles [username]="userData.username"></app-articles>
   </div>

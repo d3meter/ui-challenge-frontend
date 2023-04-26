@@ -99,12 +99,13 @@ export class ArticleComponent implements OnInit {
   }
 
   onSubmit(updateArticleForm: NgForm, tagListOutput: HTMLTextAreaElement) {
-    const formattedTagList = this.tagListFormat(tagListOutput.value);
+    const formattedTagList = this.tagListFormat(tagListOutput.value.toString());
     this.onUpdateArticle(
       updateArticleForm.value,
       formattedTagList,
       updateArticleForm
     );
+    this.editModeOn = false;
   }
 
   tagListFormat(value: string): string[] {
