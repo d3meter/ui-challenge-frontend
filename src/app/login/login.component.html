@@ -19,7 +19,7 @@
 <h1 class="page-title" *ngIf="!isLoggedIn">Login</h1>
 <div class="row justify-content-center">
   <div
-    class="d-flex justify-content-center align-items-center h-100 container pb-5"
+    class="d-flex justify-content-center align-items-center h-100 container pb-2"
   >
     <form
       class="col-md-4"
@@ -53,7 +53,6 @@
       <hr />
       <div class="col-xs-4 text-center">
         <button
-          *ngIf="!isLoggedIn"
           style="height: 50px"
           class="col-sm-12"
           type="submit"
@@ -61,11 +60,8 @@
         >
           <h4>Log in</h4>
         </button>
-        <!--           <button *ngIf="isLoggedIn" style="height: 50px" class="col-sm-12" disabled>
-            <h4>DONE!</h4>
-          </button> -->
       </div>
     </form>
   </div>
-  <p *ngIf="error" class="text-danger">{{ error }}</p>
+  <p *ngIf="error" class="text-center text-danger">{{ error }}</p>
 </div>

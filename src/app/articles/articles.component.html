@@ -2,7 +2,7 @@
   <div *ngIf="articlesLength">
     <div class="col-md-8 articles-container">
       <app-article
-        *ngFor="let article of articles"
+        *ngFor="let article of filteredArticles"
         [article]="article"
         [isSelected]="selectedArticle === article"
         (onSelected)="onArticleSelected(article)"

@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent {
   @Output() pageToDisplaySelected = new EventEmitter<string>();
+  @Output() searchFor = new EventEmitter<string>();
 
   isLoggedIn = false;
   private isLoggedInSub: Subscription;
@@ -34,7 +35,11 @@ export class HeaderComponent {
   }
 
   onSelect(pageToDisplay: string) {
-    this.pageToDisplaySelected.emit(pageToDisplay);
+    this.pageToDisplaySelected.emit(pageToDisplay); 
+  }
+  
+  onSetSearch(searchValue: string) {
+    this.searchFor.emit(searchValue);
   }
 
   onLogout() {

@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Article } from './article.model';
 import { ArticlesService } from './articles.service';
 import { UsersService } from '../auth/users.service';
@@ -8,10 +16,11 @@ import { UsersService } from '../auth/users.service';
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss'],
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit, OnChanges {
   @Input() username: string;
   @Input() onlyFavorites: boolean = false;
   @ViewChild('articleList', { static: false }) articleList: ElementRef;
+  @Input() searchFor: string;
 
   articles: Article[] = [];
   selectedArticle: Article = null;
@@ -19,6 +28,7 @@ export class ArticlesComponent implements OnInit {
   followedUsers: string[] = [];
   favoriteArticles: string[] = [];
   articlesLength: number = 0;
+  filteredArticles: Article[];
 
   constructor(
     private articlesService: ArticlesService,
@@ -26,6 +36,17 @@ export class ArticlesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.onGetArticles();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.searchFor) {
+      console.log(`New search value: ${changes.searchFor.currentValue}`);
+      this.onGetArticles(changes.searchFor.currentValue);
+    }
+  }
+
+  onGetArticles(searchFor?: string) {
     this.articlesService.getArticles().subscribe(
       (response) => {
         if (this.username === null) {
@@ -50,7 +71,21 @@ export class ArticlesComponent implements OnInit {
             article.slug
           );
         }
-        this.articlesLength = this.articles.length;
+
+        if (searchFor) {
+          const filterValue = searchFor.toLowerCase();
+          this.filteredArticles = this.articles.filter(
+            (article) =>
+              article.title.toLowerCase().includes(filterValue) ||
+              article.description.toLowerCase().includes(filterValue) ||
+              article.body.toLowerCase().includes(filterValue) ||
+              article.tagList.some((tag) => tag.toLowerCase().includes(filterValue))
+          );
+          this.articlesLength = this.filteredArticles.length;
+        } else {
+          this.articlesLength = this.articles.length;
+          this.filteredArticles = [...this.articles];
+        }
       },
       (error: string) => {
         this.articlesService.errorMessage.next(error);
@@ -65,4 +100,18 @@ export class ArticlesComponent implements OnInit {
       this.selectedArticle = article;
     }
   }
+
+  /*   onSearch(searchFor): void {
+    if (!searchFor) {
+      this.filteredArticles = [...this.articles];
+      return;
+    }
+    const filterValue = searchFor.toLowerCase();
+    this.filteredArticles = this.articles.filter(
+      (article) =>
+        article.title.toLowerCase().includes(filterValue) ||
+        article.description.toLowerCase().includes(filterValue) ||
+        article.body.toLowerCase().includes(filterValue)
+    );
+  } */
 }

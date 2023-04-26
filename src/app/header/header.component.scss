@@ -37,9 +37,20 @@
           background-color: transparent;
           transition: 0.3s ease-in-out;
         }
+        input:focus,
+        input:valid {
+          width: 100%;
+          transition: 0.3s ease-in-out;
+        }
         input:focus {
           width: 100%;
           transition: 0.3s ease-in-out;
+        }
+        input:not(:focus) {
+          width: 40%;
+        }
+        input:not(:focus):not(:placeholder-shown) {
+          width: 100%;
         }
         .form-control:focus {
           border-color: black;
@@ -101,7 +112,7 @@
       .nav-icons {
         gap: 5px;
       }
-/*       .user-info {
+      /*       .user-info {
         position: absolute;
         right: 0;
         bottom: -15px;

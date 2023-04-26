@@ -12,7 +12,12 @@
         <img src="assets/imgs/home.webp" alt="home" />
       </button>
       <div *ngIf="isLoggedIn" class="search-field">
-        <button data-toggle="tooltip" data-placement="bottom" title="Search">
+        <button
+          (click)="onSetSearch(searchInput.value)"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Search"
+        >
           <i class="fa fa-search"></i>
         </button>
         <input
@@ -85,7 +90,6 @@
         >
           <img src="assets/imgs/menu_items/logOut.png" alt="log out" />
         </button>
-        <!-- <p class="user-info">{{ userData.email }}</p> -->
       </div>
     </div>
   </div>
