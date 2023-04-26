@@ -18,6 +18,8 @@ export class HeaderComponent {
   isLoggedIn = false;
   private isLoggedInSub: Subscription;
   userData: any;
+  pageToDisplay: string
+  articlesLoaded = false;
 
   constructor(private usersService: UsersService) {}
 
@@ -34,8 +36,13 @@ export class HeaderComponent {
     this.isLoggedInSub.unsubscribe();
   }
 
-  onSelect(pageToDisplay: string) {
-    this.pageToDisplaySelected.emit(pageToDisplay); 
+  onSelect(pageToDisplay) {
+    this.pageToDisplaySelected.emit(pageToDisplay);
+    if (pageToDisplay === 'articles') {
+      this.articlesLoaded = true;
+    } else {
+      this.articlesLoaded = false;
+    } 
   }
   
   onSetSearch(searchValue: string) {
