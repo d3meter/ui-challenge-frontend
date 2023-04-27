@@ -29,6 +29,8 @@ export class ArticlesComponent implements OnInit, OnChanges {
   favoriteArticles: string[] = [];
   articlesLength: number = 0;
   filteredArticles: Article[];
+  userData: any;
+  isLoading = true;
 
   constructor(
     private articlesService: ArticlesService,
@@ -37,6 +39,13 @@ export class ArticlesComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.onGetArticles();
+    this.onGetMyUserInfo();
+  }
+
+  onGetMyUserInfo() {
+    this.usersService.getMyUserInfo().subscribe((response) => {
+      this.userData = response.user;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -51,10 +60,16 @@ export class ArticlesComponent implements OnInit, OnChanges {
       (response) => {
         if (this.username === null) {
           this.articles = response;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 2000);
         } else {
           this.articles = response.filter(
             (article) => article.author.username === this.username
           );
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 2000);
         }
         this.followedUsers = this.usersService.getFollowedUsers();
         this.favoriteArticles = this.articlesService.getFavoriteArticles();
@@ -82,13 +97,22 @@ export class ArticlesComponent implements OnInit, OnChanges {
               article.tagList.some((tag) => tag.toLowerCase().includes(filterValue))
           );
           this.articlesLength = this.filteredArticles.length;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 2000);
         } else {
           this.articlesLength = this.articles.length;
           this.filteredArticles = [...this.articles];
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 2000);
         }
       },
       (error: string) => {
         this.articlesService.errorMessage.next(error);
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
       }
     );
   }

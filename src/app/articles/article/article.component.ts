@@ -40,6 +40,7 @@ export class ArticleComponent implements OnInit {
   userData: any;
   tagList: string[];
   tagListOutput: string;
+  isLoading = true;
 
   constructor(
     private articlesService: ArticlesService,
@@ -56,6 +57,9 @@ export class ArticleComponent implements OnInit {
     this.articlesService.getComments(this.article.slug).subscribe(
       (response) => {
         this.comments = response;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
       },
       (error) => {
         console.error('Error getting comments: ', error);

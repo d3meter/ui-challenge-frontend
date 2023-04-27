@@ -169,6 +169,12 @@
   </form>
 
   <!--   comment-field start -->
+  <div class="comment-field">
+    <div *ngIf="isLoading; else commentContent">
+      <h6>Loading comments...</h6>
+    </div>
+
+  <ng-template #commentContent>
   <div class="comment-field" *ngIf="isSelected">
     <h5>Comments:</h5>
     <div class="comment-element" *ngFor="let comment of comments">
@@ -210,7 +216,7 @@
     data-placement="bottom"
     title="Click here to see more"
   >
-    <p>no comment yet</p>
+    <h6>no comment yet</h6>
   </div>
   <div
     *ngIf="comments?.length > 0 && !isSelected"
@@ -220,8 +226,9 @@
     data-placement="bottom"
     title="Click here to see more"
   >
-    <p>{{ comments?.length }} comment(s)</p>
+    <h6>{{ comments?.length }} comment(s)</h6>
   </div>
+</ng-template>
 
   <!--   favorite buttons start -->
   <button

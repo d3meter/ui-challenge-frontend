@@ -1,19 +1,31 @@
 <div class="row articles">
-  <div *ngIf="articlesLength">
-    <div class="col-md-8 articles-container">
-      <app-article
-        *ngFor="let article of filteredArticles"
-        [article]="article"
-        [isSelected]="selectedArticle === article"
-        (onSelected)="onArticleSelected(article)"
-        [userIsFollowed]="article.userIsFollowed"
-        [articleIsFavorite]="article.articleIsFavorite"
-      ></app-article>
+  <div *ngIf="isLoading; else content">
+    <div class="d-flex justify-content-center align-items-center pt-5">
+      <img
+        class="row img-fluid pt-5"
+        src="assets/imgs/loadingClock.gif"
+        alt="loading..."
+      />
     </div>
   </div>
-  <div *ngIf="!articlesLength">
-    <div class="col-md-8 articles-container">
-      <h5>There is no article yet...</h5>
+
+  <ng-template #content>
+    <div *ngIf="articlesLength">
+      <div class="col-md-8 articles-container">
+        <app-article
+          *ngFor="let article of filteredArticles"
+          [article]="article"
+          [isSelected]="selectedArticle === article"
+          (onSelected)="onArticleSelected(article)"
+          [userIsFollowed]="article.userIsFollowed"
+          [articleIsFavorite]="article.articleIsFavorite"
+        ></app-article>
+      </div>
     </div>
-  </div>
+    <div *ngIf="!articlesLength">
+      <div class="col-md-8 articles-container">
+        <h5>There is no article yet...</h5>
+      </div>
+    </div>
+  </ng-template>
 </div>
