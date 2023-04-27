@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./create-article.component.scss'],
 })
 export class CreateArticleComponent implements OnInit {
+  successMessage: string;
   errorMessage: string;
   tagList: string[];
 
@@ -50,13 +51,17 @@ export class CreateArticleComponent implements OnInit {
       )
       .subscribe(
         (resData) => {
-          console.log(resData);
-          // Handle the successful response here
+          this.successMessage = resData.statusText;
+          setTimeout(() => {
+            this.successMessage = '';
+          }, 2000);
+          setTimeout(() => {
+            window.scrollTo(0, 0);
+          }, 3000);
         },
         (error) => {
           this.errorMessage = error.message;
           console.log(error);
-          // Handle the error here
         }
       );
     createArticleForm.reset();

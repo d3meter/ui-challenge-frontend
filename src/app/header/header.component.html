@@ -2,16 +2,16 @@
   <div class="header container">
     <div class="header-left">
       <button
-        *ngIf="isLoggedIn"
         (click)="onSelect('articles')"
         class="colored-button animated-button"
         data-toggle="tooltip"
         data-placement="bottom"
         title="Home"
+        *ngIf="isLoggedIn"
       >
         <img src="assets/imgs/home.webp" alt="home" />
       </button>
-      <div *ngIf="articlesLoaded" class="search-field">
+      <div class="search-field" *ngIf="isLoggedIn">
         <button
           (click)="onSetSearch(searchInput.value)"
           data-toggle="tooltip"
@@ -82,7 +82,7 @@
           />
         </button>
         <button
-          (click)="onLogout()"
+          (click)="onLogout(); onSelect('')"
           class="animated-button"
           data-toggle="tooltip"
           data-placement="bottom"

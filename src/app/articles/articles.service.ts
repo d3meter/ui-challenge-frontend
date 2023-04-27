@@ -3,10 +3,11 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpResponse
 } from '@angular/common/http';
 import { Article } from './article.model';
 import { UsersService } from '../auth/users.service';
-import { Subject, catchError, throwError, tap, map } from 'rxjs';
+import { Subject, catchError, throwError, tap, map, Observable } from 'rxjs';
 import { User } from '../auth/user.model';
 
 @Injectable({ providedIn: 'root' })
@@ -57,8 +58,15 @@ export class ArticlesService {
     return this.http
       .post('http://localhost:3000/api/articles', articleData, {
         headers: this.headers,
+        observe: 'response',
       })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        catchError(this.handleError),
+        map(response => {
+          const resData = response;
+          return resData;
+        })
+      );
   }
 
   deleteArticle(slug: string) {
