@@ -15,16 +15,16 @@
 
     <div class="row pb-3">
       <p>Name:</p>
-      <h4>{{ userData.username }}</h4>
+      <h4>{{ userData?.username }}</h4>
     </div>
     <div class="row">
       <p>Email:</p>
-      <h5>{{ userData.email }}</h5>
+      <h5>{{ userData?.email }}</h5>
     </div>
     <hr class="m-3" />
     <div class="row">
       <p>Bio:</p>
-      <h6>{{ userData.bio }}</h6>
+      <h6>{{ userData?.bio }}</h6>
     </div>
   </div>
 
@@ -109,6 +109,6 @@
   </form>
 
   <div class="col-md-8">
-    <app-articles [username]="userData.username"></app-articles>
+    <app-articles [username]="userData?.username"></app-articles>
   </div>
 </div>

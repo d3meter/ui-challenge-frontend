@@ -2,6 +2,8 @@ import {
   Component,
   EventEmitter,
   Output,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { UsersService } from '../auth/users.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +13,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Output() pageToDisplaySelected = new EventEmitter<string>();
   @Output() searchFor = new EventEmitter<string>();
 

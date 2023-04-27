@@ -6,22 +6,27 @@ import {
   EventEmitter,
   ViewChild,
   ElementRef,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
 import { UsersService } from 'src/app/auth/users.service';
 import { NgForm } from '@angular/forms';
+import { User } from 'src/app/auth/user.model';
+import { Comment } from '../comment.model';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, OnChanges {
   @Input() article: Article;
   @Input() isSelected: boolean;
   @Output() onSelected = new EventEmitter<Article>();
   @ViewChild('content') body: ElementRef;
+  @Input() userData: any;
 
   userToFollow: string;
   userToUnFollow: string;
@@ -37,7 +42,6 @@ export class ArticleComponent implements OnInit {
 
   comments: Comment[];
   newComment: string;
-  userData: any;
   tagList: string[];
   tagListOutput: string;
   isLoading = true;
@@ -49,11 +53,6 @@ export class ArticleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usersService.getMyUserInfo().subscribe((userInfo) => {
-      this.isOwnArticle =
-        this.article.author.username === userInfo.user.username;
-    });
-
     this.articlesService.getComments(this.article.slug).subscribe(
       (response) => {
         this.comments = response;
@@ -65,9 +64,12 @@ export class ArticleComponent implements OnInit {
         console.error('Error getting comments: ', error);
       }
     );
+  }
 
-    const userDataString = localStorage.getItem('userData');
-    this.userData = JSON.parse(userDataString).user;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.userData) {
+      this.isOwnArticle = this.article.author.username === this.userData.username;
+    }
   }
 
   toggleContent(): void {
@@ -149,12 +151,12 @@ export class ArticleComponent implements OnInit {
       );
   }
 
-  onGetUserInfo(username: string) {
+  /*   onGetUserInfo(username: string) {
     this.usersService.getUserInfo(username).subscribe((data) => {
       console.log(data);
     });
   }
-
+ */
   onFollowUser(userToFollow: string) {
     this.usersService.followUser(userToFollow).subscribe(
       (response) => {
@@ -208,11 +210,12 @@ export class ArticleComponent implements OnInit {
     /*     this.editModeChanged.emit(this.editModeOn); */
   }
 
-  onCreateComment(slug: string, body: string) {
+  onCreateComment(slug: string, body: string, author: User) {
     body = this.newComment;
-    this.articlesService.createComment(slug, body).subscribe(
+    this.articlesService.createComment(slug, body, author).subscribe(
       (response) => {
         console.log(`Comment submitted to article: ${slug}`);
+        console.log(response);
         this.newComment = '';
       },
       (error) => {

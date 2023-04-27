@@ -6,6 +6,8 @@ import {
   ElementRef,
   OnChanges,
   SimpleChanges,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { Article } from './article.model';
 import { ArticlesService } from './articles.service';
@@ -30,6 +32,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
   articlesLength: number = 0;
   filteredArticles: Article[];
   userData: any;
+  @Output() userDataChanged = new EventEmitter<any>();
   isLoading = true;
 
   constructor(
@@ -45,12 +48,12 @@ export class ArticlesComponent implements OnInit, OnChanges {
   onGetMyUserInfo() {
     this.usersService.getMyUserInfo().subscribe((response) => {
       this.userData = response.user;
+      this.userDataChanged.emit(this.userData);
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.searchFor) {
-      console.log(`New search value: ${changes.searchFor.currentValue}`);
       this.onGetArticles(changes.searchFor.currentValue);
     }
   }
@@ -124,18 +127,4 @@ export class ArticlesComponent implements OnInit, OnChanges {
       this.selectedArticle = article;
     }
   }
-
-  /*   onSearch(searchFor): void {
-    if (!searchFor) {
-      this.filteredArticles = [...this.articles];
-      return;
-    }
-    const filterValue = searchFor.toLowerCase();
-    this.filteredArticles = this.articles.filter(
-      (article) =>
-        article.title.toLowerCase().includes(filterValue) ||
-        article.description.toLowerCase().includes(filterValue) ||
-        article.body.toLowerCase().includes(filterValue)
-    );
-  } */
 }

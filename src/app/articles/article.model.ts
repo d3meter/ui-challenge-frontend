@@ -1,3 +1,4 @@
+/* import { User } from "../auth/user.model"; */
 export interface Article {
   title: string;
   description: string;

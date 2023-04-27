@@ -11,7 +11,7 @@
       >
         <img src="assets/imgs/home.webp" alt="home" />
       </button>
-      <div *ngIf="isLoggedIn && articlesLoaded" class="search-field">
+      <div *ngIf="articlesLoaded" class="search-field">
         <button
           (click)="onSetSearch(searchInput.value)"
           data-toggle="tooltip"

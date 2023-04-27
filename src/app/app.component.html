@@ -1,7 +1,8 @@
 <app-header
-  (pageToDisplaySelected)="onNavigate($event)" (searchFor)="onSearch($event)"
+  (pageToDisplaySelected)="onNavigate($event)"
+  (searchFor)="onSearch($event)"
 ></app-header>
-<div class="container" *ngIf="!loadedPage">
+<div class="container" *ngIf="!loadedPage && !isLoggedIn">
   <h1 class="page-title">Welcome here!</h1>
   <hr />
   <br />
