@@ -53,22 +53,13 @@ export class ArticleComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.articlesService.getComments(this.article.slug).subscribe(
-      (response) => {
-        this.comments = response;
-        setTimeout(() => {
-          this.isLoading = false;
-        }, 1000);
-      },
-      (error) => {
-        console.error('Error getting comments: ', error);
-      }
-    );
+    this.onGetCommentsBySlug(this.article.slug);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.userData) {
-      this.isOwnArticle = this.article.author.username === this.userData.username;
+      this.isOwnArticle =
+        this.article.author.username === this.userData.username;
     }
   }
 
@@ -151,12 +142,6 @@ export class ArticleComponent implements OnInit, OnChanges {
       );
   }
 
-  /*   onGetUserInfo(username: string) {
-    this.usersService.getUserInfo(username).subscribe((data) => {
-      console.log(data);
-    });
-  }
- */
   onFollowUser(userToFollow: string) {
     this.usersService.followUser(userToFollow).subscribe(
       (response) => {
@@ -210,13 +195,35 @@ export class ArticleComponent implements OnInit, OnChanges {
     /*     this.editModeChanged.emit(this.editModeOn); */
   }
 
+  onGetCommentsBySlug(slug: string) {
+    this.articlesService.getComments(slug).subscribe(
+      (response) => {
+        this.comments = response;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
+      },
+      (error) => {
+        console.error('Error getting comments: ', error);
+      }
+    );
+  }
+
   onCreateComment(slug: string, body: string, author: User) {
     body = this.newComment;
     this.articlesService.createComment(slug, body, author).subscribe(
       (response) => {
         console.log(`Comment submitted to article: ${slug}`);
-        console.log(response);
         this.newComment = '';
+        /*         const commentsOfArticle = response.article.comments
+        console.log(commentsOfArticle);
+        this.article.comments = [];
+        console.log(this.article.comments);
+        if (commentsOfArticle) {
+          this.article.comments.push(commentsOfArticle[commentsOfArticle.length-1]);
+        } else {
+          this.article.comments = [commentsOfArticle[commentsOfArticle.length-1]];
+        } */
       },
       (error) => {
         console.error('Error submit comment: ', error);

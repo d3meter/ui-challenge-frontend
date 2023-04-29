@@ -6,5 +6,4 @@ export interface User {
   bio?: string;
   image?: string;
   userIsFollowed?: boolean;
-  comments?: [];
 }

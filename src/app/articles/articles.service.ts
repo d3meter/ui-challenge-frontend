@@ -152,7 +152,7 @@ export class ArticlesService {
 
   createComment(slug: string, body: string, author: User) {
     return this.http
-      .post<Comment>(
+      .post<any>(
         `http://localhost:3000/api/articles/${slug}/comments`,
         { body, author },
         {

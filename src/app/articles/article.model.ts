@@ -1,4 +1,3 @@
-/* import { User } from "../auth/user.model"; */
 export interface Article {
   title: string;
   description: string;
@@ -11,4 +10,5 @@ export interface Article {
   created?: number;
   articleIsFavorite?: boolean;
   userIsFollowed?: boolean;
+  comments?: Comment[];
 }
