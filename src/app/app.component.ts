@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { UsersService } from './auth/users.service';
+import { UsersService } from './shared/users.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,27 +15,32 @@ export class AppComponent implements OnInit {
   isLoggedIn: boolean;
   private isLoggedInSub: Subscription;
 
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private authService: AuthService
+  ) {}
 
   onSearch(searchValue: string) {
     this.searchValue = searchValue;
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.usersService.getLoggedIn();
-    this.isLoggedInSub = this.usersService.isLoggedIn$.subscribe(
+    this.isLoggedIn = this.authService.getLoggedIn();
+    this.isLoggedInSub = this.authService.isLoggedIn$.subscribe(
       (isLoggedIn: boolean) => {
         this.isLoggedIn = isLoggedIn;
       }
     );
 
-    if (this.isLoggedIn && (!this.loadedPage || this.loadedPage.trim() === '')) {
+    if (
+      this.isLoggedIn &&
+      (!this.loadedPage || this.loadedPage.trim() === '')
+    ) {
       this.onNavigate('articles');
     }
-  } 
+  }
 
   onNavigate(page: string) {
     this.loadedPage = page;
   }
-
 }

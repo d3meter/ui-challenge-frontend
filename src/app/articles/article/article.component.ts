@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
-import { UsersService } from 'src/app/auth/users.service';
+import { UsersService } from 'src/app/shared/users.service';
 import { NgForm } from '@angular/forms';
-import { User } from 'src/app/auth/user.model';
+import { User } from 'src/app/shared/user.model';
 import { Comment } from '../comment.model';
 
 @Component({

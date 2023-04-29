@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../auth/user.model';
-import { UsersService } from '../auth/users.service';
-import { ArticlesComponent } from '../articles/articles.component';
+import { Component, OnInit } from '@angular/core';
+
+import { UsersService } from '../shared/users.service';
+import { User, UserRO } from '../shared/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -9,46 +9,47 @@ import { ArticlesComponent } from '../articles/articles.component';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  userData: any;
+  myUserData: User;
   editModeOn: boolean = false;
 
-  constructor(private usersService: UsersService) {}
+  successMessage: string;
+  errorMessage: string;
 
-/*   ngOnInit() {
-    const userDataString = localStorage.getItem('userData');
-    this.userData = JSON.parse(userDataString).user;
-  } */
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.onGetMyUserInfo();
   }
 
-/*   onGetMyUserInfo() {
-    this.usersService
-      .getMyUserInfo()
-      .subscribe((response) => console.log(response));
-  } */
-
   onGetMyUserInfo() {
-    this.usersService.getMyUserInfo().subscribe((response) => {
-      this.userData = response.user;
+    this.usersService.getMyUserInfo().subscribe((response: UserRO) => {
+      this.myUserData = response.user;
+      console.log(response.user);
     });
   }
 
-  onUpdateUser(userData: User) {
+  onUpdateMyUserInfo(userData: User) {
     this.usersService
-      .updateUser(
+      .updateMyUserInfo(
         userData.username,
         userData.email,
         userData.bio,
         userData.image
       )
-      .subscribe((response) => console.log(response));
-      this.editModeOn = false;
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.successMessage = 'Updated successfully!';
+          setTimeout(() => {
+            this.successMessage = null;
+          }, 3000);
+        } else {
+          this.errorMessage = 'Error updating user info!';
+        }
+        this.editModeOn = false;
+      });
   }
 
   onEditModeSwitch(editMode: boolean) {
     this.editModeOn = editMode;
-    /*     this.editModeChanged.emit(this.editModeOn); */
   }
 }

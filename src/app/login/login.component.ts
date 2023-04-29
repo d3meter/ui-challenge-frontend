@@ -5,9 +5,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { User } from '../auth/user.model';
-import { UsersService } from '../auth/users.service';
+import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 
@@ -21,18 +19,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   private isLoggedInSub: Subscription;
   error: string = null;
-  private errorSub: Subscription;
   @Output() pageLoaded = new EventEmitter<string>();
   loadedPage: string;
 
-  constructor(private http: HttpClient, private usersService: UsersService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.errorSub = this.usersService.errorMessage.subscribe((errorMessage) => {
-      this.error = errorMessage;
-    });
-    this.isLoggedIn = this.usersService.getLoggedIn();
-    this.isLoggedInSub = this.usersService.isLoggedIn$.subscribe(
+    this.isLoggedIn = this.authService.getLoggedIn();
+    this.isLoggedInSub = this.authService.isLoggedIn$.subscribe(
       (isLoggedIn: boolean) => {
         this.isLoggedIn = isLoggedIn;
       }
@@ -41,12 +35,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  onLogIn(userData: User, loginForm: NgForm) {
+  onLogIn(email: string, password: string, loginForm: NgForm) {
     this.isLoading = true;
-    this.usersService.logInUser(userData.email, userData.password).subscribe(
+    this.authService.logInUser(email, password).subscribe(
       (resData) => {
         this.isLoading = false;
-        this.usersService.setLoggedIn(true);
+        this.authService.setLoggedIn(true);
         this.isLoggedIn = true;
         localStorage.setItem('userData', JSON.stringify(resData));
         this.loadedPage = 'articles';
@@ -68,8 +62,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onLogout() {
     localStorage.removeItem('userData');
-    this.usersService.logOutUser();
-    this.usersService.setLoggedIn(false);
+    this.authService.logOutUser();
+    this.authService.setLoggedIn(false);
     this.isLoggedIn = false;
   }
 }

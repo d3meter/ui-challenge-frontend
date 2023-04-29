@@ -3,21 +3,29 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
-import { Article } from './article.model';
-import { UsersService } from '../auth/users.service';
 import { Subject, catchError, throwError, tap, map, Observable } from 'rxjs';
-import { User } from '../auth/user.model';
+
+import { AuthService } from '../auth/auth.service';
+import { ConfigService } from '../auth/config.service';
+
+import { User } from '../shared/user.model';
+import { Article } from './article.model';
+import { UsersService } from '../shared/users.service';
 
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {
   errorMessage = new Subject<string>();
   private favoriteArticles: string[] = [];
 
-  constructor(private http: HttpClient, private userService: UsersService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UsersService,
+    private authService: AuthService
+  ) {}
 
-  headers = this.userService.getAuthHeaders();
+  headers = this.authService.getAuthHeaders();
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -62,7 +70,7 @@ export class ArticlesService {
       })
       .pipe(
         catchError(this.handleError),
-        map(response => {
+        map((response) => {
           const resData = response;
           return resData;
         })

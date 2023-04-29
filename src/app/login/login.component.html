@@ -24,7 +24,7 @@
     <form
       class="col-md-4"
       #loginForm="ngForm"
-      (ngSubmit)="onLogIn(loginForm.value, loginForm)"
+      (ngSubmit)="onLogIn(loginForm.value.email, loginForm.value.password, loginForm)"
       *ngIf="!isLoggedIn"
     >
       <div class="form-group py-sm-1 mb-0">
@@ -46,6 +46,7 @@
           name="password"
           type="password"
           class="form-control"
+          #password="ngModel"
           ngModel
           required
         />

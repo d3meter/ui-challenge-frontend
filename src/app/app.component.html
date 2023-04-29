@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="row" *ngIf="loadedPage === 'registration'">
-    <app-registration></app-registration>
+    <app-registration (pageLoaded)="onNavigate($event)"></app-registration>
   </div>
   <div class="row" *ngIf="loadedPage === 'login'">
     <app-login (pageLoaded)="onNavigate($event)"></app-login>

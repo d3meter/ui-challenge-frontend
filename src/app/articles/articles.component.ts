@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Article } from './article.model';
 import { ArticlesService } from './articles.service';
-import { UsersService } from '../auth/users.service';
+import { UsersService } from '../shared/users.service';
 
 @Component({
   selector: 'app-articles',

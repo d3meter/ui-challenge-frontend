@@ -15,22 +15,26 @@
 
     <div class="row pb-3">
       <p>Name:</p>
-      <h4>{{ userData?.username }}</h4>
+      <h4>{{ myUserData?.username }}</h4>
     </div>
     <div class="row">
       <p>Email:</p>
-      <h5>{{ userData?.email }}</h5>
+      <h5>{{ myUserData?.email }}</h5>
     </div>
     <hr class="m-3" />
     <div class="row">
       <p>Bio:</p>
-      <h6>{{ userData?.bio }}</h6>
+      <h6>{{ myUserData?.bio }}</h6>
+    </div>
+    <div class="row">
+      <h5 *ngIf="successMessage" class="text-center text-success pt-2">{{ successMessage }}</h5>
+      <h5 *ngIf="errorMessage" class="text-center text-danger pt-2">{{ errorMessage }}</h5>  
     </div>
   </div>
 
   <form
     #updateForm="ngForm"
-    (ngSubmit)="onUpdateUser(updateForm.value)"
+    (ngSubmit)="onUpdateMyUserInfo(updateForm.value)"
     class="col-md-4"
     *ngIf="editModeOn"
   >
@@ -65,7 +69,7 @@
           name="username"
           rows="1"
           id="username"
-          [(ngModel)]="userData.username"
+          [(ngModel)]="myUserData.username"
           class="form-control"
           minlength="4"
           ngModel
@@ -81,7 +85,7 @@
           name="email"
           id="email"
           rows="1"
-          [(ngModel)]="userData.email"
+          [(ngModel)]="myUserData.email"
           class="form-control"
           minlength="6"
           ngModel
@@ -101,7 +105,7 @@
           id="bio"
           rows="4"
           class="form-control"
-          [(ngModel)]="userData.bio"
+          [(ngModel)]="myUserData.bio"
           ngModel
         ></textarea>
       </h6>
@@ -109,6 +113,6 @@
   </form>
 
   <div class="col-md-8">
-    <app-articles [username]="userData?.username"></app-articles>
+    <app-articles [username]="myUserData?.username"></app-articles>
   </div>
 </div>

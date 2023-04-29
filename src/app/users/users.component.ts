@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UsersService } from '../auth/users.service';
-import { User } from '../auth/user.model';
+import { UsersService } from '../shared/users.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-users',
@@ -21,7 +21,7 @@ export class UsersComponent implements OnInit {
       (response) => {
         this.users = response;
         for (let user of this.users) {
-          user.userIsFollowed = this.followedUsers.includes(user.username);
+/*           user.userIsFollowed = this.followedUsers.includes(user.username); */
         }
       },
       (error: string) => {

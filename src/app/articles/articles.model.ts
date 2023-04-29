@@ -1,5 +1,5 @@
 import { Comment } from "./comment.model";
-import { User } from "../auth/user.model";
+import { User } from "../shared/user.model";
 
 export interface ArticleData {
   slug: string;

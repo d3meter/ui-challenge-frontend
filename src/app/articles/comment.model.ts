@@ -1,5 +1,4 @@
-import { User } from "../auth/user.model";
-
+import { User } from "../shared/user.model";
 export interface Comment {
  body: string;
  author?: User;

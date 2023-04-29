@@ -5,8 +5,8 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { UsersService } from 'src/app/auth/users.service';
-import { User } from 'src/app/auth/user.model';
+import { UsersService } from 'src/app/shared/users.service';
+import { User } from 'src/app/shared/user.model';
 
 @Component({
   selector: 'app-user',
