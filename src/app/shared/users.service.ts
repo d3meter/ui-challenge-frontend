@@ -104,7 +104,7 @@ export class UsersService {
     return this.followedUsers;
   }
 
-  getMyUserInfo(): Observable<UserRO> {
+/*   getMyUserInfo(): Observable<UserRO> {
     return this.http
       .get<UserRO>(`${this.apiUrl}/user`, {
         headers: this.headers,
@@ -113,6 +113,11 @@ export class UsersService {
         tap((response: any) => console.log(response)),
         catchError(this.handleError)
       );
+  } */
+  getMyUserInfo(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user`, {
+      headers: this.headers,
+    });
   }
 
   updateMyUserInfo(

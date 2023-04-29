@@ -45,9 +45,17 @@ export class ArticlesComponent implements OnInit, OnChanges {
     this.onGetMyUserInfo();
   }
 
-  onGetMyUserInfo() {
+/*   onGetMyUserInfo() {
     this.usersService.getMyUserInfo().subscribe((response) => {
       this.userData = response.user;
+      this.userDataChanged.emit(this.userData);
+    });
+  } */
+  onGetMyUserInfo() {
+    this.usersService.getMyUserInfo().subscribe((response) => {
+      console.log('User data from API:', response.user);
+      this.userData = response.user;
+      console.log('User data in component:', this.userData);
       this.userDataChanged.emit(this.userData);
     });
   }

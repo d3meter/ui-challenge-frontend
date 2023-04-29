@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loadedPage = 'articles';
         setTimeout(() => {
           this.pageLoaded.emit(this.loadedPage);
+          location.reload();
         }, 2000);
         loginForm.reset();
       },

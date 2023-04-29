@@ -51,6 +51,13 @@ export class AuthService {
     return headers;
   }
 
+/*   getAuthHeaders(): HttpHeaders {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    const token = storedData && storedData.user ? storedData.user.token : null;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return headers;
+  }
+ */
   createUser(username: string, email: string, password: string) {
     const myUserData = {
       username: username,

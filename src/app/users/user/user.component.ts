@@ -1,12 +1,9 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+
 import { UsersService } from 'src/app/shared/users.service';
 import { User } from 'src/app/shared/user.model';
+import { ProfileService } from 'src/app/shared/profile.service';
+import { Profile } from 'src/app/shared/profile.model';
 
 @Component({
   selector: 'app-user',
@@ -25,7 +22,10 @@ export class UserComponent implements OnInit {
   isOwnArticle: boolean;
   isSuperUser: boolean;
 
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
     this.usersService.getMyUserInfo().subscribe((userInfo) => {
@@ -50,19 +50,19 @@ export class UserComponent implements OnInit {
   }
 
   onFollowUser(userToFollow: string) {
-    this.usersService.followUser(userToFollow).subscribe(
-      (response) => {
-        console.log('User followed successfully');
+    this.profileService.followUser(userToFollow).subscribe(
+      (profile: Profile) => {
+        console.log(`User ${profile.username} followed successfully`);
+        this.userIsFollowed = true;
       },
       (error) => {
         console.error('Error following user: ', error);
       }
     );
-    this.userIsFollowed = true;
   }
 
   onUnFollowUser(userToUnFollow: string): void {
-    this.usersService.unFollowUser(userToUnFollow).subscribe(
+    this.profileService.unFollowUser(userToUnFollow).subscribe(
       (response) => {
         console.log('User unfollowed successfully');
       },

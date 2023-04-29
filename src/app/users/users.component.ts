@@ -28,8 +28,6 @@ export class UsersComponent implements OnInit {
         this.usersService.errorMessage.next(error);
       }
     );
-
-    this.followedUsers = this.usersService.getFollowedUsers();
   }
 
   onUserSelected(user: User): void {
