@@ -57,12 +57,23 @@ export class UserComponent implements OnInit {
     this.userIsFollowed = true;
   }
 
-  onUnfollowUser() {
-    this.profileService.unFollowUser(this.profile.username).subscribe(
+/*   onUnfollowUser(userToUnFollow: string) {
+    userToUnFollow = this.user.username;
+    this.profileService.unFollowUser(userToUnFollow).subscribe(
       (profile: Profile) => {
         console.log(`User ${profile.username} unfollowed successfully`);
         this.profile.following = false;
         this.userIsFollowed = false;
+      },
+      (error) => {
+        console.error('Error unfollowing user: ', error);
+      }
+    );
+  } */
+  onUnFollowUser(userToUnFollow: string): void {
+    this.profileService.unFollowUser(userToUnFollow).subscribe(
+      (response) => {
+        console.log('User unfollowed successfully');
       },
       (error) => {
         console.error('Error unfollowing user: ', error);
