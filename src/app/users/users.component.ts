@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UsersService } from '../shared/users.service';
 import { User } from '../shared/user.model';
 import { Profile } from '../shared/profile.model';
+import { ProfileService } from '../shared/profile.service';
 
 @Component({
   selector: 'app-users',
@@ -16,24 +17,19 @@ export class UsersComponent implements OnInit {
   selectedUser: User = null;
   followedUsers: string[] = [];
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, private profileService: ProfileService) {}
 
   ngOnInit(): void {
     this.onGetAllUsers();
-    this.followedUsers = this.usersService.getFollowedUsers();
-    console.log(this.followedUsers);
-    
+    this.followedUsers = this.profileService.getFollowedUsers();
   }
 
   onGetAllUsers() {
     this.usersService.getAllUsers().subscribe(
       (allUsers: Profile[]) => {
         this.allUsers = allUsers;
-        console.log('Users retrieved successfully');
         for (let user of this.allUsers) {
           user.userIsFollowed = this.followedUsers.includes(user.username);
-          console.log(user.username);
-          
         }
       },
       (error) => {

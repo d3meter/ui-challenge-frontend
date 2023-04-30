@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
   onGetMyUserInfo() {
     this.usersService.getMyUserInfo().subscribe((response: UserRO) => {
       this.myUserData = response.user;
-      console.log(response.user);
     });
   }
 

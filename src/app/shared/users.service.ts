@@ -11,7 +11,6 @@ import { Profile } from './profile.model';
 export class UsersService {
   errorMessage = new Subject<string>();
   isLoggedIn$ = new Subject<boolean>();
-  private followedUsers: string[] = [];
 
   constructor(
     private http: HttpClient,
@@ -68,50 +67,12 @@ export class UsersService {
       );
   }
 
-  /*   followUser(userToFollow: string): Observable<any> {
-    return this.http
-      .post(
-        `${this.apiUrl}/profiles/${userToFollow}/follow`,
-        {},
-        { headers: this.headers }
-      )
-      .pipe(
-        tap((response: any) => {
-          this.followedUsers.push(userToFollow);
-          console.log(`User ${userToFollow} followed successfully`);
-        }),
-        catchError(this.handleError)
-      );
-  }
-
-  unFollowUser(userToUnFollow: string): Observable<any> {
-    return this.http
-      .delete(`${this.apiUrl}/profiles/${userToUnFollow}/follow`, {
-        headers: this.headers,
-      })
-      .pipe(
-        tap((response: any) => {
-          const index = this.followedUsers.indexOf(userToUnFollow);
-          if (index !== -1) {
-            this.followedUsers.splice(index, 1);
-          }
-          console.log(`User ${userToUnFollow} unfollowed successfully`);
-        }),
-        catchError(this.handleError)
-      );
-  } */
-
-  getFollowedUsers(): string[] {
-    return this.followedUsers;
-  }
-
   getMyUserInfo(): Observable<UserRO> {
     return this.http
       .get<UserRO>(`${this.apiUrl}/user`, {
         headers: this.headers,
       })
       .pipe(
-        tap((response: any) => console.log(response)),
         catchError(this.handleError)
       );
   }

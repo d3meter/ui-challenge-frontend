@@ -79,6 +79,7 @@ export class ProfileService {
         tap((response: any) => {
           this.followedUsers.push(userToFollow);
           console.log(`User ${userToFollow} followed successfully`);
+          console.log(this.followedUsers);
         }),
         catchError(this.handleError)
       );

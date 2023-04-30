@@ -12,6 +12,7 @@ import {
 import { Article } from './article.model';
 import { ArticlesService } from './articles.service';
 import { UsersService } from '../shared/users.service';
+import { ProfileService } from '../shared/profile.service';
 
 @Component({
   selector: 'app-articles',
@@ -37,7 +38,8 @@ export class ArticlesComponent implements OnInit, OnChanges {
 
   constructor(
     private articlesService: ArticlesService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit() {
@@ -74,7 +76,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
             this.isLoading = false;
           }, 2000);
         }
-        this.followedUsers = this.usersService.getFollowedUsers();
+        this.followedUsers = this.profileService.getFollowedUsers();
         this.favoriteArticles = this.articlesService.getFavoriteArticles();
         if (this.onlyFavorites) {
           this.articles = this.articles.filter((article) =>
