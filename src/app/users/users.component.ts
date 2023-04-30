@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UsersService } from '../shared/users.service';
 import { User } from '../shared/user.model';
+import { Profile } from '../shared/profile.model';
 
 @Component({
   selector: 'app-users',
@@ -10,6 +11,7 @@ import { User } from '../shared/user.model';
 export class UsersComponent implements OnInit {
   @Input() username: string;
 
+  allUsers: Profile[] = [];
   users: User[];
   selectedUser: User = null;
   followedUsers: string[] = [];
@@ -17,15 +19,25 @@ export class UsersComponent implements OnInit {
   constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
+    this.onGetAllUsers();
+    this.followedUsers = this.usersService.getFollowedUsers();
+    console.log(this.followedUsers);
+    
+  }
+
+  onGetAllUsers() {
     this.usersService.getAllUsers().subscribe(
-      (response) => {
-        this.users = response;
-        for (let user of this.users) {
-/*           user.userIsFollowed = this.followedUsers.includes(user.username); */
+      (allUsers: Profile[]) => {
+        this.allUsers = allUsers;
+        console.log('Users retrieved successfully');
+        for (let user of this.allUsers) {
+          user.userIsFollowed = this.followedUsers.includes(user.username);
+          console.log(user.username);
+          
         }
       },
-      (error: string) => {
-        this.usersService.errorMessage.next(error);
+      (error) => {
+        console.error('Error retrieving users: ', error);
       }
     );
   }

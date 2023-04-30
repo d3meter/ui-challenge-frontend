@@ -2,7 +2,7 @@
  <h1 class="page-title">List of Users</h1>
  <div class="col-md-8 users-container">
    <app-user
-     *ngFor="let user of users"
+     *ngFor="let user of allUsers"
      [user]="user"
      [isSelectedUser]="selectedUser === user"
      (onSelectedUser)="onUserSelected(user)"

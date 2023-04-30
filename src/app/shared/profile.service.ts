@@ -15,6 +15,7 @@ import { Profile } from './profile.model';
 export class ProfileService {
   errorMessage = new Subject<string>();
   isLoggedIn$ = new Subject<boolean>();
+  private followedUsers: string[] = [];
   
   constructor(
     private http: HttpClient,
@@ -43,7 +44,7 @@ export class ProfileService {
   }
 
 
-  followUser(userToFollow: string): Observable<Profile> {
+/*   followUser(userToFollow: string): Observable<Profile> {
     return this.http
       .post(
         `${this.apiUrl}/profiles/${userToFollow}/follow`,
@@ -52,18 +53,37 @@ export class ProfileService {
       )
       .pipe(
         map((response: any) => {
+          console.log(response);
           const profile: Profile = {
-            username: response.username,
-            bio: response.bio,
-            image: response.image,
+            username: response.profile.username,
+            bio: response.profile.bio,
+            image: response.profile.image,
             following: true
           };
-          console.log(`User ${userToFollow} followed successfully`);
+          console.log(`User ${profile.username} followed successfully`);
+          this.followedUsers.push(userToFollow)
           return profile;
         }),
         catchError(this.handleError)
       );
+  } */
+
+  followUser(userToFollow: string): Observable<any> {
+    return this.http
+      .post(
+        `http://localhost:3000/api/profiles/${userToFollow}/follow`,
+        {},
+        { headers: this.headers }
+      )
+      .pipe(
+        tap((response: any) => {
+          this.followedUsers.push(userToFollow);
+          console.log(`User ${userToFollow} followed successfully`);
+        }),
+        catchError(this.handleError)
+      );
   }
+  
 
   unFollowUser(userToUnFollow: string): Observable<any> {
     return this.http
@@ -72,9 +92,17 @@ export class ProfileService {
       })
       .pipe(
         tap((response: any) => {
+          const index = this.followedUsers.indexOf(userToUnFollow);
+          if (index !== -1) {
+            this.followedUsers.splice(index, 1);
+          }
           console.log(`User ${userToUnFollow} unfollowed successfully`);
         }),
         catchError(this.handleError)
       );
+  }
+
+  getFollowedUsers(): string[] {
+    return this.followedUsers;
   }
 }

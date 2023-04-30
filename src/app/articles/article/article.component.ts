@@ -15,6 +15,8 @@ import { UsersService } from 'src/app/shared/users.service';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/shared/user.model';
 import { Comment } from '../comment.model';
+import { Profile } from 'src/app/shared/profile.model';
+import { ProfileService } from 'src/app/shared/profile.service';
 
 @Component({
   selector: 'app-article',
@@ -37,7 +39,6 @@ export class ArticleComponent implements OnInit, OnChanges {
   isOwnArticle: boolean;
 
   editModeOn: boolean = false;
-  /*   @Output() editModeChanged = new EventEmitter<boolean>(); */
   deleteConfirmOn: boolean = false;
 
   comments: Comment[];
@@ -49,6 +50,7 @@ export class ArticleComponent implements OnInit, OnChanges {
   constructor(
     private articlesService: ArticlesService,
     private usersService: UsersService,
+    private profileService: ProfileService,
     private el: ElementRef
   ) {}
 
@@ -143,19 +145,19 @@ export class ArticleComponent implements OnInit, OnChanges {
   }
 
   onFollowUser(userToFollow: string) {
-    this.usersService.followUser(userToFollow).subscribe(
-      (response) => {
-        console.log('User followed successfully');
+    this.profileService.followUser(userToFollow).subscribe(
+      (profile: Profile) => {
+        console.log(`User ${profile.username} followed successfully`);
+        this.userIsFollowed = true;
       },
       (error) => {
         console.error('Error following user: ', error);
       }
     );
-    this.userIsFollowed = true;
   }
 
   onUnFollowUser(userToUnFollow: string): void {
-    this.usersService.unFollowUser(userToUnFollow).subscribe(
+    this.profileService.unFollowUser(userToUnFollow).subscribe(
       (response) => {
         console.log('User unfollowed successfully');
       },

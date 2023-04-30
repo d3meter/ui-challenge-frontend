@@ -5,6 +5,7 @@ import { Subject, catchError, tap, throwError, Observable, map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../auth/config.service';
 import { User, UserRO } from './user.model';
+import { Profile } from './profile.model';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -45,7 +46,7 @@ export class UsersService {
     );
   }
 
-  getAllUsers() {
+  getAllUsers(): Observable<Profile[]> {
     return this.http
       .get<any>(`${this.apiUrl}/users`, {
         headers: this.headers,
@@ -53,13 +54,13 @@ export class UsersService {
       .pipe(
         map((response) => {
           const users = response.map((userData) => {
-            return {
-              id: userData.id,
+            const profile: Profile = {
               username: userData.username,
-              email: userData.email,
               bio: userData.bio || '',
               image: userData.image || '',
+              following: userData.following || false,
             };
+            return profile;
           });
           return users;
         }),
@@ -67,7 +68,7 @@ export class UsersService {
       );
   }
 
-  followUser(userToFollow: string): Observable<any> {
+  /*   followUser(userToFollow: string): Observable<any> {
     return this.http
       .post(
         `${this.apiUrl}/profiles/${userToFollow}/follow`,
@@ -98,13 +99,13 @@ export class UsersService {
         }),
         catchError(this.handleError)
       );
-  }
+  } */
 
   getFollowedUsers(): string[] {
     return this.followedUsers;
   }
 
-/*   getMyUserInfo(): Observable<UserRO> {
+  getMyUserInfo(): Observable<UserRO> {
     return this.http
       .get<UserRO>(`${this.apiUrl}/user`, {
         headers: this.headers,
@@ -113,11 +114,6 @@ export class UsersService {
         tap((response: any) => console.log(response)),
         catchError(this.handleError)
       );
-  } */
-  getMyUserInfo(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/user`, {
-      headers: this.headers,
-    });
   }
 
   updateMyUserInfo(

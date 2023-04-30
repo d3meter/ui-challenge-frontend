@@ -8,6 +8,8 @@ import {
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { UsersService } from '../shared/users.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   @Output() pageLoaded = new EventEmitter<string>();
   loadedPage: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private usersService: UsersService) {}
 
   ngOnInit() {
     this.isLoggedIn = this.authService.getLoggedIn();
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.setLoggedIn(true);
         this.isLoggedIn = true;
         localStorage.setItem('userData', JSON.stringify(resData));
+        this.usersService.getMyUserInfo();
         this.loadedPage = 'articles';
         setTimeout(() => {
           this.pageLoaded.emit(this.loadedPage);
