@@ -221,6 +221,7 @@ export class ArticleComponent implements OnInit, OnChanges {
       (response) => {
         console.log(`Comment submitted to article: ${slug}`);
         this.newComment = '';
+        location.reload()
         /*         const commentsOfArticle = response.article.comments
         console.log(commentsOfArticle);
         this.article.comments = [];

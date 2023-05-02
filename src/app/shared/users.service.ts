@@ -57,6 +57,7 @@ export class UsersService {
               username: userData.username,
               bio: userData.bio || '',
               image: userData.image || '',
+              email: userData.email || '',
               following: userData.following || false,
             };
             return profile;
