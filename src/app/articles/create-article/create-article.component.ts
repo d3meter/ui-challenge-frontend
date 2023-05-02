@@ -4,7 +4,7 @@ import { Article } from '../article.model';
 import { ArticlesService } from '../articles.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
-
+import { TaglistFilterPipe } from '../pipes/taglist-filter.pipe';
 @Component({
   selector: 'app-create-article',
   templateUrl: './create-article.component.html',
@@ -18,23 +18,12 @@ export class CreateArticleComponent implements OnInit {
   constructor(private articlesService: ArticlesService) {}
 
   onSubmit(createArticleForm: NgForm, tagListInput: HTMLTextAreaElement) {
-    const formattedTagList = this.tagListFormat(tagListInput.value);
+    const filteredTagList = new TaglistFilterPipe().transform(tagListInput.value.toString()) as string[];
     this.onCreateArticle(
       createArticleForm.value,
-      formattedTagList,
+      filteredTagList,
       createArticleForm
     );
-  }
-
-  tagListFormat(value: string): string[] {
-    const formatValue = value
-      .toLowerCase()
-      .replace(/[,.*+?^${}()|[\]\\]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-    const arrayFormated = formatValue.split(' ');
-
-    return arrayFormated;
   }
 
   onCreateArticle(

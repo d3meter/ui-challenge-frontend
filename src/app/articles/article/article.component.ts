@@ -18,6 +18,9 @@ import { Comment } from '../comment.model';
 import { Profile } from 'src/app/shared/profile.model';
 import { ProfileService } from 'src/app/shared/profile.service';
 import { DateFormatPipe } from '../pipes/date-format.pipe';
+import { Observable, map } from 'rxjs';
+import { TaglistFilterPipe } from '../pipes/taglist-filter.pipe';
+import { TaglistFormatPipe } from '../pipes/taglist-format.pipe';
 
 @Component({
   selector: 'app-article',
@@ -48,6 +51,8 @@ export class ArticleComponent implements OnInit, OnChanges {
   tagList: string[];
   tagListOutput: string;
   isLoading = true;
+
+  isSubmitFetching = false;
 
   constructor(
     private articlesService: ArticlesService,
@@ -100,27 +105,15 @@ export class ArticleComponent implements OnInit, OnChanges {
   }
 
   onSubmit(updateArticleForm: NgForm, tagListOutput: HTMLTextAreaElement) {
-    const formattedTagList = this.tagListFormat(tagListOutput.value.toString());
+    const filteredTagList = new TaglistFilterPipe().transform(
+      tagListOutput.value.toString()
+    ) as string[];
     this.onUpdateArticle(
       updateArticleForm.value,
-      formattedTagList,
+      filteredTagList,
       updateArticleForm
     );
     this.editModeOn = false;
-  }
-
-  tagListFormat(value: string): string[] {
-    if (typeof value !== 'string') {
-      return [];
-    }
-    const formatValue = value
-      .toLowerCase()
-      .replace(/[,.*+?^${}();:_|/[\]\\]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-    const arrayFormated = formatValue.split(' ');
-
-    return arrayFormated;
   }
 
   onUpdateArticle(
@@ -128,22 +121,31 @@ export class ArticleComponent implements OnInit, OnChanges {
     tagList: string[],
     updateArticleForm: NgForm
   ) {
+    this.isSubmitFetching = true;
+    const filteredTagList = new TaglistFilterPipe().transform(tagList.toString());
     this.articlesService
       .updateArticle(
         articleData.slug,
         articleData.title,
         articleData.description,
         articleData.body,
-        tagList
+        filteredTagList
       )
       .subscribe(
         (response) => {
           console.log(`Article ${articleData.slug} updated successfully`);
+          location.reload();
         },
         (error) => {
           console.error('Error update article: ', error);
         }
       );
+  }
+
+  onGetArticleBySlug(slug: string): Observable<{ article: Article }> {
+    return this.articlesService
+      .getArticleBySlug(slug)
+      .pipe(map((article) => ({ article: article })));
   }
 
   onFollowUser(userToFollow: string) {

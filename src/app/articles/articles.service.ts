@@ -5,7 +5,7 @@ import {
   HttpHeaders,
   HttpResponse,
 } from '@angular/common/http';
-import { Subject, catchError, throwError, tap, map, Observable } from 'rxjs';
+import { Subject, catchError, throwError, tap, map, Observable, switchMap } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../auth/config.service';
@@ -21,11 +21,15 @@ export class ArticlesService {
 
   constructor(
     private http: HttpClient,
-    private userService: UsersService,
-    private authService: AuthService
+    private usersService: UsersService,
+    private authService: AuthService,
+    private configService: ConfigService
   ) {}
 
   headers = this.authService.getAuthHeaders();
+  private get apiUrl(): string {
+    return this.configService.apiUrl;
+  }
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -42,7 +46,7 @@ export class ArticlesService {
 
   getArticles() {
     return this.http
-      .get<any>('http://localhost:3000/api/articles', {
+      .get<any>(`${this.apiUrl}/articles`, {
         headers: this.headers,
       })
       .pipe(
@@ -50,6 +54,33 @@ export class ArticlesService {
         map((response) => response.articles)
       );
   }
+
+  getArticleBySlug(slug: string): Observable<Article> {
+    return this.http
+      .get<Article>(`${this.apiUrl}/articles/${slug}`, {
+        headers: this.headers,
+      })
+      .pipe(catchError(this.handleError));
+  }
+/*   getArticleBySlug(slug: string): Observable<Article> {
+    return this.http
+      .get<Article>(`${this.apiUrl}/articles/${slug}`, {
+        headers: this.headers,
+      })
+      .pipe(
+        switchMap(articleData => {
+          // retrieve author information using getMyUserInfo() method
+          return this.usersService.getMyUserInfo().pipe(
+            map(userRO => {
+              // add author information to the article data
+              return { ...articleData, author: userRO.user };
+            })
+          );
+        }),
+        catchError(this.handleError)
+      );
+  } */
+
 
   createArticle(
     title: string,
@@ -64,7 +95,7 @@ export class ArticlesService {
       tagList: tagList,
     };
     return this.http
-      .post('http://localhost:3000/api/articles', articleData, {
+      .post(`${this.apiUrl}/articles`, articleData, {
         headers: this.headers,
         observe: 'response',
       })
@@ -79,7 +110,7 @@ export class ArticlesService {
 
   deleteArticle(slug: string) {
     return this.http
-      .delete(`http://localhost:3000/api/articles/${slug}`, {
+      .delete(`${this.apiUrl}/articles/${slug}`, {
         headers: this.headers,
       })
       .pipe(catchError(this.handleError));
@@ -99,19 +130,15 @@ export class ArticlesService {
       body: body,
       tagList: tagList,
     };
-    return this.http.put(
-      `http://localhost:3000/api/articles/${slug}`,
-      articleData,
-      {
-        headers: this.headers,
-      }
-    );
+    return this.http.put(`${this.apiUrl}/articles/${slug}`, articleData, {
+      headers: this.headers,
+    });
   }
 
   addArticleToFavorites(slug: string) {
     return this.http
       .post(
-        `http://localhost:3000/api/articles/${slug}/favorite`,
+        `${this.apiUrl}/articles/${slug}/favorite`,
         {},
         {
           headers: this.headers,
@@ -128,7 +155,7 @@ export class ArticlesService {
 
   removeArticleFromFavorites(slug: string) {
     return this.http
-      .delete(`http://localhost:3000/api/articles/${slug}/favorite`, {
+      .delete(`${this.apiUrl}/articles/${slug}/favorite`, {
         headers: this.headers,
       })
       .pipe(
@@ -149,7 +176,7 @@ export class ArticlesService {
 
   getComments(slug: string) {
     return this.http
-      .get<any>(`http://localhost:3000/api/articles/${slug}/comments`, {
+      .get<any>(`${this.apiUrl}/articles/${slug}/comments`, {
         headers: this.headers,
       })
       .pipe(
@@ -161,7 +188,7 @@ export class ArticlesService {
   createComment(slug: string, body: string, author: User) {
     return this.http
       .post<any>(
-        `http://localhost:3000/api/articles/${slug}/comments`,
+        `${this.apiUrl}/articles/${slug}/comments`,
         { body, author },
         {
           headers: this.headers,
@@ -175,7 +202,7 @@ export class ArticlesService {
 
   deleteComment(slug: string, id: number) {
     return this.http
-      .delete(`http://localhost:3000/api/articles/${slug}/comments/${id}`, {
+      .delete(`${this.apiUrl}/articles/${slug}/comments/${id}`, {
         headers: this.headers,
       })
       .pipe(catchError(this.handleError));
