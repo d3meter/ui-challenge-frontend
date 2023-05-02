@@ -18,7 +18,7 @@
           [isSelected]="selectedArticle === article"
           (onSelected)="onArticleSelected(article)"
           [userIsFollowed]="article.userIsFollowed"
-          [articleIsFavorite]="article.articleIsFavorite"
+          [favorited]="article.favorited"
           [userData]="userData"
           (userDataChanged)="userData = $event"
         ></app-article>

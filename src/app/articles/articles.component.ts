@@ -87,7 +87,7 @@ export class ArticlesComponent implements OnInit, OnChanges {
           article.userIsFollowed = this.followedUsers.includes(
             article.author.username
           );
-          article.articleIsFavorite = this.favoriteArticles.includes(
+          article.favorited = this.favoriteArticles.includes(
             article.slug
           );
         }

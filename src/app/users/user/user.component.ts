@@ -57,7 +57,7 @@ export class UserComponent implements OnInit {
     this.userIsFollowed = true;
   }
 
-/*   onUnfollowUser(userToUnFollow: string) {
+  /*   onUnfollowUser(userToUnFollow: string) {
     userToUnFollow = this.user.username;
     this.profileService.unFollowUser(userToUnFollow).subscribe(
       (profile: Profile) => {
@@ -70,6 +70,7 @@ export class UserComponent implements OnInit {
       }
     );
   } */
+
   onUnFollowUser(userToUnFollow: string): void {
     this.profileService.unFollowUser(userToUnFollow).subscribe(
       (response) => {
@@ -86,6 +87,7 @@ export class UserComponent implements OnInit {
     this.usersService.deleteUser(email).subscribe(
       (response) => {
         console.log('User: ${email} deleted successfully');
+        location.reload();
       },
       (error) => {
         console.error('Error delete user: ', error);

@@ -237,7 +237,7 @@
     data-placement="right"
     title="Article add to favorites"
     (click)="onAddArticleToFavorites(article.slug)"
-    *ngIf="!articleIsFavorite && !isOwnArticle"
+    *ngIf="!favorited && !isOwnArticle"
   >
     <img src="assets/imgs/bookmark_empty.png" alt="add to favorites" />
   </button>
@@ -247,7 +247,7 @@
     data-placement="right"
     title="Article delete from favorites"
     (click)="onRemoveArticleFromFavorites(article.slug)"
-    *ngIf="articleIsFavorite && !isOwnArticle"
+    *ngIf="favorited && !isOwnArticle"
   >
     <img src="assets/imgs/bookmark_filled.png" alt="remove from favorites" />
   </button>

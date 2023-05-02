@@ -17,11 +17,13 @@ import { User } from 'src/app/shared/user.model';
 import { Comment } from '../comment.model';
 import { Profile } from 'src/app/shared/profile.model';
 import { ProfileService } from 'src/app/shared/profile.service';
+import { DateFormatPipe } from '../pipes/date-format.pipe';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
+  providers: [DateFormatPipe],
 })
 export class ArticleComponent implements OnInit, OnChanges {
   @Input() article: Article;
@@ -34,7 +36,7 @@ export class ArticleComponent implements OnInit, OnChanges {
   userToUnFollow: string;
 
   @Input() userIsFollowed: boolean;
-  @Input() articleIsFavorite: boolean;
+  @Input() favorited: boolean;
 
   isOwnArticle: boolean;
 
@@ -85,6 +87,7 @@ export class ArticleComponent implements OnInit, OnChanges {
     this.articlesService.deleteArticle(slug).subscribe(
       (response) => {
         console.log(`Article ${slug} deleted successfully`);
+        location.reload();
       },
       (error) => {
         console.error('Error delete article: ', error);
@@ -94,7 +97,6 @@ export class ArticleComponent implements OnInit, OnChanges {
 
   toggleDeleteConfirm(deleteConfirm: boolean) {
     this.deleteConfirmOn = deleteConfirm;
-    /*     this.editModeChanged.emit(this.editModeOn); */
   }
 
   onSubmit(updateArticleForm: NgForm, tagListOutput: HTMLTextAreaElement) {
@@ -177,7 +179,7 @@ export class ArticleComponent implements OnInit, OnChanges {
         console.error('Error adding to favorites: ', error);
       }
     );
-    this.articleIsFavorite = true;
+    this.favorited = true;
   }
 
   onRemoveArticleFromFavorites(slug: string) {
@@ -189,7 +191,7 @@ export class ArticleComponent implements OnInit, OnChanges {
         console.error('Error removing from favorites: ', error);
       }
     );
-    this.articleIsFavorite = false;
+    this.favorited = false;
   }
 
   onEditModeSwitch(editMode: boolean) {

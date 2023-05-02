@@ -1,14 +1,15 @@
+import { User } from '../shared/user.model';
+
 export interface Article {
+  slug?: string;
   title: string;
   description: string;
-  body: string;
-  slug?: string;
+  body?: string;
   tagList?: string[];
-  author?: {
-    username: string;
-  };
   created?: number;
-  articleIsFavorite?: boolean;
+  updatedAt?: number;
+  favorited?: boolean;
+  author?: User;
   userIsFollowed?: boolean;
   comments?: Comment[];
 }
