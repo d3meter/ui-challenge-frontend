@@ -17,7 +17,10 @@ export class UsersComponent implements OnInit {
   selectedUser: User = null;
   followedUsers: string[] = [];
 
-  constructor(private usersService: UsersService, private profileService: ProfileService) {}
+  constructor(
+    private usersService: UsersService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
     this.onGetAllUsers();

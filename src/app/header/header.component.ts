@@ -5,8 +5,8 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { UsersService } from '../shared/users.service';
 import { Subscription } from 'rxjs';
+
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -17,14 +17,13 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output() pageToDisplaySelected = new EventEmitter<string>();
   @Output() searchFor = new EventEmitter<string>();
-
-  isLoggedIn = false;
+  
   private isLoggedInSub: Subscription;
+  isLoggedIn = false;
   userData: any;
   pageToDisplay: string;
 
   constructor(
-    private usersService: UsersService,
     private authService: AuthService
   ) {}
 

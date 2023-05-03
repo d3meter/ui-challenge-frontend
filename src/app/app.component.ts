@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { UsersService } from './shared/users.service';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 
@@ -15,10 +14,7 @@ export class AppComponent implements OnInit {
   isLoggedIn: boolean;
   private isLoggedInSub: Subscription;
 
-  constructor(
-    private usersService: UsersService,
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   onSearch(searchValue: string) {
     this.searchValue = searchValue;

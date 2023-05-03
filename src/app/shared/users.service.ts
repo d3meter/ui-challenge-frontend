@@ -4,7 +4,7 @@ import { Subject, catchError, tap, throwError, Observable, map } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../auth/config.service';
-import { User, UserRO } from './user.model';
+import { UserRO } from './user.model';
 import { Profile } from './profile.model';
 
 @Injectable({ providedIn: 'root' })

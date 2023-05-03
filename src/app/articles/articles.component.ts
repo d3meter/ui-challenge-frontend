@@ -9,10 +9,12 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Article } from './article.model';
-import { ArticlesService } from './articles.service';
+
 import { UsersService } from '../shared/users.service';
+import { ArticlesService } from './articles.service';
 import { ProfileService } from '../shared/profile.service';
+
+import { Article } from './article.model';
 
 @Component({
   selector: 'app-articles',
@@ -22,8 +24,9 @@ import { ProfileService } from '../shared/profile.service';
 export class ArticlesComponent implements OnInit, OnChanges {
   @Input() username: string;
   @Input() onlyFavorites: boolean = false;
-  @ViewChild('articleList', { static: false }) articleList: ElementRef;
   @Input() searchFor: string;
+  @Output() userDataChanged = new EventEmitter<any>();
+  @ViewChild('articleList', { static: false }) articleList: ElementRef;
 
   articles: Article[] = [];
   selectedArticle: Article = null;
@@ -33,7 +36,6 @@ export class ArticlesComponent implements OnInit, OnChanges {
   articlesLength: number = 0;
   filteredArticles: Article[];
   userData: any;
-  @Output() userDataChanged = new EventEmitter<any>();
   isLoading = true;
 
   constructor(

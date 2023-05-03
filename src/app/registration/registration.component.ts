@@ -5,17 +5,11 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import {
-  NgForm,
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import bcrypt from 'bcryptjs';
-import { User } from '../shared/user.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+/* import bcrypt from 'bcryptjs'; */
 import { AuthService } from '../auth/auth.service';
-import { PasswordConfirmValidator } from './password-confirm.validator';
+
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-registration',
@@ -23,14 +17,14 @@ import { PasswordConfirmValidator } from './password-confirm.validator';
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
+  @Output() pageLoaded = new EventEmitter<string>();
+
   isLoading = false;
   isFetching = false;
   error: string = null;
   errorMessage: string;
   postForm: FormGroup;
   showPasswordRequirements = false;
-
-  @Output() pageLoaded = new EventEmitter<string>();
   loadedPage: string;
 
   constructor(

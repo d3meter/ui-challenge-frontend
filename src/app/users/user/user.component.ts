@@ -19,7 +19,6 @@ export class UserComponent implements OnInit {
   userToFollow: string;
   userToUnFollow: string;
   profile: Profile;
-
   isOwnArticle: boolean;
   isSuperUser: boolean;
 

@@ -5,11 +5,12 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+
+import { AuthService } from '../auth/auth.service';
 import { UsersService } from '../shared/users.service';
-import { User } from '../shared/user.model';
+
 
 @Component({
   selector: 'app-login',
@@ -17,14 +18,18 @@ import { User } from '../shared/user.model';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  @Output() pageLoaded = new EventEmitter<string>();
+
+  private isLoggedInSub: Subscription;
   isLoading = false;
   isLoggedIn = false;
-  private isLoggedInSub: Subscription;
   error: string = null;
-  @Output() pageLoaded = new EventEmitter<string>();
   loadedPage: string;
 
-  constructor(private authService: AuthService, private usersService: UsersService) {}
+  constructor(
+    private authService: AuthService,
+    private usersService: UsersService
+  ) {}
 
   ngOnInit() {
     this.isLoggedIn = this.authService.getLoggedIn();

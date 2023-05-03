@@ -2,17 +2,15 @@ import { Injectable } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders,
-  HttpResponse,
 } from '@angular/common/http';
-import { Subject, catchError, throwError, tap, map, Observable, switchMap } from 'rxjs';
+import { Subject, catchError, throwError, tap, map, Observable } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../auth/config.service';
+import { UsersService } from '../shared/users.service';
 
 import { User } from '../shared/user.model';
 import { Article } from './article.model';
-import { UsersService } from '../shared/users.service';
 
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {

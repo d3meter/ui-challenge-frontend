@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from '../shared/users.service';
+
 import { User, UserRO } from '../shared/user.model';
 
 @Component({
@@ -11,7 +12,6 @@ import { User, UserRO } from '../shared/user.model';
 export class ProfileComponent implements OnInit {
   myUserData: User;
   editModeOn: boolean = false;
-
   successMessage: string;
   errorMessage: string;
 

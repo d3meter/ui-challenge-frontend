@@ -20,7 +20,6 @@ import { ProfileService } from 'src/app/shared/profile.service';
 import { DateFormatPipe } from '../pipes/date-format.pipe';
 import { Observable, map } from 'rxjs';
 import { TaglistFilterPipe } from '../pipes/taglist-filter.pipe';
-import { TaglistFormatPipe } from '../pipes/taglist-format.pipe';
 
 @Component({
   selector: 'app-article',

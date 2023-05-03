@@ -3,11 +3,10 @@ import {
   HttpClient,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Subject, catchError, throwError, Observable, map, tap } from 'rxjs';
+import { Subject, catchError, throwError, Observable, tap } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../auth/config.service';
-import { Profile } from './profile.model';
 
 @Injectable({
   providedIn: 'root',
