@@ -28,11 +28,12 @@ export class AuthService {
         `Backend returned code ${error.status}, body was: `,
         error.error
       );
-      error;
     }
-    return throwError(
-      () => new Error('Something bad happened; please try again later.')
-    );
+    let errorMessage = 'Something bad happened; please try again later.';
+    if (error.error && error.error.errors && error.error.errors.username) {
+      errorMessage = error.error.errors.username;
+    }
+    return throwError(() => new Error(errorMessage));
   }
 
   setLoggedIn(value: boolean) {
