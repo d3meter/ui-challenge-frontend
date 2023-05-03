@@ -21,5 +21,5 @@ Features:
 
 Technology:
  - [x] Using SCSS/SASS (opt. framework)
- - [ ] Some tests
- - [ ] Form validations with backend feedbacks
+ - [x] Some tests
+ - [x] Form validations with backend feedbacks
