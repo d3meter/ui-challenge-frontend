@@ -21,7 +21,7 @@
       class="col-md-4"
     >
       <div class="form-group py-sm-1 mb-0">
-        <label for="username" class="col-sm-4col-form-label">Name:</label>
+        <label for="username" class="col-sm-4 col-form-label">Name:</label>
         <input
           id="username"
           name="username"
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="form-group py-sm-1 mb-0">
-        <label for="email" class="col-sm-4col-form-label">Email:</label>
+        <label for="email" class="col-sm-4 col-form-label">Email:</label>
         <input
           id="email"
           name="email"
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="form-group py-sm-1 mb-0">
-        <label for="password" class="col-sm-4col-form-label">Password:</label>
+        <label for="password" class="col-sm-4 col-form-label">Password:</label>
         <input
           id="password"
           name="password"
@@ -108,7 +108,7 @@
         </div>
       </div>
       <div class="form-group py-sm-1 mb-0">
-        <label for="password-confirm" class="col-sm-4col-form-label"
+        <label for="password-confirm" class="col-sm-4 col-form-label"
           >Confirm password:</label
         >
         <input
@@ -123,8 +123,15 @@
               postForm.get('confirm_password').touched
           }"
         />
-        <div *ngIf="postForm.get('confirm_password').errors?.mismatch">
-          {{ postForm.get("confirm_password").errors?.message }}
+        <div
+          *ngIf="
+            postForm.get('confirm_password').invalid && postForm.get('confirm_password').touched
+          "
+          class="invalid-feedback"
+        >
+          <div *ngIf="postForm.get('confirm_password').errors?.mismatch">
+            Passwords do not match.
+          </div>
         </div>
       </div>
       <hr />
