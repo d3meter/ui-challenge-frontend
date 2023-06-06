@@ -1,5 +1,9 @@
 ## Front-end coding challenge
 
+***UI/UX design***
+
+[https://www.figma.com/file/OaoLkHxWaPWJWObEx06SZc/OS-ui-challenge?type=design&node-id=0%3A1&t=uRwHJhe4uLFugcge-1](https://www.figma.com/file/OaoLkHxWaPWJWObEx06SZc/OS-ui-challenge?type=design&node-id=0:1&t=uRwHJhe4uLFugcge-1)
+
 ***Task description***
 
 Create a Single Page Application (SPA), using TypeScript as the main language. Every applied stylesheet has to be made with any chosen CSS preprocessor (Sass, Less ...). Using a css framework is not required, but it's a plus. We also require you to write unit tests for your application, but full coverage is not necessary. One of the most cruicial part of this challange is that you have to be able to authenticate and authorize users through this application. Any displayed form must be validated on the front-end side and returned back-end errors have to be displayed.
