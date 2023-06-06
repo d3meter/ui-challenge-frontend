@@ -6,7 +6,9 @@ Create a Single Page Application (SPA), using TypeScript as the main language. E
 
 *Backend*
 
-The challenge includes a Node.js back-end, exposing a REST API, and documentation for it. Documentation can be reached through the [http://localhost:3000/docs](http://localhost:3000/docs "http://localhost:3000/docs") URL, after the backend is started.
+~~The challenge includes a Node.js back-end, exposing a REST API, and documentation for it. Documentation can be reached through the [http://localhost:3000/docs](http://localhost:3000/docs  "http://localhost:3000/docs") URL, after the backend is started.~~
+
+Please note that the backend server is owned by a third party so contents won't be displayed after starting frontend application. This project only represents my code base currently until I create an own backend.
 
 ***Requirements***
 
